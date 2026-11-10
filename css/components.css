@@ -1,0 +1,917 @@
+
+/* =========================================
+   GOLDEN CHILDHOOD PASSPORT
+   COMPONENT DESIGN
+========================================= */
+
+/* Brand */
+.brand-name {
+    font-family: var(--font-display);
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 1.05;
+    color: var(--color-ink);
+}
+
+.brand-subtitle {
+    font-family: var(--font-body);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+}
+
+/* Archive Edition */
+.header-edition {
+    padding: 7px 12px;
+
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-align: center;
+    text-transform: uppercase;
+
+    color: #814a37;
+
+    border-top: 1px solid rgba(129, 74, 55, 0.55);
+    border-bottom: 1px solid rgba(129, 74, 55, 0.55);
+}
+
+.header-edition span {
+    color: var(--color-antique-gold);
+}
+
+/* Hero Eyebrow */
+.hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-bottom: 20px;
+
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+
+    color: var(--color-burgundy);
+}
+
+.eyebrow-star {
+    color: var(--color-antique-gold);
+    font-size: 21px;
+}
+
+/* Main Heading */
+.hero-copy h1 {
+    margin: 0;
+
+    font-family: var(--font-display);
+    font-size: clamp(62px, 6.3vw, 91px);
+    font-weight: 700;
+    line-height: 0.96;
+    letter-spacing: -2px;
+
+    color: var(--color-ink);
+}
+
+.hero-copy h1 span {
+    color: var(--color-burgundy);
+    font-style: italic;
+}
+
+/* Description */
+.hero-description {
+    max-width: 490px;
+
+    margin-top: 23px;
+
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.85;
+
+    color: var(--color-ink-soft);
+}
+
+/* Button */
+.start-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+
+    margin-top: 27px;
+    padding: 16px 24px;
+
+    border: 1px solid var(--color-burgundy);
+    border-radius: 2px;
+
+    background: var(--color-burgundy);
+    color: var(--color-paper-light);
+
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+}
+
+.start-button:hover {
+    background: var(--color-burgundy-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 9px 22px rgba(75, 41, 39, 0.2);
+}
+
+.start-button:active {
+    transform: translateY(-1px);
+}
+
+.button-arrow {
+    font-size: 21px;
+    transition: transform 0.25s ease;
+}
+
+.start-button:hover .button-arrow {
+    transform: translateX(5px);
+}
+
+/* Small note */
+.hero-note {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    margin-top: 20px;
+
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-style: italic;
+
+    color: #78664e;
+}
+
+.hero-note span {
+    color: var(--color-antique-gold);
+    font-size: 20px;
+}
+
+/* =========================================
+   PASSPORT ARTWORK
+========================================= */
+
+.passport-preview {
+    background:
+        linear-gradient(
+            145deg,
+            #75433a 0%,
+            #5b302c 50%,
+            #472725 100%
+        );
+
+    border: 1px solid #b18d55;
+
+    box-shadow:
+        0 25px 55px rgba(54, 36, 25, 0.28),
+        0 5px 15px rgba(54, 36, 25, 0.12);
+
+    padding: 10px;
+}
+
+/* Inner border */
+.passport-inner {
+    width: 100%;
+    height: 100%;
+
+    padding: 23px 17px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    border: 1px solid rgba(218, 190, 131, 0.7);
+    outline: 1px solid rgba(218, 190, 131, 0.28);
+    outline-offset: -6px;
+
+    color: #e9d8ae;
+}
+
+/* Top label */
+.passport-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    font-family: var(--font-body);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 2px;
+
+    color: #d6bc83;
+}
+
+.passport-star {
+    font-size: 19px;
+}
+
+/* Emblem */
+.passport-emblem {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+}
+
+.passport-emblem svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Passport title */
+.passport-title {
+    text-align: center;
+}
+
+.passport-small-title {
+    font-family: var(--font-body);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+
+    color: #d6bc83;
+}
+
+.passport-title h2 {
+    margin: 5px 0;
+
+    font-family: var(--font-display);
+    font-size: clamp(30px, 3vw, 43px);
+    font-weight: 700;
+    letter-spacing: 5px;
+    line-height: 1;
+
+    color: #f1dfb8;
+}
+
+.passport-subtitle {
+    font-family: var(--font-body);
+    font-size: 8px;
+    letter-spacing: 2px;
+
+    color: #d6bc83;
+}
+
+/* Divider */
+.passport-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    color: #d6bc83;
+}
+
+.passport-divider::before,
+.passport-divider::after {
+    content: "";
+    height: 1px;
+    width: 55px;
+    background: rgba(214, 188, 131, 0.5);
+}
+
+/* Bottom */
+.passport-bottom {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.passport-bottom-left {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    font-family: var(--font-body);
+    font-size: 8px;
+    letter-spacing: 1.5px;
+
+    color: #d6bc83;
+}
+
+.passport-bottom-left strong {
+    font-size: 10px;
+    color: #f1dfb8;
+}
+
+/* Stamp */
+.passport-stamp {
+    width: 70px;
+    height: 70px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #c9a86d;
+    border-radius: 50%;
+
+    transform: rotate(-12deg);
+
+    font-family: var(--font-display);
+    color: #e4c58c;
+}
+
+.passport-stamp strong {
+    font-size: 22px;
+    line-height: 1;
+}
+
+.passport-stamp span {
+    font-size: 8px;
+    letter-spacing: 1px;
+}
+
+/* Passport ID */
+.passport-id {
+    padding-top: 9px;
+
+    border-top: 1px solid rgba(214, 188, 131, 0.35);
+
+    text-align: center;
+
+    font-family: var(--font-body);
+    font-size: 7px;
+    letter-spacing: 2px;
+
+    color: #d6bc83;
+}
+
+/* =========================================
+   FLOATING NOTES
+========================================= */
+
+.floating-note {
+    position: absolute;
+    z-index: 3;
+
+    padding: 11px 15px;
+
+    background: #f4ead4;
+    border: 1px solid rgba(168, 138, 83, 0.65);
+
+    box-shadow: 0 8px 20px rgba(56, 43, 27, 0.15);
+
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 600;
+    font-style: italic;
+
+    color: var(--color-burgundy-dark);
+}
+
+.note-icon {
+    color: var(--color-antique-gold);
+    margin-right: 5px;
+}
+
+.note-one {
+    top: 19%;
+    right: 0;
+    transform: rotate(7deg);
+}
+
+.note-two {
+    bottom: 17%;
+    left: -2%;
+    transform: rotate(-7deg);
+}
+
+.note-three {
+    top: 7%;
+    left: 7%;
+    transform: rotate(-8deg);
+
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.footer-caption {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-family: var(--font-body);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+
+    color: #806d52;
+}
+
+.footer-line {
+    width: 35px;
+    height: 1px;
+    background: var(--color-antique-gold);
+}
+
+/* Statistics */
+.welcome-stats {
+    display: flex;
+    align-items: center;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.stat-number {
+    font-family: var(--font-display);
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1;
+
+    color: var(--color-burgundy);
+}
+
+.stat-label {
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+
+    color: var(--color-ink-soft);
+}
+
+.stat-item:not(:last-child) {
+    padding-right: clamp(14px, 2vw, 28px);
+    border-right: 1px solid rgba(168, 138, 83, 0.45);
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1100px) {
+    .hero-copy h1 {
+        font-size: clamp(56px, 6vw, 75px);
+    }
+
+    .hero-description {
+        font-size: 15px;
+    }
+
+    .passport-preview {
+        max-width: 350px;
+    }
+
+    .floating-note {
+        font-size: 13px;
+    }
+
+    .stat-number {
+        font-size: 31px;
+    }
+}
+
+@media (max-width: 900px) {
+    .hero-copy {
+        text-align: center;
+    }
+
+    .hero-eyebrow,
+    .hero-note {
+        justify-content: center;
+    }
+
+    .hero-description {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-copy h1 {
+        font-size: clamp(55px, 8vw, 76px);
+    }
+
+    .note-one {
+        right: 4%;
+    }
+
+    .note-two {
+        left: 4%;
+    }
+}
+
+@media (max-width: 600px) {
+    .brand-name {
+        font-size: 19px;
+    }
+
+    .brand-subtitle {
+        font-size: 7px;
+        letter-spacing: 1.2px;
+    }
+
+    .header-edition {
+        font-size: 8px;
+        letter-spacing: 1px;
+        padding: 5px 7px;
+    }
+
+    .hero-eyebrow {
+        font-size: 10px;
+        letter-spacing: 1px;
+        gap: 6px;
+    }
+
+    .hero-copy h1 {
+        font-size: clamp(45px, 11vw, 62px);
+        letter-spacing: -1px;
+        line-height: 1;
+    }
+
+    .hero-description {
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    .hero-note {
+        font-size: 13px;
+    }
+
+    .start-button {
+        padding: 14px 18px;
+        font-size: 13px;
+    }
+
+    .passport-inner {
+        padding: 19px 13px;
+    }
+
+    .passport-emblem {
+        width: 75px;
+        height: 75px;
+    }
+
+    .passport-title h2 {
+        font-size: 29px;
+    }
+
+    .floating-note {
+        padding: 8px 10px;
+        font-size: 11px;
+    }
+
+    .note-three {
+        font-size: 9px;
+    }
+
+    .welcome-stats {
+        gap: 12px;
+    }
+
+    .stat-item {
+        gap: 6px;
+    }
+
+    .stat-number {
+        font-size: 27px;
+    }
+
+    .stat-label {
+        font-size: 10px;
+    }
+
+    .stat-item:not(:last-child) {
+        padding-right: 10px;
+    }
+}
+
+/* =========================================
+   PASSPORT BOOK - INTERACTIVE HOVER EFFECT
+========================================= */
+
+/* 3D perspective */
+.hero-artwork {
+    perspective: 1200px;
+}
+
+/* Main passport book */
+.passport-preview {
+    position: relative;
+    transform-style: preserve-3d;
+    transform: rotateY(-8deg) rotateX(2deg);
+    transition:
+        transform 0.65s cubic-bezier(.2, .8, .2, 1),
+        box-shadow 0.65s ease,
+        filter 0.65s ease;
+
+    animation: passportFloat 5s ease-in-out infinite;
+    will-change: transform;
+}
+
+/* Floating animation */
+@keyframes passportFloat {
+    0%, 100% {
+        transform: translateY(0) rotateY(-8deg) rotateX(2deg);
+    }
+
+    50% {
+        transform: translateY(-10px) rotateY(-5deg) rotateX(1deg);
+    }
+}
+
+/* Hover: 3D book lift */
+.passport-preview:hover {
+    animation-play-state: paused;
+
+    transform:
+        translateY(-18px)
+        rotateY(-16deg)
+        rotateX(5deg)
+        scale(1.045);
+
+    box-shadow:
+        0 35px 65px rgba(49, 29, 15, 0.25),
+        0 12px 25px rgba(155, 112, 49, 0.18);
+
+    filter: saturate(1.12);
+}
+
+/* Inner book depth */
+.passport-inner {
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.65s ease;
+}
+
+.passport-preview:hover .passport-inner {
+    transform: translateZ(12px);
+}
+
+/* Golden light sweep */
+.passport-preview::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+
+    background: linear-gradient(
+        115deg,
+        transparent 25%,
+        rgba(255, 255, 255, 0.04) 38%,
+        rgba(255, 230, 170, 0.25) 48%,
+        rgba(255, 255, 255, 0.06) 58%,
+        transparent 72%
+    );
+
+    background-size: 250% 100%;
+    background-position: 100% 0;
+
+    transition: background-position 0.9s ease;
+}
+
+.passport-preview:hover::after {
+    background-position: -100% 0;
+}
+
+/* Passport emblem animation */
+.passport-emblem {
+    transition:
+        transform 0.65s cubic-bezier(.2, .8, .2, 1),
+        filter 0.5s ease;
+}
+
+.passport-preview:hover .passport-emblem {
+    transform: rotate(12deg) scale(1.13);
+    filter: drop-shadow(0 0 8px rgba(193, 150, 65, 0.55));
+}
+
+/* Stamp interaction */
+.passport-stamp {
+    transition:
+        transform 0.5s ease,
+        box-shadow 0.5s ease;
+}
+
+.passport-preview:hover .passport-stamp {
+    transform: rotate(-12deg) scale(1.12);
+    box-shadow: 0 0 18px rgba(160, 48, 48, 0.18);
+}
+
+/* Passport title */
+.passport-title,
+.passport-small-title {
+    transition:
+        letter-spacing 0.5s ease,
+        color 0.5s ease;
+}
+
+.passport-preview:hover .passport-title {
+    letter-spacing: 3px;
+    color: #9b7137;
+}
+
+/* Decorative circle */
+.decoration-circle {
+    transition: transform 1s ease;
+}
+
+.hero-artwork:hover .decoration-circle {
+    transform: rotate(35deg) scale(1.08);
+}
+
+/* Floating memory notes */
+.floating-note {
+    transition:
+        transform 0.5s ease,
+        box-shadow 0.5s ease;
+}
+
+.note-one {
+    animation: noteFloatOne 4s ease-in-out infinite;
+}
+
+.note-two {
+    animation: noteFloatTwo 5s ease-in-out infinite;
+}
+
+.note-three {
+    animation: noteFloatThree 4.5s ease-in-out infinite;
+}
+
+@keyframes noteFloatOne {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-9px) rotate(-2deg); }
+}
+
+@keyframes noteFloatTwo {
+    0%, 100% { transform: translateY(0) rotate(4deg); }
+    50% { transform: translateY(9px) rotate(7deg); }
+}
+
+@keyframes noteFloatThree {
+    0%, 100% { transform: translateY(0) rotate(-3deg); }
+    50% { transform: translateY(-7px) rotate(1deg); }
+}
+
+/* Notes react when the book area is hovered */
+.hero-artwork:hover .note-one {
+    transform: translate(-8px, -12px) rotate(-8deg);
+}
+
+.hero-artwork:hover .note-two {
+    transform: translate(8px, -10px) rotate(9deg);
+}
+
+.hero-artwork:hover .note-three {
+    transform: translate(-5px, 8px) rotate(-7deg);
+}
+
+/* Accessibility: respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .passport-preview,
+    .floating-note {
+        animation: none !important;
+    }
+
+    .passport-preview,
+    .passport-inner,
+    .passport-emblem,
+    .passport-stamp,
+    .floating-note {
+        transition: none !important;
+    }
+}
+
+/* ==========================================
+   WELCOME SCREEN - PREMIUM TYPOGRAPHY
+========================================== */
+
+/* Main heading */
+.hero-copy h1 {
+    color: #38291f;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -1.8px;
+    text-shadow: 0 2px 1px rgba(255, 255, 255, 0.35);
+}
+
+.hero-copy h1 span {
+    display: block;
+    color: #986b36;
+    font-style: italic;
+}
+
+/* Eyebrow */
+.hero-eyebrow {
+    color: #80613c;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 2.2px;
+    line-height: 1.8;
+    text-transform: uppercase;
+}
+
+.eyebrow-star {
+    color: #b58a45;
+    font-size: 1.15rem;
+    margin-right: 7px;
+}
+
+/* Description */
+.hero-description {
+    color: #625044;
+    font-size: 1.06rem;
+    font-weight: 500;
+    line-height: 1.9;
+    max-width: 590px;
+}
+
+/* Header edition */
+.header-edition {
+    color: #80613c;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 2.4px;
+    text-transform: uppercase;
+    opacity: 1;
+}
+
+.header-edition span {
+    color: #b28a4c;
+    padding: 0 5px;
+}
+
+/* Footer statistics */
+.welcome-stats {
+    gap: clamp(24px, 4vw, 58px);
+}
+
+.stat-item {
+    position: relative;
+    min-width: 105px;
+    gap: 5px;
+}
+
+.stat-number {
+    display: block;
+    color: #9b7139;
+    font-family: var(--font-heading);
+    font-size: clamp(2.1rem, 3.5vw, 2.9rem);
+    font-weight: 700;
+    line-height: 1;
+    text-shadow: 0 2px 0 rgba(255, 255, 255, 0.65);
+    transition: transform 0.35s ease, color 0.35s ease;
+}
+
+.stat-label {
+    display: block;
+    color: #574333;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    line-height: 1.6;
+    text-transform: uppercase;
+}
+
+.stat-item:hover .stat-number {
+    color: #b18a4e;
+    transform: translateY(-5px) scale(1.08);
+}
+
+/* Footer separator */
+.stat-item:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    right: -28px;
+    top: 8px;
+    height: 42px;
+    width: 1px;
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(151, 111, 58, 0.45),
+        transparent
+    );
+}
+
+/* Supporting note */
+.hero-note {
+    color: #826a53;
+    font-weight: 600;
+}

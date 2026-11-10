@@ -1,0 +1,104 @@
+
+/* =========================================
+   GOLDEN CHILDHOOD PASSPORT
+   DESIGN TOKENS / VARIABLES
+========================================= */
+
+:root {
+
+    /* -------------------------------------
+       COLORS
+    ------------------------------------- */
+
+    --color-ink: #29251d;
+    --color-ink-soft: #514638;
+    --color-ink-muted: #786b59;
+
+    --color-paper: #e9dfc8;
+    --color-paper-light: #f3ead7;
+    --color-paper-dark: #d2c3a3;
+
+    --color-burgundy: #713c35;
+    --color-burgundy-dark: #4b2927;
+    --color-burgundy-light: #8a5549;
+
+    --color-antique-gold: #a88a53;
+    --color-gold-light: #c9ad78;
+    --color-gold-pale: #e0cca0;
+
+    --color-muted-green: #65715b;
+
+    --color-white: #fffdf7;
+    --color-black: #17140f;
+
+    /* -------------------------------------
+       TYPOGRAPHY
+    ------------------------------------- */
+
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'DM Sans', Arial, sans-serif;
+
+    --font-size-xs: 11px;
+    --font-size-sm: 13px;
+    --font-size-base: 16px;
+    --font-size-lg: 18px;
+
+    /* -------------------------------------
+       LAYOUT
+    ------------------------------------- */
+
+    --page-width: 1400px;
+
+    --page-padding: clamp(20px, 5vw, 80px);
+
+    --header-height: 60px;
+
+    /* -------------------------------------
+       BORDER
+    ------------------------------------- */
+
+    --border-light: 1px solid rgba(168, 138, 83, 0.35);
+    --border-gold: 1px solid var(--color-antique-gold);
+    --border-burgundy: 1px solid var(--color-burgundy);
+
+    /* -------------------------------------
+       SHADOW
+    ------------------------------------- */
+
+    --shadow-soft:
+        0 8px 25px rgba(56, 43, 27, 0.10);
+
+    --shadow-medium:
+        0 15px 35px rgba(56, 43, 27, 0.16);
+
+    --shadow-strong:
+        0 25px 55px rgba(56, 43, 27, 0.25);
+
+    /* -------------------------------------
+       RADIUS
+    ------------------------------------- */
+
+    --radius-small: 2px;
+    --radius-medium: 6px;
+    --radius-large: 12px;
+    --radius-round: 50%;
+
+    /* -------------------------------------
+       TRANSITIONS
+    ------------------------------------- */
+
+    --transition-fast: 0.2s ease;
+    --transition: 0.3s ease;
+    --transition-slow: 0.5s ease;
+
+    /* -------------------------------------
+       Z-INDEX
+    ------------------------------------- */
+
+    --z-background: -1;
+    --z-content: 1;
+    --z-header: 5;
+    --z-decoration: 10;
+    --z-overlay: 100;
+
+}
