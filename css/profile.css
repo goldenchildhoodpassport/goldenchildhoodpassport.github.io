@@ -844,3 +844,9 @@
         transition-duration: 0.01ms !important;
     }
 }
+
+/* Fix: Keep hidden screens completely hidden */
+.profile-screen[hidden],
+.welcome-page[hidden] {
+    display: none !important;
+}
