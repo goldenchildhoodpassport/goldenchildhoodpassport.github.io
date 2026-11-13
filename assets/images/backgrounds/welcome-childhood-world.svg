@@ -1,0 +1,92 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" fill="none">
+  <defs>
+    <linearGradient id="sky" x1="800" y1="0" x2="800" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F4E7C9" stop-opacity=".08"/>
+      <stop offset="1" stop-color="#D9C89E" stop-opacity=".30"/>
+    </linearGradient>
+    <linearGradient id="hill" x1="800" y1="450" x2="800" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A5AE82" stop-opacity=".25"/>
+      <stop offset="1" stop-color="#6F805F" stop-opacity=".52"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#sky)"/>
+
+  <!-- Afternoon sun -->
+  <circle cx="1290" cy="210" r="100" fill="#E6B968" opacity=".20"/>
+  <circle cx="1290" cy="210" r="68" fill="#F4D38C" opacity=".32"/>
+
+  <!-- Clouds -->
+  <g fill="#FFF9E9" opacity=".38">
+    <path d="M170 220c0-28 23-50 51-50 18 0 34 10 43 25 9-9 22-15 37-15 30 0 54 24 54 54H170z"/>
+    <path d="M1000 125c0-20 17-37 38-37 14 0 25 7 32 18 7-7 16-11 27-11 22 0 40 18 40 40h-137z"/>
+  </g>
+
+  <!-- Distant hills -->
+  <path d="M0 580C180 480 330 520 500 570C700 630 830 475 1030 510C1230 545 1380 455 1600 520V900H0V580Z"
+        fill="#A5B08A" opacity=".28"/>
+  <path d="M0 650C220 560 390 610 590 655C800 700 970 560 1170 590C1350 615 1480 570 1600 610V900H0V650Z"
+        fill="url(#hill)"/>
+
+  <!-- Village trees -->
+  <g opacity=".55">
+    <g fill="#627853">
+      <circle cx="145" cy="540" r="70"/>
+      <circle cx="205" cy="515" r="58"/>
+      <circle cx="95" cy="505" r="48"/>
+      <circle cx="1430" cy="515" r="78"/>
+      <circle cx="1490" cy="490" r="55"/>
+      <circle cx="1370" cy="485" r="52"/>
+    </g>
+    <g stroke="#795A3D" stroke-width="18" stroke-linecap="round">
+      <path d="M150 540V720"/>
+      <path d="M1430 515V720"/>
+    </g>
+  </g>
+
+  <!-- Ground -->
+  <path d="M0 730C250 690 410 760 640 735C880 710 1100 750 1300 715C1430 690 1520 700 1600 720V900H0V730Z"
+        fill="#7F956D" opacity=".32"/>
+
+  <!-- Small flowers -->
+  <g fill="#F4E7C9" opacity=".75">
+    <circle cx="330" cy="795" r="5"/>
+    <circle cx="350" cy="805" r="4"/>
+    <circle cx="1190" cy="790" r="5"/>
+    <circle cx="1210" cy="800" r="4"/>
+    <circle cx="900" cy="840" r="4"/>
+  </g>
+
+  <!-- Kite -->
+  <g transform="translate(350 205)" opacity=".55">
+    <path d="M0-42L38 0 0 42 -38 0Z" fill="#B95D4C"/>
+    <path d="M0-42V42M-38 0H38" stroke="#F7E8CB" stroke-width="2"/>
+    <path d="M0 42C-10 75 20 90 5 118" stroke="#8A6545" stroke-width="2" stroke-dasharray="5 7"/>
+    <path d="M5 75l-12 10 15 5M8 100l-12 10 15 5" stroke="#B95D4C" stroke-width="3"/>
+  </g>
+
+  <!-- Children playing -->
+  <g stroke="#514638" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" opacity=".58">
+    <!-- Child 1 -->
+    <circle cx="690" cy="670" r="18" fill="#D6A06C" stroke="none"/>
+    <path d="M690 693L680 750M685 715L650 738M685 715L720 725M680 750L653 790M680 750L708 785"/>
+    <!-- Child 2 -->
+    <circle cx="820" cy="680" r="17" fill="#D6A06C" stroke="none"/>
+    <path d="M820 700L830 750M825 720L790 735M825 720L858 700M830 750L810 790M830 750L860 780"/>
+    <!-- Child 3 -->
+    <circle cx="960" cy="675" r="17" fill="#D6A06C" stroke="none"/>
+    <path d="M960 695L950 745M955 715L920 700M955 715L985 735M950 745L930 785M950 745L980 785"/>
+  </g>
+
+  <!-- Paper plane -->
+  <g transform="translate(1150 330) rotate(-15)" opacity=".48">
+    <path d="M0 0L105 22L42 58L28 34L0 0Z" fill="#FFF9E9" stroke="#A88A53" stroke-width="2"/>
+    <path d="M28 34L105 22L42 58" stroke="#A88A53" stroke-width="2"/>
+  </g>
+
+  <!-- Foreground grass -->
+  <g stroke="#637B56" stroke-width="3" opacity=".35">
+    <path d="M80 900l12-45 8 45M105 900l20-55 3 55M1480 900l-10-48-8 48M1510 900l-22-58-2 58"/>
+  </g>
+</svg>

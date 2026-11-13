@@ -986,3 +986,310 @@
         transition: none;
     }
 }
+
+/* =========================================
+   WELCOME — READABILITY & CHILDHOOD FINISH
+========================================= */
+
+/* Fix undefined font variable */
+.hero-copy h1,
+.stat-number {
+    font-family: var(--font-display);
+}
+
+/* Header archive label */
+.header-edition {
+    color: #62452f;
+    background: rgba(255, 249, 235, 0.55);
+    border-color: rgba(113, 76, 44, 0.65);
+    text-shadow: none;
+    opacity: 1;
+}
+
+.header-edition span {
+    color: #805b30;
+}
+
+/* Eyebrow */
+.hero-eyebrow {
+    color: #68472d;
+    text-shadow: 0 1px 0 rgba(255,255,255,.55);
+}
+
+/* Supporting note */
+.hero-note {
+    color: #604a36;
+    font-weight: 600;
+}
+
+/* Footer caption */
+.footer-caption {
+    color: #624b35;
+    text-shadow: 0 1px 0 rgba(255,255,255,.55);
+}
+
+/* Statistics */
+.stat-label {
+    color: #49372a;
+    font-weight: 800;
+    text-shadow: 0 1px 0 rgba(255,255,255,.5);
+}
+
+/* Main button */
+.start-button {
+    box-shadow: 0 7px 18px rgba(75, 41, 39, 0.16);
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease,
+        background .3s ease;
+}
+
+.start-button:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 13px 25px rgba(75, 41, 39, 0.25);
+}
+
+/* =========================================
+   WELCOME ↔ PROFILE PAGE TRANSITION
+========================================= */
+
+#profileScreen {
+    transition:
+        opacity .65s ease,
+        transform .65s cubic-bezier(.22, 1, .36, 1);
+}
+
+#profileScreen.screen-preparing {
+    opacity: 0;
+    transform: translateY(22px);
+}
+
+#profileScreen.screen-entering {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.welcome-page.screen-leaving {
+    animation: welcome-page-leave .65s ease forwards;
+}
+
+@keyframes welcome-page-leave {
+    to {
+        opacity: 0;
+        transform: scale(1.025);
+        filter: blur(3px);
+    }
+}
+
+#profileScreen.screen-returning {
+    animation: profile-page-leave .55s ease forwards;
+}
+
+@keyframes profile-page-leave {
+    to {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+}
+
+.welcome-page.screen-returning {
+    animation: welcome-page-enter .7s ease both;
+}
+
+@keyframes welcome-page-enter {
+    from {
+        opacity: 0;
+        transform: scale(1.02);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .welcome-page.screen-leaving,
+    .welcome-page.screen-returning,
+    #profileScreen.screen-returning {
+        animation: none !important;
+    }
+
+    #profileScreen {
+        transition: none !important;
+    }
+}
+
+/* =========================================
+   WELCOME PAGE — REFERENCE STYLE FINISH
+   Version 1.1
+========================================= */
+
+/* Keep the welcome content above the background */
+.hero-copy {
+    position: relative;
+    z-index: 2;
+    max-width: 650px;
+    isolation: isolate;
+}
+
+/* Soft warm light behind the text — not a solid card */
+.hero-copy::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+
+    top: -13%;
+    bottom: -13%;
+    left: -10%;
+    width: 118%;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(255, 239, 207, 0.82) 0%,
+            rgba(255, 239, 207, 0.66) 55%,
+            rgba(255, 239, 207, 0.20) 82%,
+            transparent 100%
+        );
+
+    filter: blur(22px);
+}
+
+/* Small introductory label */
+.hero-eyebrow {
+    color: #1b1918;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2.2px;
+    text-shadow: 0 1px 2px rgba(255, 248, 228, 0.8);
+}
+
+/* Main headline */
+.hero-copy h1 {
+    max-width: 680px;
+    color: #30231b;
+
+    font-family: var(--font-display);
+    font-size: clamp(58px, 6.2vw, 86px);
+    font-weight: 700;
+    line-height: 0.98;
+    letter-spacing: -1.8px;
+
+    text-shadow:
+        0 2px 2px rgba(255, 244, 220, 0.65);
+}
+
+/* Golden highlighted words */
+.hero-copy h1 span {
+    display: block;
+    margin-top: 5px;
+
+    color: #684926;
+    font-style: italic;
+    text-shadow:
+        0 2px 2px rgba(255, 244, 220, 0.7);
+}
+
+/* Supporting paragraph */
+.hero-description {
+    max-width: 490px;
+    margin-top: 24px;
+
+    color: #4e290a;
+    font-size: 16px;
+    font-weight: 200;
+    line-height: 1.8;
+
+    text-shadow: 0 1px 2px rgba(78, 68, 47, 0.75);
+}
+
+/* Main journey button */
+.start-button {
+    margin-top: 29px;
+    padding: 16px 25px;
+
+    background: #713c35;
+    border: 1px solid #713c35;
+    color: #fff3dc;
+
+    box-shadow:
+        0 8px 20px rgba(58, 31, 25, 0.24),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.start-button:hover {
+    background: #4b2927;
+    border-color: #4b2927;
+}
+
+/* Handwritten memory caption */
+.hero-note {
+    margin-top: 22px;
+    color: #604832;
+    font-size: 16px;
+    font-weight: 600;
+
+    text-shadow: 0 1px 3px rgba(255, 245, 220, 0.8);
+}
+
+/* Header archive label */
+.header-edition {
+    color: #62432c;
+    background: rgba(255, 244, 220, 0.72);
+    border-color: rgba(113, 76, 44, 0.65);
+}
+
+/* Footer caption */
+.footer-caption {
+    color: #49372a;
+    text-shadow: 0 1px 3px rgba(255, 244, 220, 0.8);
+}
+
+/* Statistics */
+.stat-number {
+    color: #713c35;
+    text-shadow: 0 2px 3px rgba(255, 244, 220, 0.8);
+}
+
+.stat-label {
+    color: #3f3025;
+    text-shadow: 0 1px 3px rgba(255, 244, 220, 0.85);
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+    .hero-copy::before {
+        left: -5%;
+        width: 110%;
+        background: rgba(255, 239, 207, 0.58);
+        filter: blur(25px);
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .hero-copy {
+        padding: 8px 4px;
+    }
+
+    .hero-copy::before {
+        top: -8%;
+        bottom: -8%;
+        left: -8%;
+        width: 116%;
+        background: rgba(255, 239, 207, 0.72);
+        filter: blur(18px);
+    }
+
+    .hero-copy h1 {
+        font-size: clamp(44px, 11vw, 60px);
+        line-height: 1;
+    }
+
+    .hero-description {
+        font-size: 14px;
+        line-height: 1.7;
+    }
+}

@@ -454,3 +454,1973 @@
         opacity: 0.25;
     }
 }
+
+/* =========================================
+   WELCOME — ILLUSTRATED CHILDHOOD WORLD
+========================================= */
+
+.welcome-page {
+    background-image:
+        linear-gradient(
+            180deg,
+            rgba(248, 240, 223, 0.80) 0%,
+            rgba(248, 240, 223, 0.52) 48%,
+            rgba(232, 220, 190, 0.20) 100%
+        ),
+        url("../assets/images/backgrounds/childhood-world.png");
+
+    background-repeat: no-repeat;
+    background-size: cover, cover;
+    background-position: center, center bottom;
+    background-attachment: scroll;
+}
+
+/* Background illustration should stay behind content */
+.welcome-page::before,
+.welcome-page::after {
+    pointer-events: none;
+}
+
+.welcome-page::before {
+    opacity: 0.22;
+}
+
+/* Keep existing content readable */
+.site-header,
+.hero-section,
+.hero-footer {
+    position: relative;
+    z-index: 2;
+}
+
+/* Decorative childhood atmosphere */
+.welcome-page {
+    box-shadow:
+        inset 0 0 90px rgba(91, 66, 39, 0.09),
+        inset 0 -100px 120px rgba(111, 128, 95, 0.08);
+}
+
+@media (max-width: 600px) {
+    .welcome-page {
+        background-position: center, 58% bottom;
+        background-size: cover, auto 75%;
+    }
+}
+
+/* =========================================
+   GOLDEN CHILDHOOD PASSPORT
+   LIVING CHILDHOOD WORLD — WELCOME
+========================================= */
+
+/* Keep the existing design, enrich its atmosphere */
+.welcome-page {
+    background-image:
+        url("../assets/images/backgrounds/childhood-world.png");
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: scroll;
+}
+
+/* Text-এর পেছনে শুধু subtle warm contrast */
+.hero-copy {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-copy::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+
+    top: -12%;
+    bottom: -12%;
+    left: -8%;
+    width: 115%;
+
+    background: linear-gradient(
+        90deg,
+        rgba(217, 221, 212, 0.596),
+        rgba(255, 239, 205, 0.479) 72%,
+        transparent
+    );
+
+    filter: blur(18px);
+}
+
+/* Warm moving sunlight */
+.welcome-page .childhood-sunlight {
+    position: absolute;
+    z-index: 0;
+    pointer-events: none;
+    width: 440px;
+    height: 440px;
+    top: -190px;
+    left: 42%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 224, 151, .42), rgba(255, 224, 151, 0) 70%);
+    filter: blur(12px);
+    animation: sunlightDrift 12s ease-in-out infinite alternate;
+}
+
+@keyframes sunlightDrift {
+    from { transform: translate(-35px, 0) scale(.9); opacity: .55; }
+    to   { transform: translate(65px, 55px) scale(1.2); opacity: 1; }
+}
+
+/* Childhood objects layer */
+.childhood-world {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+/* Flying kite */
+.memory-kite {
+    position: absolute;
+    top: 22%;
+    left: 5%;
+    width: 43px;
+    height: 43px;
+    transform: rotate(45deg);
+    animation: kiteDrift 7s ease-in-out infinite;
+}
+
+.memory-kite::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #bd7957, #8d493c);
+    border: 2px solid rgba(255, 238, 197, 0);
+    box-shadow: 0 4px 12px rgba(90, 56, 35, .16);
+}
+
+.memory-kite::after {
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 105px;
+    top: 37px;
+    left: 20px;
+    background: repeating-linear-gradient(
+        to bottom,
+        #9b7651 0 8px,
+        transparent 8px 15px
+    );
+    transform: rotate(-25deg);
+    transform-origin: top;
+}
+
+.memory-kite .kite-cross {
+    position: absolute;
+    z-index: 2;
+    inset: 4px;
+    border: 1px solid rgba(177, 255, 212, 0.493);
+}
+
+@keyframes kiteDrift {
+    0%, 100% { transform: translate(0, 0) rotate(45deg); }
+    50% { transform: translate(22px, -17px) rotate(51deg); }
+}
+
+/* Flying paper plane */
+.memory-plane {
+    position: absolute;
+    top: 27%;
+    right: -100px;
+    width: 58px;
+    height: 42px;
+    background: linear-gradient(145deg, #0b4cc5c0, #cc900e77);
+    clip-path: polygon(0 0, 100% 38%, 30% 55%, 20% 100%, 12% 60%);
+    filter: drop-shadow(0 5px 5px rgba(70, 53, 35, .18));
+    animation: paperPlaneFlight 13s linear infinite;
+}
+
+@keyframes paperPlaneFlight {
+    0%   { transform: translate(0, 0) rotate(-7deg); }
+    45%  { transform: translate(-55vw, -75px) rotate(5deg); }
+    100% { transform: translate(-115vw, 30px) rotate(-5deg); }
+}
+
+/* Spinning traditional latim */
+.memory-latim {
+    position: absolute;
+    width: 36px;
+    height: 52px;
+    bottom: 13%;
+    left: 7%;
+    animation: latimSpin 2.2s linear infinite;
+    transform-origin: 50% 72%;
+}
+
+.memory-latim::before {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 10px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50% 50% 45% 45%;
+    background: conic-gradient(#a94f3f, #d9ae63, #65765d, #a94f3f);
+    border: 2px solid #f4dfad;
+}
+
+.memory-latim::after {
+    content: "";
+    position: absolute;
+    left: 16px;
+    top: 0;
+    width: 4px;
+    height: 20px;
+    border-radius: 3px;
+    background: #79543b;
+    box-shadow: 0 38px 0 -1px #79543b;
+}
+
+@keyframes latimSpin {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(.94); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+/* Running children — simple CSS silhouettes */
+.childhood-runner {
+    position: absolute;
+    bottom: 7%;
+    width: 25px;
+    height: 62px;
+    opacity: .30;
+    animation: childhoodRun 8s linear infinite;
+}
+
+.childhood-runner.runner-two {
+    animation-delay: -4s;
+    transform: scale(.78);
+    opacity: .22;
+}
+
+.childhood-runner::before {
+    content: "";
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    top: 0;
+    left: 5px;
+    border-radius: 50%;
+    background: #76533c;
+}
+
+.childhood-runner::after {
+    content: "";
+    position: absolute;
+    width: 13px;
+    height: 27px;
+    top: 16px;
+    left: 6px;
+    border-radius: 7px 7px 4px 4px;
+    background: #9a5946;
+    box-shadow:
+        -9px 25px 0 -4px #76533c,
+        10px 25px 0 -4px #76533c;
+    animation: runnerLegs .35s ease-in-out infinite alternate;
+}
+
+@keyframes childhoodRun {
+    from { left: -40px; }
+    to { left: 110%; }
+}
+
+@keyframes runnerLegs {
+    from { transform: skewX(-15deg) rotate(-8deg); }
+    to { transform: skewX(15deg) rotate(8deg); }
+}
+
+/* Floating golden memory particles */
+.memory-particle {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #c49a56;
+    box-shadow: 0 0 12px rgba(196, 154, 86, .65);
+    opacity: .45;
+    animation: particleRise var(--float-duration, 9s) ease-in-out infinite;
+    animation-delay: var(--float-delay, 0s);
+}
+
+@keyframes particleRise {
+    0% { transform: translateY(35px) scale(.5); opacity: 0; }
+    35% { opacity: .55; }
+    100% { transform: translateY(-110px) scale(1.2); opacity: 0; }
+}
+
+/* Keep all original welcome content above decorations */
+.site-header,
+.hero-section,
+.hero-footer {
+    position: relative;
+    z-index: 2;
+}
+
+.welcome-page .childhood-world,
+.welcome-page .childhood-sunlight {
+    z-index: 0;
+}
+
+/* Improve heading font variable: existing token is --font-display */
+.hero-copy h1,
+.stat-number {
+    font-family: var(--font-display);
+}
+
+/* =========================================
+   CINEMATIC CHILDHOOD DOOR TRANSITION
+========================================= */
+
+.journey-transition {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+    pointer-events: none;
+    background: #4c3026;
+}
+
+.journey-door {
+    position: relative;
+    background:
+        radial-gradient(circle at center, rgba(211, 174, 105, .22), transparent 48%),
+        linear-gradient(145deg, #81513d, #4d2d28);
+    border: 8px solid #b18d55;
+    box-shadow: inset 0 0 0 2px rgba(236, 208, 151, .5);
+    transition: transform 1.15s cubic-bezier(.77, 0, .18, 1);
+}
+
+.journey-door::after {
+    content: "✦";
+    position: absolute;
+    top: 50%;
+    color: #e2c17d;
+    font-family: Georgia, serif;
+    font-size: clamp(35px, 7vw, 90px);
+    text-shadow: 0 0 25px rgba(235, 197, 117, .65);
+}
+
+.journey-door:first-child::after {
+    right: 18px;
+    transform: translateY(-50%);
+}
+
+.journey-door:last-child::after {
+    left: 18px;
+    transform: translateY(-50%);
+}
+
+.journey-transition__message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 90%;
+    text-align: center;
+    color: #f6e5bd;
+    font-family: var(--font-display);
+    font-size: clamp(25px, 4vw, 48px);
+    font-style: italic;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity .5s ease .2s;
+    text-shadow: 0 3px 15px rgba(0, 0, 0, .35);
+}
+
+.journey-transition.is-opening .journey-door:first-child {
+    transform: perspective(900px) rotateY(-105deg);
+    transform-origin: left center;
+}
+
+.journey-transition.is-opening .journey-door:last-child {
+    transform: perspective(900px) rotateY(105deg);
+    transform-origin: right center;
+}
+
+.journey-transition.is-opening .journey-transition__message {
+    opacity: 1;
+}
+
+/* Profile chapter entrance */
+#profileScreen.chapter-enter {
+    animation: profileChapterEnter .9s cubic-bezier(.2, .8, .2, 1) both;
+}
+
+@keyframes profileChapterEnter {
+    from {
+        opacity: 0;
+        transform: translateY(24px) scale(.985);
+        filter: blur(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .memory-kite,
+    .memory-plane,
+    .memory-latim,
+    .childhood-runner,
+    .memory-particle,
+    .childhood-sunlight {
+        animation: none !important;
+    }
+
+    .journey-door,
+    .journey-transition__message,
+    #profileScreen.chapter-enter {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
+/* Small screens */
+@media (max-width: 600px) {
+    .memory-kite {
+        top: 16%;
+        left: 3%;
+        transform: scale(.7) rotate(45deg);
+    }
+
+    .memory-plane {
+        top: 22%;
+        animation-duration: 16s;
+    }
+
+    .memory-latim {
+        bottom: 10%;
+        left: 4%;
+        transform: scale(.8);
+    }
+
+    .childhood-runner {
+        bottom: 4%;
+    }
+}
+
+/* =========================================
+   REALISTIC CHILDHOOD OBJECT ANIMATIONS
+   Version 1.0
+========================================= */
+
+/* -----------------------------------------
+   1. REALISTIC FLYING KITE
+----------------------------------------- */
+
+.memory-kite {
+    width: clamp(115px, 14vw, 190px);
+    height: clamp(145px, 18vw, 230px);
+
+    background-image: url("../assets/images/decorations/childhood-kite.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+
+    /* Remove the old CSS kite appearance */
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+
+    z-index: 10;
+    pointer-events: none;
+
+    filter:
+        drop-shadow(0 8px 8px rgba(45, 35, 22, 0.18));
+
+    transform-origin: center center;
+
+    animation: realisticKiteFlight 12s ease-in-out infinite;
+    will-change: transform;
+}
+
+/* Remove old decorative kite shapes */
+.memory-kite::before,
+.memory-kite::after {
+    content: none !important;
+    display: none !important;
+}
+
+/* Natural wind movement */
+@keyframes realisticKiteFlight {
+    0% {
+        transform: translate3d(0, 0, 0) rotate(-5deg);
+    }
+
+    20% {
+        transform: translate3d(35px, -15px, 0) rotate(2deg);
+    }
+
+    40% {
+        transform: translate3d(75px, -35px, 0) rotate(-4deg);
+    }
+
+    60% {
+        transform: translate3d(105px, -12px, 0) rotate(5deg);
+    }
+
+    80% {
+        transform: translate3d(45px, 8px, 0) rotate(-2deg);
+    }
+
+    100% {
+        transform: translate3d(0, 0, 0) rotate(-5deg);
+    }
+}
+
+
+/* -----------------------------------------
+   2. REALISTIC WOODEN LATIM
+----------------------------------------- */
+
+.memory-latim {
+    width: clamp(65px, 8vw, 105px);
+    height: clamp(65px, 8vw, 105px);
+
+    background-image: url("../assets/images/decorations/traditional-latim.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+
+    z-index: 10;
+    pointer-events: none;
+
+    transform-origin: center center;
+
+    filter:
+        drop-shadow(0 7px 5px rgba(35, 25, 15, 0.28));
+
+    animation: realisticLatimSpin 2.2s linear infinite;
+    will-change: transform;
+}
+
+/* Remove old CSS-generated latim body */
+.memory-latim::before,
+.memory-latim::after {
+    content: none !important;
+    display: none !important;
+}
+
+/* Spinning with slight natural wobble */
+@keyframes realisticLatimSpin {
+    0% {
+        transform: rotate(0deg) scale(1);
+    }
+
+    20% {
+        transform: rotate(72deg) scale(1.025);
+    }
+
+    40% {
+        transform: rotate(144deg) scale(0.985);
+    }
+
+    60% {
+        transform: rotate(216deg) scale(1.02);
+    }
+
+    80% {
+        transform: rotate(288deg) scale(0.99);
+    }
+
+    100% {
+        transform: rotate(360deg) scale(1);
+    }
+}
+
+
+/* -----------------------------------------
+   3. MOBILE ADJUSTMENTS
+----------------------------------------- */
+
+@media (max-width: 600px) {
+    .memory-kite {
+        width: 95px;
+        height: 125px;
+        animation-duration: 16s;
+    }
+
+    .memory-latim {
+        width: 58px;
+        height: 58px;
+        animation-duration: 2.8s;
+    }
+
+    @keyframes realisticKiteFlight {
+        0% {
+            transform: translate3d(0, 0, 0) rotate(-5deg);
+        }
+
+        50% {
+            transform: translate3d(35px, -20px, 0) rotate(5deg);
+        }
+
+        100% {
+            transform: translate3d(0, 0, 0) rotate(-5deg);
+        }
+    }
+}
+
+/* -----------------------------------------
+   4. ACCESSIBILITY
+----------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+    .memory-kite,
+    .memory-latim {
+        animation: none !important;
+        will-change: auto;
+    }
+}
+
+/* FIX: MAKE REALISTIC KITE & LATIM VISIBLE */
+
+.childhood-world {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    visibility: visible;
+    opacity: 1;
+    overflow: hidden;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.memory-kite {
+    position: absolute;
+    display: block;
+    visibility: visible;
+    opacity: 1;
+
+    top: 8%;
+    left: 5%;
+
+    width: clamp(110px, 13vw, 175px);
+    height: clamp(140px, 17vw, 220px);
+
+    background-image: url("../assets/images/decorations/childhood-kite.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+
+    filter: drop-shadow(0 7px 8px rgba(40, 30, 15, 0.25));
+    animation: visibleKiteFlight 12s ease-in-out infinite;
+}
+
+.memory-latim {
+    position: absolute;
+    display: block;
+    visibility: visible;
+    opacity: 150;
+
+    left: 32%;
+    bottom: 10%;
+
+    width: clamp(65px, 8vw, 100px);
+    height: clamp(65px, 8vw, 100px);
+
+    background-image: url("../assets/images/decorations/traditional-latim.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+
+    filter: drop-shadow(0 7px 6px rgba(35, 25, 15, 0.3));
+    animation: visibleLatimSpin 2.2s linear infinite;
+}
+
+@keyframes visibleKiteFlight {
+    0%, 100% {
+        transform: translate(0, 0) rotate(-5deg);
+    }
+    50% {
+        transform: translate(65px, -25px) rotate(5deg);
+    }
+}
+
+@keyframes visibleLatimSpin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 600px) {
+    .memory-kite {
+        width: 85px;
+        height: 115px;
+        top: 12%;
+        left: 2%;
+    }
+
+    .memory-latim {
+        width: 55px;
+        height: 55px;
+        left: 15%;
+        bottom: 7%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .memory-kite,
+    .memory-latim {
+        animation: single-animation 0s linear infinite !important;
+    }
+}
+
+/* KITE POSITION — CENTER OF THE SKY */
+
+.memory-kite {
+    position: absolute !important;
+
+    top: 5% !important;
+    left: 50% !important;
+
+    width: clamp(110px, 13vw, 175px);
+    height: clamp(140px, 17vw, 220px);
+
+    z-index: 1;
+    animation: centerSkyKiteFlight 14s ease-in-out infinite !important;
+}
+
+@keyframes centerSkyKiteFlight {
+    0%, 100% {
+        transform: translate(-50%, 0) rotate(-5deg);
+    }
+
+    25% {
+        transform: translate(calc(-50% + 35px), -12px) rotate(3deg);
+    }
+
+    50% {
+        transform: translate(calc(-50% + 65px), 5px) rotate(-2deg);
+    }
+
+    75% {
+        transform: translate(calc(-50% - 25px), -10px) rotate(4deg);
+    }
+}
+
+@media (max-width: 600px) {
+    .memory-kite {
+        top: 8% !important;
+        left: 55% !important;
+        width: 85px;
+        height: 115px;
+    }
+}
+
+/* REALISTIC LATIM MOVEMENT — VERSION 2.0 */
+
+.memory-latim {
+    position: absolute !important;
+
+    transform-origin: 50% 88% !important;
+    perspective: 600px;
+
+    animation: realisticLatimMovement 2.4s ease-in-out infinite !important;
+
+    will-change: transform;
+}
+
+/* Spin + precession + small ground movement */
+
+@keyframes realisticLatimMovement {
+    0% {
+        transform:
+            translate3d(0, 0, 0)
+            rotateX(2deg)
+            rotateY(0deg)
+            rotateZ(0deg);
+    }
+
+    15% {
+        transform:
+            translate3d(3px, -1px, 0)
+            rotateX(7deg)
+            rotateY(162deg)
+            rotateZ(4deg);
+    }
+
+    30% {
+        transform:
+            translate3d(5px, 1px, 0)
+            rotateX(12deg)
+            rotateY(324deg)
+            rotateZ(-5deg);
+    }
+
+    50% {
+        transform:
+            translate3d(1px, 2px, 0)
+            rotateX(6deg)
+            rotateY(540deg)
+            rotateZ(3deg);
+    }
+
+    70% {
+        transform:
+            translate3d(-4px, 0, 0)
+            rotateX(11deg)
+            rotateY(756deg)
+            rotateZ(-6deg);
+    }
+
+    85% {
+        transform:
+            translate3d(-2px, -1px, 0)
+            rotateX(5deg)
+            rotateY(918deg)
+            rotateZ(3deg);
+    }
+
+    100% {
+        transform:
+            translate3d(0, 0, 0)
+            rotateX(2deg)
+            rotateY(1080deg)
+            rotateZ(0deg);
+    }
+}
+
+@media (max-width: 600px) {
+    .memory-latim {
+        animation-duration: 2.8s !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .memory-latim {
+        animation: none !important;
+    }
+}
+
+/* =========================================
+   GOLDEN CHILDHOOD PASSPORT
+   REALISTIC LATIM MOVEMENT — VERSION 4.0
+   ========================================= */
+
+/* Main ground movement */
+.latim-ground {
+    position: absolute !important;
+
+    left: 32%;
+    bottom: 8%;
+
+    width: 160px;
+    height: 180px;
+
+    display: block;
+    z-index: 3;
+    pointer-events: none;
+
+    animation: latimDrift 9s ease-in-out infinite;
+    will-change: transform;
+}
+
+/* Precession — tilted circular movement */
+.latim-precess {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    transform-origin: 50% 88%;
+
+    animation: latimPrecess 1.6s ease-in-out infinite;
+    will-change: transform;
+}
+
+/* Nutation — small natural wobble */
+.latim-wobble {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    transform-origin: 50% 88%;
+
+    animation: latimNutation 0.35s ease-in-out infinite alternate;
+    will-change: transform;
+}
+
+/* Actual image — preserve original colors */
+.memory-latim {
+    position: absolute !important;
+
+    left: 0;
+    top: 0;
+
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+    object-position: center bottom;
+
+    background: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+
+    filter: none !important;
+
+    transform-origin: 50% 88%;
+
+    animation: latimSpinShimmer 0.12s linear infinite !important;
+
+    will-change: transform, filter;
+    user-select: none;
+    pointer-events: none;
+}
+
+/* Ground shadow */
+.latim-shadow {
+    position: absolute;
+
+    left: 50%;
+    bottom: 0;
+
+    width: 72px;
+    height: 14px;
+
+    margin-left: -36px;
+
+    border-radius: 50%;
+
+    background: radial-gradient(
+        ellipse,
+        rgba(20, 15, 10, 0.38) 0%,
+        rgba(20, 15, 10, 0.16) 48%,
+        transparent 75%
+    );
+
+    filter: blur(3px);
+
+    animation: latimShadow 0.35s ease-in-out infinite alternate;
+}
+
+/* =========================================
+   ANIMATION KEYFRAMES
+   ========================================= */
+
+/* 1. Precession — tilt around the spinning tip */
+@keyframes latimPrecess {
+    0% {
+        transform: rotateZ(-5deg) rotateX(2deg);
+    }
+
+    25% {
+        transform: rotateZ(5deg) rotateX(7deg);
+    }
+
+    50% {
+        transform: rotateZ(2deg) rotateX(3deg);
+    }
+
+    75% {
+        transform: rotateZ(-7deg) rotateX(8deg);
+    }
+
+    100% {
+        transform: rotateZ(-5deg) rotateX(2deg);
+    }
+}
+
+/* 2. Nutation — subtle vibration */
+@keyframes latimNutation {
+    from {
+        transform: rotateZ(-1.5deg) scaleY(1);
+    }
+
+    to {
+        transform: rotateZ(1.5deg) scaleY(0.985);
+    }
+}
+
+/* 3. Spin — preserve image colors while suggesting fast rotation */
+@keyframes latimSpinShimmer {
+    0% {
+        transform: scaleX(1);
+        filter: brightness(1) saturate(1);
+    }
+
+    25% {
+        transform: scaleX(0.88);
+        filter: brightness(1.06) saturate(1.05);
+    }
+
+    50% {
+        transform: scaleX(1);
+        filter: brightness(0.97) saturate(1);
+    }
+
+    75% {
+        transform: scaleX(0.9);
+        filter: brightness(1.04) saturate(1.05);
+    }
+
+    100% {
+        transform: scaleX(1);
+        filter: brightness(1) saturate(1);
+    }
+}
+
+/* 4. Ground drift — small irregular circular path */
+@keyframes latimDrift {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    20% {
+        transform: translate(10px, 2px);
+    }
+
+    40% {
+        transform: translate(16px, -2px);
+    }
+
+    60% {
+        transform: translate(7px, 4px);
+    }
+
+    80% {
+        transform: translate(-7px, 1px);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+/* 5. Shadow reacts to wobble */
+@keyframes latimShadow {
+    from {
+        transform: scaleX(1);
+        opacity: 0.85;
+    }
+
+    to {
+        transform: scaleX(1.15);
+        opacity: 0.65;
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .latim-ground {
+        left: 15%;
+        bottom: 7%;
+
+        width: 115px;
+        height: 145px;
+
+        animation-duration: 11s;
+    }
+
+    .latim-precess {
+        animation-duration: 1.9s;
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .latim-ground,
+    .latim-precess,
+    .latim-wobble,
+    .memory-latim,
+    .latim-shadow {
+        animation: none !important;
+    }
+}
+
+/* =====================================================
+   GOLDEN CHILDHOOD PASSPORT
+   THE LITTLE CHILD OPENS THE DOOR
+   PREMIUM CINEMATIC TRANSITION — V2.0
+===================================================== */
+
+.journey-transition {
+    position: fixed !important;
+    inset: 0 !important;
+
+    display: block !important;
+    overflow: hidden !important;
+
+    z-index: 99999 !important;
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            #a87842 0%,
+            #56382c 55%,
+            #241a17 100%
+        );
+
+    perspective: 1400px;
+    isolation: isolate;
+}
+
+/* Warm light behind the doors */
+
+.journey-light {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+
+    background:
+        radial-gradient(
+            ellipse at 50% 48%,
+            rgba(255, 221, 155, .95) 0%,
+            rgba(238, 180, 99, .45) 25%,
+            transparent 65%
+        );
+
+    opacity: .15;
+    transform: scale(.65);
+
+    transition:
+        opacity 1.3s ease,
+        transform 1.6s ease;
+}
+
+.journey-transition.is-opening .journey-light {
+    opacity: 1;
+    transform: scale(1.5);
+}
+
+/* Door frame */
+
+.journey-door-frame {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+
+    z-index: 5;
+
+    background: #281a16;
+    box-shadow:
+        inset 0 0 80px rgba(0, 0, 0, .8);
+}
+
+/* Wooden door panels */
+
+.journey-door {
+    position: relative !important;
+
+    width: 50%;
+    height: 100%;
+
+    flex: 0 0 50%;
+
+    border: 12px solid #a87943 !important;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(30, 16, 11, .35),
+            transparent 12%,
+            rgba(255, 222, 160, .10) 48%,
+            rgba(20, 10, 7, .35)
+        ),
+        repeating-linear-gradient(
+            90deg,
+            #68412e 0px,
+            #82553a 24px,
+            #593628 49px,
+            #75472f 72px
+        ) !important;
+
+    box-shadow:
+        inset 0 0 0 3px rgba(226, 190, 128, .5),
+        inset 0 0 35px rgba(0, 0, 0, .5),
+        0 0 30px rgba(0, 0, 0, .4);
+
+    backface-visibility: hidden;
+
+    transition:
+        transform 1.8s cubic-bezier(.72, 0, .2, 1);
+
+    overflow: hidden;
+}
+
+/* Left and right hinge positions */
+
+.journey-door-left {
+    transform-origin: left center;
+}
+
+.journey-door-right {
+    transform-origin: right center;
+}
+
+/* Wood grain */
+
+.door-wood-grain {
+    position: absolute;
+    inset: 0;
+
+    opacity: .24;
+
+    background:
+        repeating-linear-gradient(
+            2deg,
+            transparent 0px,
+            rgba(25, 12, 7, .25) 2px,
+            transparent 5px,
+            rgba(255, 220, 170, .08) 8px,
+            transparent 13px
+        );
+
+    pointer-events: none;
+}
+
+/* Decorative recessed panels */
+
+.door-panel {
+    position: absolute;
+
+    left: 10%;
+    width: 80%;
+
+    border: 3px solid rgba(198, 157, 97, .7);
+    border-radius: 3px;
+
+    box-shadow:
+        inset 0 0 18px rgba(0, 0, 0, .35),
+        0 0 0 2px rgba(37, 19, 12, .3);
+}
+
+.door-panel-top {
+    top: 10%;
+    height: 35%;
+}
+
+.door-panel-bottom {
+    bottom: 10%;
+    height: 38%;
+}
+
+/* Antique golden handles */
+
+.door-handle {
+    position: absolute;
+
+    top: 48%;
+
+    width: 19px;
+    height: 19px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle at 30% 30%,
+            #fff0bd,
+            #d5a34d 45%,
+            #79501e 100%
+        );
+
+    box-shadow:
+        0 0 0 4px rgba(56, 31, 14, .6),
+        0 3px 8px rgba(0, 0, 0, .55);
+}
+
+.journey-door-left .door-handle {
+    right: 18px;
+}
+
+.journey-door-right .door-handle {
+    left: 18px;
+}
+
+/* Remove old star decoration */
+
+.journey-door::after {
+    content: none !important;
+}
+
+/* Child silhouette */
+
+.journey-child {
+    position: absolute;
+
+    left: 0;
+    bottom: 10%;
+
+    width: 150px;
+    height: 230px;
+
+    z-index: 20;
+
+    opacity: 0;
+
+    transform: translateX(-190px);
+
+    transition:
+        transform 1.05s cubic-bezier(.2, .7, .3, 1),
+        opacity .3s ease;
+}
+
+/* Child arrives */
+
+.journey-transition.child-arriving .journey-child {
+    opacity: 1;
+    transform: translateX(calc(50vw - 75px));
+}
+
+/* Child pushes the door */
+
+.journey-transition.child-pushing .journey-child {
+    transform:
+        translateX(calc(50vw - 75px))
+        translateY(5px)
+        scale(.96);
+}
+
+/* Child shadow */
+
+.child-shadow {
+    position: absolute;
+
+    left: 15px;
+    bottom: 0;
+
+    width: 120px;
+    height: 18px;
+
+    border-radius: 50%;
+
+    background: rgba(0, 0, 0, .4);
+    filter: blur(7px);
+}
+
+/* Child figure */
+
+.child-figure {
+    position: absolute;
+
+    left: 45px;
+    bottom: 12px;
+
+    width: 65px;
+    height: 200px;
+
+    transform-origin: bottom center;
+
+    transition: transform .4s ease;
+}
+
+/* Head */
+
+.child-head {
+    position: absolute;
+
+    top: 0;
+    left: 17px;
+
+    width: 35px;
+    height: 42px;
+
+    border-radius: 48% 48% 44% 44%;
+
+    background:
+        radial-gradient(
+            circle at 35% 25%,
+            #6d4932,
+            #33231b 72%
+        );
+
+    box-shadow: inset -5px -4px 5px rgba(0, 0, 0, .4);
+}
+
+/* Hair */
+
+.child-hair {
+    position: absolute;
+
+    top: -4px;
+    left: 13px;
+
+    width: 39px;
+    height: 23px;
+
+    border-radius: 60% 60% 35% 35%;
+
+    background: #241913;
+
+    z-index: 2;
+}
+
+/* Body */
+
+.child-body {
+    position: absolute;
+
+    top: 40px;
+    left: 10px;
+
+    width: 50px;
+    height: 78px;
+
+    border-radius: 18px 18px 8px 8px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #8d5138,
+            #b77950 48%,
+            #603c2d
+        );
+
+    box-shadow: inset -8px 0 10px rgba(0, 0, 0, .3);
+}
+
+/* Arms */
+
+.child-arm {
+    position: absolute;
+
+    top: 48px;
+
+    width: 13px;
+    height: 67px;
+
+    border-radius: 12px;
+
+    background: #a56d4a;
+
+    transform-origin: top center;
+
+    transition: transform .4s ease;
+}
+
+.child-arm-left {
+    left: 7px;
+    transform: rotate(25deg);
+}
+
+.child-arm-right {
+    right: 7px;
+    transform: rotate(-25deg);
+}
+
+/* Legs */
+
+.child-leg {
+    position: absolute;
+
+    top: 110px;
+
+    width: 17px;
+    height: 78px;
+
+    border-radius: 10px;
+
+    background: #342a24;
+
+    transform-origin: top center;
+}
+
+.child-leg-left {
+    left: 15px;
+}
+
+.child-leg-right {
+    right: 15px;
+}
+
+/* Push posture */
+
+.journey-transition.child-pushing .child-figure {
+    transform: rotate(-8deg) translateY(4px);
+}
+
+.journey-transition.child-pushing .child-arm-left {
+    transform: rotate(-68deg);
+}
+
+.journey-transition.child-pushing .child-arm-right {
+    transform: rotate(68deg);
+}
+
+/* Door opens after the push */
+
+.journey-transition.is-opening .journey-door-left {
+    transform: perspective(1000px) rotateY(-108deg);
+}
+
+.journey-transition.is-opening .journey-door-right {
+    transform: perspective(1000px) rotateY(108deg);
+}
+
+/* Golden light between the doors */
+
+.journey-door-glow {
+    position: absolute;
+    inset: 0;
+
+    z-index: 10;
+
+    opacity: 0;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            rgba(255, 229, 172, .65),
+            rgba(255, 198, 112, .2) 35%,
+            transparent 70%
+        );
+
+    transition: opacity 1.2s ease;
+    pointer-events: none;
+}
+
+.journey-transition.is-opening .journey-door-glow {
+    opacity: 1;
+}
+
+/* Floating golden dust */
+
+.journey-dust {
+    position: absolute;
+    inset: 0;
+
+    z-index: 15;
+
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.journey-dust-particle {
+    position: absolute;
+
+    left: calc(15% + var(--dust-index, 0) * 3%);
+    bottom: 12%;
+
+    width: 4px;
+    height: 4px;
+
+    border-radius: 50%;
+
+    background: #ffe3a4;
+
+    box-shadow: 0 0 12px 3px rgba(255, 205, 115, .6);
+
+    opacity: 0;
+}
+
+.journey-transition.is-opening .journey-dust-particle {
+    animation: journeyDustRise 2.2s ease-out forwards;
+}
+
+.journey-dust-particle:nth-child(3n) {
+    animation-delay: .15s;
+}
+
+.journey-dust-particle:nth-child(3n + 1) {
+    animation-delay: .35s;
+}
+
+@keyframes journeyDustRise {
+    0% {
+        opacity: 0;
+        transform: translateY(0) scale(.4);
+    }
+
+    25% {
+        opacity: .9;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-65vh) scale(1.4);
+    }
+}
+
+/* Transition message */
+
+.journey-transition__message {
+    position: absolute;
+
+    top: 18%;
+    left: 50%;
+
+    width: 90%;
+
+    z-index: 30;
+
+    color: #ffedc9;
+
+    font-family: var(--font-display, Georgia, serif);
+    font-size: clamp(23px, 4vw, 43px);
+    font-style: italic;
+    text-align: center;
+
+    opacity: 0;
+
+    transform: translate(-50%, 15px);
+
+    text-shadow:
+        0 3px 15px rgba(0, 0, 0, .6),
+        0 0 25px rgba(255, 214, 145, .3);
+
+    transition:
+        opacity .8s ease,
+        transform .8s ease;
+}
+
+.journey-transition.is-opening .journey-transition__message {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+/* Final transition fade */
+
+.journey-transition.journey-complete {
+    opacity: 0;
+    transition: opacity .45s ease;
+}
+
+/* Mobile adjustments */
+
+@media (max-width: 600px) {
+
+    .journey-door {
+        border-width: 7px !important;
+    }
+
+    .journey-child {
+        bottom: 8%;
+        transform: translateX(-150px) scale(.78);
+    }
+
+    .journey-transition.child-arriving .journey-child {
+        transform: translateX(calc(50vw - 75px)) scale(.78);
+    }
+
+    .journey-transition.child-pushing .journey-child {
+        transform:
+            translateX(calc(50vw - 75px))
+            translateY(5px)
+            scale(.74);
+    }
+
+    .journey-transition__message {
+        top: 14%;
+        font-size: 24px;
+    }
+}
+
+/* Accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .journey-transition,
+    .journey-door,
+    .journey-child,
+    .journey-light,
+    .journey-door-glow,
+    .journey-transition__message,
+    .journey-dust-particle {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* =========================================
+   REALISTIC CHILD — CINEMATIC ENTRY
+   Golden Childhood Passport
+   ========================================= */
+
+.journey-child {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: clamp(170px, 21vw, 285px);
+    height: min(78vh, 680px);
+    z-index: 30;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+
+    transform: translateX(calc(-50% - 55vw));
+    opacity: 0;
+    pointer-events: none;
+
+    transition:
+        transform 1.15s cubic-bezier(.22, .75, .25, 1),
+        opacity .45s ease;
+}
+
+.journey-child img {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center bottom;
+
+    user-select: none;
+    pointer-events: none;
+    filter: drop-shadow(0 8px 15px rgba(0, 0, 0, .22));
+
+    transition:
+        opacity .35s ease,
+        transform .5s ease;
+}
+
+.journey-child-walking {
+    opacity: 1;
+}
+
+.journey-child-pushing {
+    opacity: 0;
+}
+
+/* Child enters the scene */
+.journey-transition.child-arriving .journey-child {
+    opacity: 1;
+    transform: translateX(calc(-50% - 13vw));
+}
+
+/* Switch walking pose to pushing pose */
+.journey-transition.child-pushing .journey-child {
+    opacity: 1;
+    transform: translateX(-50%);
+}
+
+.journey-transition.child-pushing .journey-child-walking {
+    opacity: 0;
+}
+
+.journey-transition.child-pushing .journey-child-pushing {
+    opacity: 1;
+}
+
+/* Child enters through the glowing doorway */
+.journey-transition.child-entering .journey-child {
+    transform: translate(-50%, 10px) scale(.72);
+    opacity: 0;
+    transition:
+        transform 1.1s cubic-bezier(.4, 0, .2, 1),
+        opacity 1s ease;
+}
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+    .journey-child {
+        width: clamp(145px, 42vw, 205px);
+        height: 68vh;
+    }
+
+    .journey-transition.child-arriving .journey-child {
+        transform: translateX(calc(-50% - 12vw));
+    }
+
+    .journey-transition.child-pushing .journey-child {
+        transform: translateX(-50%);
+    }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .journey-child,
+    .journey-child img {
+        transition-duration: .15s !important;
+    }
+}
+
+/* ==========================================
+   REALISTIC CHILD WALKING — TIMING UPDATE
+   VERSION 2.0
+   ========================================== */
+
+/* Main child container */
+.journey-child {
+    position: absolute !important;
+    left: 50% !important;
+    bottom: 0 !important;
+
+    width: clamp(170px, 21vw, 285px);
+    height: min(78vh, 680px);
+
+    z-index: 30 !important;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+
+    opacity: 0;
+
+    transform: translateX(calc(-50% - 55vw));
+
+    transition:
+        transform 4.5s cubic-bezier(.42, 0, .25, 1),
+        opacity .5s ease;
+}
+
+/* Both child images */
+.journey-child img {
+    position: absolute !important;
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+    object-position: center bottom;
+
+    pointer-events: none;
+    user-select: none;
+
+    filter: drop-shadow(0 7px 12px rgba(0, 0, 0, .2));
+
+    transition: opacity .45s ease;
+}
+
+/* Walking pose */
+.journey-child-walking {
+    opacity: 1;
+    animation: naturalChildWalking 0.65s ease-in-out infinite;
+}
+
+/* Pushing pose */
+.journey-child-pushing {
+    opacity: 0;
+    animation: none !important;
+}
+
+/* Natural subtle body movement while walking */
+@keyframes naturalChildWalking {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-3px);
+    }
+}
+
+/* Scene 1: Walk from left to center */
+.journey-transition.child-arriving .journey-child {
+    opacity: 1;
+    transform: translateX(-50%);
+}
+
+/* Scene 2: Stop in front of the door */
+.journey-transition.child-stopped .journey-child {
+    transform: translateX(-50%);
+}
+
+/* Stop walking movement */
+.journey-transition.child-stopped .journey-child-walking {
+    animation: none;
+}
+
+/* Scene 3: Change to pushing pose */
+.journey-transition.child-pushing .journey-child {
+    transform: translateX(-50%);
+}
+
+.journey-transition.child-pushing .journey-child-walking {
+    opacity: 0;
+}
+
+.journey-transition.child-pushing .journey-child-pushing {
+    opacity: 1;
+}
+
+/* Scene 4: Keep pushing pose while doors open */
+.journey-transition.is-opening:not(.child-entering) .journey-child-pushing {
+    opacity: 1;
+}
+
+/* Scene 5: Switch back to walking and enter the doorway */
+.journey-transition.child-entering .journey-child {
+    animation: childEnterDoor 1.3s cubic-bezier(.4, 0, .2, 1) forwards;
+}
+
+.journey-transition.child-entering .journey-child-pushing {
+    opacity: 0;
+}
+
+.journey-transition.child-entering .journey-child-walking {
+    opacity: 1;
+    animation: naturalChildWalking .65s ease-in-out infinite;
+}
+
+/* Child moves deeper into the glowing doorway */
+@keyframes childEnterDoor {
+    0% {
+        transform: translateX(-50%) scale(1);
+        opacity: 1;
+    }
+
+    55% {
+        transform: translateX(-50%) translateY(-12px) scale(.78);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(-50%) translateY(-22px) scale(.55);
+        opacity: 0;
+    }
+}
+
+/* Mobile adjustment */
+@media (max-width: 600px) {
+
+    .journey-child {
+        width: clamp(145px, 42vw, 205px);
+        height: 68vh;
+    }
+
+    .journey-transition.child-arriving .journey-child,
+    .journey-transition.child-stopped .journey-child,
+    .journey-transition.child-pushing .journey-child {
+        transform: translateX(-50%);
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+
+    .journey-child,
+    .journey-child img {
+        animation: none !important;
+        transition-duration: .15s !important;
+    }
+}

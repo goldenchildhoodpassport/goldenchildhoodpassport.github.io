@@ -1,10 +1,15 @@
 
 /* =========================================
    GOLDEN CHILDHOOD PASSPORT
-   GLOBAL STYLES
+   GLOBAL CHILDHOOD ATMOSPHERE
+   VERSION 2.0
 ========================================= */
 
-/* Universal Reset */
+
+/* =========================================
+   01. UNIVERSAL RESET
+========================================= */
+
 *,
 *::before,
 *::after {
@@ -13,19 +18,51 @@
     box-sizing: border-box;
 }
 
-/* HTML */
+
+/* =========================================
+   02. HTML
+========================================= */
+
 html {
     width: 100%;
     min-height: 100%;
     scroll-behavior: smooth;
 }
 
-/* Body */
+
+/* =========================================
+   03. GLOBAL BODY — CHILDHOOD WORLD
+========================================= */
+
 body {
+    position: relative;
+    isolation: isolate;
+
     width: 100%;
     min-height: 100vh;
 
-    background-color: var(--color-paper);
+    background:
+        radial-gradient(
+            ellipse at 12% 12%,
+            rgba(255, 248, 218, 0.95),
+            transparent 35%
+        ),
+        radial-gradient(
+            ellipse at 88% 18%,
+            rgba(169, 199, 206, 0.30),
+            transparent 32%
+        ),
+        radial-gradient(
+            ellipse at 80% 85%,
+            rgba(132, 147, 107, 0.16),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #f5ecd9 0%,
+            #e9dfc8 48%,
+            #e3d4b7 100%
+        );
 
     color: var(--color-ink);
 
@@ -41,7 +78,254 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Headings */
+
+/* =========================================
+   04. GLOBAL AMBIENT LIGHT
+   Soft childhood sunlight
+========================================= */
+
+body::before {
+    content: "";
+
+    position: fixed;
+    inset: -15%;
+
+    z-index: -1;
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle at 18% 25%,
+            rgba(255, 239, 190, 0.35),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 78% 35%,
+            rgba(190, 216, 208, 0.24),
+            transparent 27%
+        ),
+        radial-gradient(
+            circle at 50% 90%,
+            rgba(217, 155, 114, 0.13),
+            transparent 30%
+        );
+
+    animation: childhood-light-drift 18s ease-in-out infinite alternate;
+}
+
+
+/* =========================================
+   05. GLOBAL PAPER TEXTURE
+========================================= */
+
+body::after {
+    content: "";
+
+    position: fixed;
+    inset: 0;
+
+    z-index: -1;
+    pointer-events: none;
+
+    opacity: 0.16;
+
+    background-image:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+
+    background-size: 180px 180px;
+
+    mix-blend-mode: multiply;
+}
+
+
+/* =========================================
+   06. WELCOME PAGE ATMOSPHERE
+   Childhood world begins immediately
+========================================= */
+
+.welcome-page {
+    position: relative;
+    isolation: isolate;
+
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            ellipse at 15% 20%,
+            rgba(255, 246, 216, 0.90),
+            transparent 35%
+        ),
+        radial-gradient(
+            ellipse at 85% 25%,
+            rgba(169, 199, 206, 0.28),
+            transparent 32%
+        ),
+        radial-gradient(
+            ellipse at 75% 85%,
+            rgba(132, 147, 107, 0.16),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #f4e8d0 0%,
+            #e9dfc8 48%,
+            #dce0c9 100%
+        );
+
+    overflow: hidden;
+}
+
+
+/* Soft moving sunlight on Welcome */
+
+.welcome-page::before {
+    content: "";
+
+    position: absolute;
+    inset: -20%;
+
+    z-index: -1;
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle at 20% 25%,
+            rgba(255, 255, 230, 0.55),
+            transparent 24%
+        ),
+        radial-gradient(
+            circle at 75% 65%,
+            rgba(217, 155, 114, 0.15),
+            transparent 25%
+        );
+
+    animation: welcome-sunlight 16s ease-in-out infinite alternate;
+}
+
+
+/* Gentle glowing memory atmosphere */
+
+.welcome-page::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    z-index: -1;
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle at 8% 75%,
+            rgba(255, 255, 255, 0.25),
+            transparent 15%
+        ),
+        radial-gradient(
+            circle at 92% 12%,
+            rgba(255, 239, 190, 0.30),
+            transparent 18%
+        );
+
+    animation: memory-glow 10s ease-in-out infinite alternate;
+}
+
+
+/* =========================================
+   07. GLOBAL PAGE ENTRY ANIMATION
+========================================= */
+
+@keyframes childhood-page-enter {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+@keyframes childhood-light-drift {
+    from {
+        transform: translate3d(-1%, -1%, 0) scale(1);
+    }
+
+    to {
+        transform: translate3d(1%, 1%, 0) scale(1.06);
+    }
+}
+
+
+@keyframes welcome-sunlight {
+    from {
+        transform: translate(-1%, 0) scale(1);
+    }
+
+    to {
+        transform: translate(1%, 1%) scale(1.08);
+    }
+}
+
+
+@keyframes memory-glow {
+    from {
+        opacity: 0.45;
+        transform: scale(1);
+    }
+
+    to {
+        opacity: 0.85;
+        transform: scale(1.04);
+    }
+}
+
+
+@keyframes childhood-soft-float {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+
+@keyframes childhood-gentle-sway {
+    0%,
+    100% {
+        transform: rotate(-2deg);
+    }
+
+    50% {
+        transform: rotate(2deg);
+    }
+}
+
+
+/* Reusable animation classes */
+
+.childhood-page-enter {
+    animation: childhood-page-enter 0.9s ease both;
+}
+
+.childhood-soft-float {
+    animation: childhood-soft-float 4s ease-in-out infinite;
+}
+
+.childhood-gentle-sway {
+    transform-origin: center;
+    animation: childhood-gentle-sway 5s ease-in-out infinite;
+}
+
+
+/* =========================================
+   08. HEADINGS
+========================================= */
+
 h1,
 h2,
 h3,
@@ -53,53 +337,85 @@ h6 {
     font-weight: 700;
 }
 
-/* Paragraph */
+
+/* =========================================
+   09. PARAGRAPH
+========================================= */
+
 p {
     margin: 0;
 }
 
-/* Links */
+
+/* =========================================
+   10. LINKS
+========================================= */
+
 a {
     color: inherit;
     text-decoration: none;
 }
 
-/* Images */
+
+/* =========================================
+   11. IMAGES
+========================================= */
+
 img,
 svg {
     display: block;
     max-width: 100%;
 }
 
-/* Buttons */
+
+/* =========================================
+   12. BUTTONS
+========================================= */
+
 button {
     font: inherit;
 }
 
-/* Inputs */
+
+/* =========================================
+   13. INPUTS
+========================================= */
+
 input,
 textarea,
 select {
     font: inherit;
 }
 
-/* Remove default button outline only when custom focus is provided */
+
+/* =========================================
+   14. ACCESSIBLE FOCUS
+========================================= */
+
 button:focus-visible,
 a:focus-visible,
 input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
-    outline: 2px solid var(--color-antique-gold);
-    outline-offset: 4px;
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-offset);
 }
 
-/* Selection */
+
+/* =========================================
+   15. TEXT SELECTION
+========================================= */
+
 ::selection {
     background: var(--color-burgundy);
     color: var(--color-paper-light);
 }
 
-/* Scrollbar */
+
+/* =========================================
+   16. SCROLLBAR
+========================================= */
+
 ::-webkit-scrollbar {
     width: 9px;
 }
@@ -118,7 +434,11 @@ select:focus-visible {
     background: var(--color-burgundy);
 }
 
-/* Utility */
+
+/* =========================================
+   17. UTILITY
+========================================= */
+
 .hidden {
     display: none !important;
 }
@@ -131,14 +451,23 @@ select:focus-visible {
     user-select: none;
 }
 
-/* Button disabled state */
+
+/* =========================================
+   18. BUTTON DISABLED STATE
+========================================= */
+
 button:disabled {
     opacity: 0.55;
     cursor: not-allowed;
 }
 
-/* Reduce motion for accessibility */
+
+/* =========================================
+   19. REDUCED MOTION
+========================================= */
+
 @media (prefers-reduced-motion: reduce) {
+
     *,
     *::before,
     *::after {
@@ -147,4 +476,5 @@ button:disabled {
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
     }
+
 }

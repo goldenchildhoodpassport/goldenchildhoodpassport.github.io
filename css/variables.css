@@ -1,14 +1,15 @@
 
 /* =========================================
    GOLDEN CHILDHOOD PASSPORT
-   DESIGN TOKENS / VARIABLES
+   GLOBAL CHILDHOOD DESIGN SYSTEM
+   VERSION 2.0
 ========================================= */
 
 :root {
 
-    /* -------------------------------------
-       COLORS
-    ------------------------------------- */
+    /* =====================================
+       01. CORE COLORS — ORIGINAL IDENTITY
+    ===================================== */
 
     --color-ink: #29251d;
     --color-ink-soft: #514638;
@@ -31,9 +32,100 @@
     --color-white: #fffdf7;
     --color-black: #17140f;
 
-    /* -------------------------------------
-       TYPOGRAPHY
-    ------------------------------------- */
+
+    /* =====================================
+       02. CHILDHOOD WORLD COLOR PALETTE
+    ===================================== */
+
+    /* Sky & Open World */
+
+    --color-sky: #a9c7ce;
+    --color-sky-light: #d5e5df;
+    --color-sky-dark: #718f96;
+
+    /* Nature & Village */
+
+    --color-leaf: #84936b;
+    --color-leaf-light: #b4bd91;
+    --color-leaf-dark: #4e6449;
+
+    /* Childhood Play */
+
+    --color-kite-red: #b95d4c;
+    --color-mustard: #d5aa55;
+    --color-play-blue: #789eae;
+    --color-chalk: #fff9e9;
+
+    /* Warm Memory */
+
+    --color-sunset: #d99b72;
+    --color-memory-pink: #d6a69a;
+    --color-memory-orange: #c98255;
+    --color-memory-cream: #f7edda;
+
+    /* Night Memories */
+
+    --color-night: #303c4a;
+    --color-night-blue: #526779;
+    --color-lantern: #e6b75f;
+
+
+    /* =====================================
+       03. GRADIENT SYSTEM
+    ===================================== */
+
+    --gradient-welcome:
+        linear-gradient(
+            135deg,
+            #f4e8d0 0%,
+            #e8d6b5 45%,
+            #d8c5a1 100%
+        );
+
+    --gradient-childhood:
+        linear-gradient(
+            135deg,
+            #f4e6ca 0%,
+            #e9d8b8 50%,
+            #d8c9a9 100%
+        );
+
+    --gradient-sunset:
+        linear-gradient(
+            135deg,
+            #e9c5a4 0%,
+            #d9a58c 50%,
+            #b97968 100%
+        );
+
+    --gradient-nature:
+        linear-gradient(
+            135deg,
+            #e5e7cf 0%,
+            #bdc7a2 55%,
+            #879875 100%
+        );
+
+    --gradient-night:
+        linear-gradient(
+            135deg,
+            #485664 0%,
+            #303c4a 55%,
+            #252d38 100%
+        );
+
+    --gradient-golden:
+        linear-gradient(
+            135deg,
+            #e5cf9d 0%,
+            #c5a66b 50%,
+            #987849 100%
+        );
+
+
+    /* =====================================
+       04. TYPOGRAPHY
+    ===================================== */
 
     --font-display: 'Cormorant Garamond', Georgia, serif;
     --font-body: 'DM Sans', Arial, sans-serif;
@@ -43,9 +135,19 @@
     --font-size-base: 16px;
     --font-size-lg: 18px;
 
-    /* -------------------------------------
-       LAYOUT
-    ------------------------------------- */
+    --font-size-xl: 22px;
+    --font-size-2xl: 30px;
+    --font-size-3xl: 40px;
+    --font-size-hero: clamp(42px, 6vw, 76px);
+
+    --line-height-tight: 1.15;
+    --line-height-normal: 1.6;
+    --line-height-relaxed: 1.8;
+
+
+    /* =====================================
+       05. LAYOUT
+    ===================================== */
 
     --page-width: 1400px;
 
@@ -53,17 +155,94 @@
 
     --header-height: 60px;
 
-    /* -------------------------------------
-       BORDER
-    ------------------------------------- */
+    --section-gap: clamp(40px, 7vw, 90px);
 
-    --border-light: 1px solid rgba(168, 138, 83, 0.35);
-    --border-gold: 1px solid var(--color-antique-gold);
-    --border-burgundy: 1px solid var(--color-burgundy);
+    --content-width: 900px;
 
-    /* -------------------------------------
-       SHADOW
-    ------------------------------------- */
+
+    /* =====================================
+       06. BACKGROUND SYSTEM
+    ===================================== */
+
+    --background-paper:
+        linear-gradient(
+            135deg,
+            #f5ecd9,
+            #e9dfc8
+        );
+
+    --background-vintage:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(255, 248, 225, 0.8),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 85% 80%,
+            rgba(193, 158, 103, 0.15),
+            transparent 35%
+        ),
+        #e9dfc8;
+
+    --background-childhood:
+        radial-gradient(
+            circle at 15% 15%,
+            rgba(255, 244, 210, 0.85),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 85% 25%,
+            rgba(169, 199, 206, 0.25),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #f3ead7,
+            #e5d7ba
+        );
+
+
+    /* =====================================
+       07. TEXTURE & DECORATION
+    ===================================== */
+
+    --texture-opacity: 0.12;
+
+    --decoration-opacity: 0.75;
+
+    --overlay-paper:
+        rgba(247, 237, 218, 0.72);
+
+    --overlay-dark:
+        rgba(41, 37, 29, 0.35);
+
+    --overlay-gold:
+        rgba(201, 173, 120, 0.18);
+
+
+    /* =====================================
+       08. BORDER
+    ===================================== */
+
+    --border-light:
+        1px solid rgba(168, 138, 83, 0.35);
+
+    --border-gold:
+        1px solid var(--color-antique-gold);
+
+    --border-burgundy:
+        1px solid var(--color-burgundy);
+
+    --border-vintage:
+        1px solid rgba(113, 60, 53, 0.22);
+
+    --border-dashed:
+        1px dashed rgba(168, 138, 83, 0.55);
+
+
+    /* =====================================
+       09. SHADOW
+    ===================================== */
 
     --shadow-soft:
         0 8px 25px rgba(56, 43, 27, 0.10);
@@ -74,31 +253,81 @@
     --shadow-strong:
         0 25px 55px rgba(56, 43, 27, 0.25);
 
-    /* -------------------------------------
-       RADIUS
-    ------------------------------------- */
+    --shadow-paper:
+        0 12px 30px rgba(70, 52, 31, 0.12);
+
+    --shadow-floating:
+        0 18px 40px rgba(48, 42, 31, 0.18);
+
+    --shadow-glow-gold:
+        0 0 25px rgba(230, 183, 95, 0.25);
+
+
+    /* =====================================
+       10. RADIUS
+    ===================================== */
 
     --radius-small: 2px;
     --radius-medium: 6px;
     --radius-large: 12px;
     --radius-round: 50%;
 
-    /* -------------------------------------
-       TRANSITIONS
-    ------------------------------------- */
+    --radius-card: 14px;
+    --radius-paper: 4px;
+    --radius-pill: 999px;
+
+
+    /* =====================================
+       11. TRANSITIONS
+    ===================================== */
 
     --transition-fast: 0.2s ease;
     --transition: 0.3s ease;
     --transition-slow: 0.5s ease;
 
-    /* -------------------------------------
-       Z-INDEX
-    ------------------------------------- */
+    --transition-page: 0.8s ease-in-out;
+
+    --ease-childhood:
+        cubic-bezier(0.22, 1, 0.36, 1);
+
+    --ease-memory:
+        cubic-bezier(0.65, 0, 0.35, 1);
+
+
+    /* =====================================
+       12. ANIMATION DURATIONS
+    ===================================== */
+
+    --duration-fast: 0.3s;
+    --duration-normal: 0.6s;
+    --duration-slow: 1s;
+    --duration-dreamy: 2.5s;
+    --duration-floating: 4s;
+
+    --animation-distance: 24px;
+
+
+    /* =====================================
+       13. Z-INDEX
+    ===================================== */
 
     --z-background: -1;
     --z-content: 1;
     --z-header: 5;
     --z-decoration: 10;
     --z-overlay: 100;
+
+    --z-modal: 200;
+    --z-animation: 300;
+
+
+    /* =====================================
+       14. ACCESSIBILITY
+    ===================================== */
+
+    --focus-outline:
+        3px solid rgba(113, 60, 53, 0.65);
+
+    --focus-offset: 4px;
 
 }
