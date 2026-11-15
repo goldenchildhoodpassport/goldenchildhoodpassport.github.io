@@ -1790,13 +1790,6 @@
         opacity .3s ease;
 }
 
-/* Child arrives */
-
-.journey-transition.child-arriving .journey-child {
-    opacity: 1;
-    transform: translateX(calc(50vw - 75px));
-}
-
 /* Child pushes the door */
 
 .journey-transition.child-pushing .journey-child {
@@ -2209,12 +2202,6 @@
     opacity: 0;
 }
 
-/* Child enters the scene */
-.journey-transition.child-arriving .journey-child {
-    opacity: 1;
-    transform: translateX(calc(-50% - 13vw));
-}
-
 /* Switch walking pose to pushing pose */
 .journey-transition.child-pushing .journey-child {
     opacity: 1;
@@ -2334,12 +2321,6 @@
     }
 }
 
-/* Scene 1: Walk from left to center */
-.journey-transition.child-arriving .journey-child {
-    opacity: 1;
-    transform: translateX(-50%);
-}
-
 /* Scene 2: Stop in front of the door */
 .journey-transition.child-stopped .journey-child {
     transform: translateX(-50%);
@@ -2423,4 +2404,116 @@
         animation: none !important;
         transition-duration: .15s !important;
     }
+}
+
+/* ==========================================
+   GOLDEN CHILDHOOD PASSPORT
+   REALISTIC CHILD MOVEMENT - FIX VERSION 3.0
+========================================== */
+
+/* Keep the transition overlay as the positioning reference */
+.journey-transition {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+/* Child container: JavaScript controls its position */
+.journey-transition .journey-child {
+    position: absolute !important;
+    z-index: 50 !important;
+
+    display: block !important;
+    visibility: visible !important;
+
+    transition: none !important;
+    animation: none !important;
+
+    transform-origin: bottom center !important;
+
+    pointer-events: none !important;
+    will-change: left, bottom, transform, opacity;
+}
+
+/* Frame image */
+.journey-transition .journey-child-frame {
+    display: block !important;
+
+    position: absolute !important;
+    inset: 0 !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    object-fit: contain !important;
+    object-position: center bottom !important;
+
+    visibility: visible !important;
+    transition: none !important;
+    animation: none !important;
+}
+
+/* Slow, realistic double-door opening */
+.journey-transition .journey-door {
+    transition:
+        transform 2.5s cubic-bezier(.65, 0, .25, 1) !important;
+}
+
+/* Keep the golden light visible during the opening */
+.journey-transition.is-opening .journey-light,
+.journey-transition.is-opening .journey-door-glow {
+    transition:
+        opacity 2s ease,
+        transform 2.5s ease !important;
+}
+
+/* Keep child visible above the door */
+.journey-transition .journey-child {
+    filter: drop-shadow(0 8px 9px rgba(35, 20, 10, .25));
+}
+
+/* Mobile sizing */
+@media (max-width: 600px) {
+    .journey-transition .journey-child {
+        width: 125px !important;
+        height: 190px !important;
+    }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .journey-transition .journey-door {
+        transition-duration: .1s !important;
+    }
+}
+/* JOURNEY CHILD - CORRECTED VERSION */
+.journey-child {
+    position: absolute;
+    left: 5%;
+    bottom: 7%;
+    width: clamp(130px, 14vw, 190px);
+    height: clamp(170px, 32vh, 260px);
+    z-index: 50;
+    display: block;
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-50%);
+    transform-origin: bottom center;
+    pointer-events: none;
+    will-change: left, bottom, transform, opacity;
+    filter: drop-shadow(0 8px 9px rgba(35, 20, 10, 0.25));
+}
+
+.journey-transition .journey-child-frame {
+    display: block !important;
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    object-position: center bottom !important;
+    visibility: visible !important;
+    transition: none !important;
+    animation: none !important;
 }

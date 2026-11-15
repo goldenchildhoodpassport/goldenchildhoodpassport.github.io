@@ -29,7 +29,8 @@ document.addEventListener("DOMContentLoaded", () => {
         "internet-digital-life": "Internet & Digital Life",
         "special-memories": "Special Memories & Neighbourhood"
     };
-
+const openMemoryBookButton =
+    document.getElementById("openMemoryBookButton");
 
     // ======================================
     // 2. HYBRID ANSWER CONFIGURATION
@@ -643,7 +644,15 @@ document.addEventListener("DOMContentLoaded", () => {
         elements.personalMemory.value =
             savedAnswer?.personalMemory || "";
 
-
+// Open Memory Book button
+if (openMemoryBookButton && questionCard) {
+    openMemoryBookButton.addEventListener("click", () => {
+        questionCard.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    });
+}
         // ----------------------------------
         // NAVIGATION
         // ----------------------------------

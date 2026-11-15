@@ -590,3 +590,237 @@
         transition: none;
     }
 }
+
+/* =========================================
+   QUIZ INTRO — CHILDHOOD SCRAPBOOK
+   Step 1 | Golden Childhood Passport
+========================================= */
+
+.quiz-intro {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+
+    padding: 46px 30px 42px;
+    margin: 0 0 30px;
+
+    border: 1px solid rgba(139, 105, 67, 0.28);
+    border-radius: 5px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(250, 241, 220, 0.94),
+            rgba(238, 220, 187, 0.90)
+        );
+
+    box-shadow:
+        0 12px 30px rgba(73, 48, 27, 0.10),
+        inset 0 0 35px rgba(143, 105, 59, 0.08);
+}
+
+/* Old scrapbook paper texture */
+.quiz-intro::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+
+    opacity: 0.22;
+
+    background-image:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(116, 79, 44, 0.22) 0 1px,
+            transparent 2px
+        ),
+        radial-gradient(
+            circle at 80% 70%,
+            rgba(116, 79, 44, 0.18) 0 1px,
+            transparent 2px
+        ),
+        repeating-linear-gradient(
+            0deg,
+            transparent 0 5px,
+            rgba(120, 87, 51, 0.035) 6px
+        );
+
+    background-size:
+        19px 19px,
+        27px 27px,
+        100% 100%;
+}
+
+/* Decorative scrapbook corner marks */
+.quiz-intro::after {
+    content: "✦   MEMORY COLLECTION   ✦";
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    color: #92734e;
+    font-family: "DM Sans", sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    white-space: nowrap;
+    opacity: 0.75;
+}
+
+/* Intro eyebrow */
+.quiz-intro .quiz-eyebrow {
+    display: inline-block;
+    margin-top: 12px;
+    margin-bottom: 17px;
+
+    padding: 7px 13px;
+
+    color: #795536;
+    background: rgba(255, 249, 234, 0.72);
+
+    border: 1px dashed rgba(128, 91, 54, 0.48);
+    border-radius: 2px;
+
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+/* Main heading */
+.quiz-intro h1 {
+    color: #493522;
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(34px, 5vw, 48px);
+    font-weight: 700;
+    line-height: 1.12;
+    margin-bottom: 14px;
+}
+
+.quiz-intro h1 em {
+    color: #986b3d;
+    font-style: italic;
+}
+
+/* Intro description */
+.quiz-intro p {
+    max-width: 540px;
+    margin: 0 auto;
+
+    color: #76634d;
+    font-size: 14px;
+    line-height: 1.85;
+}
+
+/* Scrapbook tape effect */
+.quiz-intro {
+    background-image:
+        linear-gradient(
+            135deg,
+            rgba(250, 241, 220, 0.94),
+            rgba(238, 220, 187, 0.90)
+        );
+}
+
+/* Mobile adjustment */
+@media (max-width: 600px) {
+    .quiz-intro {
+        padding: 42px 18px 30px;
+        margin-bottom: 24px;
+    }
+
+    .quiz-intro::after {
+        font-size: 8px;
+        letter-spacing: 2px;
+    }
+
+    .quiz-intro .quiz-eyebrow {
+        font-size: 9px;
+        letter-spacing: 1.5px;
+    }
+
+    .quiz-intro h1 {
+        font-size: 34px;
+    }
+
+    .quiz-intro p {
+        font-size: 13px;
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .quiz-intro {
+        animation: scrapbookIntroAppear 0.55s ease-out both;
+    }
+
+    @keyframes scrapbookIntroAppear {
+        from {
+            opacity: 0;
+            transform: translateY(9px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+/* Open Memory Book Button */
+
+.open-memory-book-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    margin-top: 25px;
+    padding: 13px 25px;
+
+    color: #fff8e9;
+    background: #795536;
+
+    border: 1px solid #a8875c;
+    border-radius: 3px;
+
+    font-family: "DM Sans", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    box-shadow: 0 5px 13px rgba(73, 48, 27, 0.18);
+
+    transition:
+        background 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.open-memory-book-button:hover {
+    background: #5f4028;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 17px rgba(73, 48, 27, 0.22);
+}
+
+.open-memory-book-button span {
+    font-size: 18px;
+    transition: transform 0.25s ease;
+}
+
+.open-memory-book-button:hover span {
+    transform: translateX(4px);
+}
+
+.open-memory-book-button:focus-visible {
+    outline: 3px solid #b99563;
+    outline-offset: 4px;
+}
+
+@media (max-width: 600px) {
+    .open-memory-book-button {
+        margin-top: 21px;
+        padding: 12px 20px;
+        font-size: 11px;
+    }
+}
