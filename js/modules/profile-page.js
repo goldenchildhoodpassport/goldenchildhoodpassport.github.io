@@ -1,25 +1,41 @@
 
 /* ==========================================
-   PROFILE PAGE
+   GOLDEN CHILDHOOD PASSPORT
+   PROFILE PAGE — VERSION 2.1
 ========================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    const profileForm = document.getElementById("childhoodProfileForm");
+    // ======================================
+    // 1. PROFILE FORM
+    // ======================================
 
-    if (!profileForm) return;
+    const profileForm = document.getElementById(
+        "childhoodProfileForm"
+    );
+
+    if (!profileForm) {
+        console.error("Profile form not found!");
+        return;
+    }
 
 
-    // Load saved profile
+    // ======================================
+    // 2. LOAD SAVED PROFILE
+    // ======================================
+
     try {
 
-        const savedProfile = localStorage.getItem("gcp_user_profile");
+        const savedProfile = localStorage.getItem(
+            "gcp_user_profile"
+        );
 
         if (savedProfile) {
 
             const profile = JSON.parse(savedProfile);
 
-            profileForm.elements.name.value = profile.name || "";
+            profileForm.elements.name.value =
+                profile.name || "";
 
             profileForm.elements.dateOfBirth.value =
                 profile.dateOfBirth || "";
@@ -33,7 +49,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     `input[name="childhoodSetting"][value="${profile.childhoodSetting}"]`
                 );
 
-                if (selected) selected.checked = true;
+                if (selected) {
+                    selected.checked = true;
+                }
 
             }
 
@@ -46,25 +64,45 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    // Submit profile
+    // ======================================
+    // 3. SUBMIT PROFILE
+    // ======================================
+
     profileForm.addEventListener("submit", (event) => {
 
         event.preventDefault();
 
-        if (!profileForm.reportValidity()) return;
+        // Validate required fields
+        if (!profileForm.reportValidity()) {
+            return;
+        }
 
-        const name = profileForm.elements.name.value.trim();
 
-        const dateOfBirth = profileForm.elements.dateOfBirth.value;
+        // Get form values
+        const name =
+            profileForm.elements.name.value.trim();
+
+        const dateOfBirth =
+            profileForm.elements.dateOfBirth.value;
 
         const childhoodLocation =
             profileForm.elements.childhoodLocation.value.trim();
 
+        const settingInput = profileForm.querySelector(
+            'input[name="childhoodSetting"]:checked'
+        );
+
         const childhoodSetting =
-            profileForm.elements.childhoodSetting.value;
+            settingInput ? settingInput.value : "";
 
 
-        const dob = new Date(dateOfBirth + "T00:00:00");
+        // ==================================
+        // 4. VALIDATE DATE OF BIRTH
+        // ==================================
+
+        const dob = new Date(
+            dateOfBirth + "T00:00:00"
+        );
 
         if (
             !dateOfBirth ||
@@ -78,17 +116,25 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
+        // ==================================
+        // 5. CREATE PROFILE OBJECT
+        // ==================================
+
         const userProfile = {
 
-            name,
-            dateOfBirth,
-            childhoodLocation,
-            childhoodSetting,
+            name: name,
+            dateOfBirth: dateOfBirth,
+            childhoodLocation: childhoodLocation,
+            childhoodSetting: childhoodSetting,
 
             createdAt: new Date().toISOString()
 
         };
 
+
+        // ==================================
+        // 6. SAVE AND NAVIGATE TO QUIZ
+        // ==================================
 
         try {
 
@@ -97,14 +143,30 @@ document.addEventListener("DOMContentLoaded", () => {
                 JSON.stringify(userProfile)
             );
 
-            // Next step will be the Quiz page
-            window.location.href = "quiz.html";
+            // Verify saved profile
+            const savedData = localStorage.getItem(
+                "gcp_user_profile"
+            );
+
+            if (!savedData) {
+                throw new Error("Profile could not be saved.");
+            }
+
+            console.log("Profile saved successfully.");
+
+            // Navigate to Chapter 02
+            window.location.assign("./quiz.html");
 
         } catch (error) {
 
-            console.error("Profile saving error:", error);
+            console.error(
+                "Profile saving or navigation error:",
+                error
+            );
 
-            alert("Unable to save your profile. Please try again.");
+            alert(
+                "Unable to continue. Please check your browser and try again."
+            );
 
         }
 

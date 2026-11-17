@@ -759,22 +759,27 @@ notifyDoorOpened();
         }
     }
 
+ 
     // ==========================================
     // 11. PROFILE FORM SUBMISSION
     // ==========================================
 
     if (profileForm) {
+
         profileForm.addEventListener("submit", (event) => {
+
             event.preventDefault();
 
             const nameField = document.getElementById("profileName");
             const dobField = document.getElementById("profileDob");
             const locationField = document.getElementById("childhoodLocation");
 
+            const selectedSetting = profileForm.querySelector(
+                'input[name="childhoodSetting"]:checked'
+            );
+
             if (!nameField || !dobField || !locationField) {
-                console.error(
-                    "[Golden Childhood Passport] Profile form fields are missing."
-                );
+                console.error("Profile form fields are missing.");
                 return;
             }
 
@@ -782,21 +787,12 @@ notifyDoorOpened();
             const dateOfBirth = dobField.value;
             const childhoodLocation = locationField.value.trim();
 
-            const selectedSetting = profileForm.querySelector(
-                'input[name="childhoodSetting"]:checked'
-            );
-
-            if (
-                !name ||
-                !dateOfBirth ||
-                !childhoodLocation ||
-                !selectedSetting
-            ) {
-                alert("Please complete all profile fields.");
+            if (!name || !dateOfBirth || !selectedSetting) {
+                alert("Please complete all required profile fields.");
                 return;
             }
 
-            const dob = new Date(`${dateOfBirth}T00:00:00`);
+            const dob = new Date(dateOfBirth + "T00:00:00");
             const today = new Date();
             today.setHours(0, 0, 0, 0);
 
@@ -806,29 +802,37 @@ notifyDoorOpened();
             }
 
             const userProfile = {
-                name,
-                dateOfBirth,
-                childhoodLocation,
+                name: name,
+                dateOfBirth: dateOfBirth,
+                childhoodLocation: childhoodLocation,
                 childhoodSetting: selectedSetting.value,
                 createdAt: new Date().toISOString()
             };
 
             try {
+
                 localStorage.setItem(
                     "gcp_user_profile",
                     JSON.stringify(userProfile)
                 );
 
-                alert("Your profile has been saved successfully!");
+                console.log("Profile saved successfully.");
+
+                // Navigate to Chapter 02
+                window.location.href = "./quiz.html";
+
             } catch (error) {
-                console.error(
-                    "[Golden Childhood Passport] Could not save profile:",
-                    error
+
+                console.error("Profile saving error:", error);
+
+                alert(
+                    "Your profile could not be saved. Please check browser storage."
                 );
-                alert("Your profile could not be saved. Please check browser storage.");
+
             }
 
-            // Quiz navigation will be connected in the next step.
         });
+
     }
+
 });

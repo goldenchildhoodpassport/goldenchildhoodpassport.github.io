@@ -7,10 +7,12 @@
 
     <title>Childhood Memories Quiz | Golden Childhood Passport</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Cinzel:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 
     <link rel="stylesheet" href="css/variables.css">
     <link rel="stylesheet" href="css/quiz.css">
@@ -20,120 +22,219 @@
 
     <main class="quiz-screen">
 
+        <!-- QUIZ HEADER -->
         <header class="quiz-header">
+
             <a href="index.html" class="quiz-brand">
                 <span class="quiz-brand-icon">✦</span>
                 <span>Golden Childhood Passport</span>
             </a>
 
-            <div class="quiz-edition">THE MEMORY COLLECTION</div>
+            <div class="quiz-edition">
+                THE MEMORY COLLECTION
+            </div>
+
         </header>
 
+
+        <!-- QUIZ MAIN CONTENT -->
         <section class="quiz-container">
 
-            <div class="quiz-intro">
-                <span class="quiz-eyebrow">CHAPTER 02 · THE JOURNEY</span>
 
-                <h1>Let's Explore Your <em>Childhood</em></h1>
+            <!-- CHAPTER 02: SCRAPBOOK INTRO -->
+            <section class="quiz-intro" id="quizIntro">
+
+                <span class="quiz-eyebrow">
+                    CHAPTER 02 · THE JOURNEY
+                </span>
+
+                <h1>
+                    Let's Explore Your <em>Childhood</em>
+                </h1>
 
                 <p>
                     Every memory has a story. Answer honestly and
                     rediscover the little moments that made your childhood special.
                 </p>
+
                 <button
-    type="button"
-    class="open-memory-book-button"
-    id="openMemoryBookButton"
->
-    Open My Memory Book <span>→</span>
-</button>
-            </div>
-
-            <div class="quiz-progress-card">
-
-                <div class="quiz-progress-top">
-                    <span id="questionCounter">QUESTION 01 OF 84</span>
-                    <span id="progressPercentage">1% COMPLETED</span>
-                </div>
-
-                <div class="quiz-progress-track">
-                    <div class="quiz-progress-fill" id="progressFill"></div>
-                </div>
-
-                <div class="quiz-category-row">
-                    <span class="quiz-category-label">CURRENT CATEGORY</span>
-                    <span class="quiz-category-name" id="categoryName">
-                        Electricity & Night Life
-                    </span>
-                </div>
-
-            </div>
-
-            <section class="question-card" id="questionCard">
-
-                <div class="question-card-top">
-                    <span class="question-number" id="questionNumber">01</span>
-                    <span class="question-tag">CHILDHOOD MEMORY</span>
-                </div>
-
-                <h2 id="questionText">Loading your childhood memories...</h2>
-
-                <p class="question-helper" id="questionHelper"></p>
-
-                <div class="answer-list" id="answerList"></div>
-
-                <div class="personal-memory-box" id="personalMemoryBox">
-                    <label for="personalMemory">
-                        <span>✎</span>
-                        Add your personal memory
-                        <small>OPTIONAL</small>
-                    </label>
-
-                    <textarea
-                        id="personalMemory"
-                        rows="3"
-                        placeholder="Tell us a little story behind your answer..."
-                    ></textarea>
-                </div>
-
-                <div class="question-navigation">
-
-                    <button
-                        type="button"
-                        class="quiz-previous-button"
-                        id="previousButton"
-                        disabled
-                    >
-                        ← Previous
-                    </button>
-
-                    <button
-                        type="button"
-                        class="quiz-next-button"
-                        id="nextButton"
-                        disabled
-                    >
-                        Next Question →
-                    </button>
-
-                </div>
+                    type="button"
+                    class="open-memory-book-button"
+                    id="openMemoryBookButton"
+                >
+                    Open My Memory Book <span>→</span>
+                </button>
 
             </section>
 
-            <div class="quiz-bottom-note">
-                <span>✦</span>
-                There are no right or wrong answers. Every childhood is unique.
+
+            <!-- QUIZ JOURNEY: HIDDEN UNTIL INTRO BUTTON CLICK -->
+            <div id="quizJourney" hidden>
+
+
+                <!-- PROGRESS CARD -->
+                <div class="quiz-progress-card">
+
+                    <div class="quiz-progress-top">
+
+                        <span id="questionCounter">
+                            QUESTION 01 OF 84
+                        </span>
+
+                        <span id="progressPercentage">
+                            1% COMPLETED
+                        </span>
+
+                    </div>
+
+
+                    <div class="quiz-progress-track">
+
+                        <div
+                            class="quiz-progress-fill"
+                            id="progressFill"
+                        ></div>
+
+                    </div>
+
+
+                    <div class="quiz-category-row">
+
+                        <span class="quiz-category-label">
+                            CURRENT CATEGORY
+                        </span>
+
+                        <span
+                            class="quiz-category-name"
+                            id="categoryName"
+                        >
+                            Electricity & Night Life
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- QUESTION CARD -->
+                <section class="question-card" id="questionCard">
+                    
+
+                    <div class="question-card-top">
+
+                        <span
+                            class="question-number"
+                            id="questionNumber"
+                        >
+                            01
+                        </span>
+
+                        <span class="question-tag">
+                            CHILDHOOD MEMORY
+                        </span>
+
+                    </div>
+
+
+                    <h2 id="questionText">
+                        Loading your childhood memories...
+                    </h2>
+
+
+                    <p
+                        class="question-helper"
+                        id="questionHelper"
+                    ></p>
+
+
+                    <!-- ANSWER OPTIONS -->
+                    <div
+                        class="answer-list"
+                        id="answerList"
+                    ></div>
+
+
+                    <!-- PERSONAL MEMORY -->
+                    <div
+                        class="personal-memory-box"
+                        id="personalMemoryBox"
+                    >
+
+                        <label for="personalMemory">
+
+                            <span>✎</span>
+
+                            Add your personal memory
+
+                            <small>OPTIONAL</small>
+
+                        </label>
+
+
+                        <textarea
+                            id="personalMemory"
+                            rows="3"
+                            placeholder="Tell us a little story behind your answer..."
+                        ></textarea>
+
+                    </div>
+
+
+                    <!-- QUESTION NAVIGATION -->
+                    <div class="question-navigation">
+
+                        <button
+                            type="button"
+                            class="quiz-previous-button"
+                            id="previousButton"
+                            disabled
+                        >
+                            ← Previous
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="quiz-next-button"
+                            id="nextButton"
+                            disabled
+                        >
+                            Next Question →
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+                <!-- BOTTOM NOTE -->
+                <div class="quiz-bottom-note">
+
+                    <span>✦</span>
+
+                    There are no right or wrong answers.
+                    Every childhood is unique.
+
+                </div>
+
             </div>
 
         </section>
 
+
+        <!-- FOOTER -->
         <footer class="quiz-footer">
+
             <span>GOLDEN CHILDHOOD PASSPORT</span>
+
             <span>EST. IN MEMORIES · MADE WITH LOVE</span>
+
         </footer>
 
     </main>
 
+
+    <!-- SCRIPTS -->
     <script src="js/data/questions.js"></script>
     <script src="js/modules/quiz.js"></script>
 
