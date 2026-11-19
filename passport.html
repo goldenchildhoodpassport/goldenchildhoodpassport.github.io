@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 rx=%2218%22 fill=%22%23713c35%22/%3E%3Cpath d=%22M50 18L57 43L82 50L57 57L50 82L43 57L18 50L43 43Z%22 fill=%22%23d9bd7e%22/%3E%3C/svg%3E">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>আমার শৈশবের পাসপোর্ট · Golden Childhood Passport</title>
+    <meta name="description" content="Every childhood has a story. আমার শৈশবের পাসপোর্ট দেখো, তারপর নিজেরটা বানাও।">
+    <meta property="og:title" content="আমার শৈশবের পাসপোর্ট ✦ Golden Childhood Passport">
+    <meta property="og:description" content="হারিকেন, BTV, Nokia, টিফিন চুরি… তোমার শৈশবের স্কোর কত?">
+    <meta name="theme-color" content="#2b2118">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atma:wght@400;500;600&family=Hind+Siliguri:wght@400;500;600;700&family=Noto+Serif+Bengali:wght@500;600;700&family=Cormorant+Garamond:wght@500;600;700&family=Cinzel:wght@500;600;700&family=VT323&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/passport.css">
+</head>
+
+<body class="pp">
+
+    <div class="pp-bg" aria-hidden="true"></div>
+
+    <header class="pp-header">
+        <a class="pp-brand" href="index.html">✦ <span>Golden Childhood</span></a>
+        <span class="pp-chapter" id="chapterLabel">CHAPTER 03 · পাসপোর্ট</span>
+    </header>
+
+    <main class="pp-main">
+
+        <!-- ========== A. NO DATA YET ========== -->
+        <section class="pp-panel" id="emptyStep" hidden>
+            <h1>এখনো তোমার শৈশবের দিনটা শুরু হয়নি!</h1>
+            <p>পাসপোর্ট বানাতে আগে স্মৃতির প্রশ্নগুলোর উত্তর দিতে হবে।</p>
+            <a class="pp-btn pp-btn-primary" href="index.html">যাত্রা শুরু করো →</a>
+        </section>
+
+        <!-- ========== B. PHOTO ========== -->
+        <section class="pp-panel" id="photoStep" hidden>
+            <span class="pp-eyebrow">শেষ ধাপ · ছবি</span>
+            <h1>পাসপোর্টের জন্য একটা ছবি লাগাও</h1>
+            <p>ছোটবেলার ছবি হলে সবচেয়ে ভালো! ছবিটা শুধু তোমার ফোনেই থাকবে, কোথাও আপলোড হবে না।</p>
+
+            <div class="pp-cropper" id="cropper">
+                <canvas id="cropCanvas" width="480" height="600"></canvas>
+                <label class="pp-cropper-empty" id="cropEmpty" for="photoInput">
+                    <span>📷</span>
+                    <strong>ছবি বেছে নাও</strong>
+                    <small>গ্যালারি বা ক্যামেরা থেকে</small>
+                </label>
+                <span class="pp-tape pp-tape-a"></span><span class="pp-tape pp-tape-b"></span>
+            </div>
+            <input type="file" id="photoInput" accept="image/*" hidden>
+
+            <div class="pp-zoom" id="zoomRow" hidden>
+                <span>−</span>
+                <input type="range" id="zoomRange" min="1" max="3" step="0.01" value="1" aria-label="ছবি বড়-ছোট করো">
+                <span>+</span>
+            </div>
+            <p class="pp-hint" id="cropHint" hidden>ছবি টেনে সরাও, স্লাইডার দিয়ে বড়-ছোট করো।</p>
+
+            <div class="pp-actions">
+                <button class="pp-btn pp-btn-ghost" id="skipPhoto" type="button">ছবি ছাড়াই চলো</button>
+                <label class="pp-btn pp-btn-ghost" id="changePhoto" for="photoInput" hidden>অন্য ছবি</label>
+                <button class="pp-btn pp-btn-primary" id="usePhoto" type="button" disabled>ছবিটা লাগাও ✓</button>
+            </div>
+        </section>
+
+        <!-- ========== C. THE PASSPORT ========== -->
+        <section class="pp-reveal" id="revealStep" hidden>
+
+            <p class="pp-shared-note" id="sharedNote" hidden></p>
+
+            <div class="pp-book" id="book">
+                <!-- closed cover -->
+                <button class="pp-cover" id="cover" type="button" aria-label="পাসপোর্ট খোলো">
+                    <span class="pp-cover-top">গণ-শৈশব প্রজাতন্ত্র</span>
+                    <span class="pp-cover-emblem">
+                        <svg viewBox="0 0 100 100" aria-hidden="true">
+                            <circle cx="50" cy="50" r="44" fill="none" stroke="currentColor" stroke-width="2"/>
+                            <circle cx="50" cy="50" r="36" fill="none" stroke="currentColor" stroke-width="1"/>
+                            <path d="M50 18 L56 40 L78 46 L56 52 L50 74 L44 52 L22 46 L44 40 Z" fill="currentColor"/>
+                            <path d="M30 80 q20 -14 40 0" fill="none" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </span>
+                    <span class="pp-cover-title">শৈশবের<br>পাসপোর্ট</span>
+                    <span class="pp-cover-en">CHILDHOOD PASSPORT</span>
+                    <span class="pp-cover-chip"></span>
+                    <span class="pp-cover-tap" id="coverTap">খুলতে চাপ দাও ☝</span>
+                </button>
+
+                <!-- open spread -->
+                <div class="pp-spread" id="spread">
+                    <!-- LEFT: identity -->
+                    <div class="pp-page pp-left">
+                        <div class="pp-page-head">
+                            <span>গণ-শৈশব প্রজাতন্ত্র</span>
+                            <strong>শৈশবের পাসপোর্ট · CHILDHOOD PASSPORT</strong>
+                        </div>
+                        <div class="pp-id">
+                            <div class="pp-photo" id="ppPhoto">
+                                <span class="pp-tape pp-tape-a"></span>
+                            </div>
+                            <dl class="pp-fields">
+                                <div><dt>ডাকনাম / Name</dt><dd class="pp-hand" id="fName"></dd></div>
+                                <div><dt>যুগ / Generation</dt><dd id="fEra"></dd></div>
+                                <div><dt>জন্মসাল</dt><dd id="fYear"></dd></div>
+                                <div><dt>শৈশবের ঠিকানা</dt><dd id="fPlace"></dd></div>
+                                <div><dt>বেড়ে ওঠা</dt><dd id="fSetting"></dd></div>
+                                <div><dt>পাসপোর্ট নং</dt><dd class="pp-mono" id="fNumber"></dd></div>
+                            </dl>
+                        </div>
+                        <div class="pp-sign">
+                            <span class="pp-hand" id="fSign"></span>
+                            <small>বাহকের স্বাক্ষর · ইস্যু: <span id="fIssued"></span></small>
+                        </div>
+                        <div class="pp-mrz" id="mrz"></div>
+                    </div>
+
+                    <!-- RIGHT: score + stamps -->
+                    <div class="pp-page pp-right">
+                        <div class="pp-page-head">
+                            <span>ভিসা ও স্ট্যাম্প</span>
+                            <strong>VISAS · শৈশবের ১২টা জায়গা</strong>
+                        </div>
+
+                        <div class="pp-score">
+                            <div class="pp-score-box">
+                                <strong id="scoreValue">০</strong><small>/১০০</small>
+                                <canvas class="pp-scratch" id="scratch" width="300" height="140" aria-label="ঘষে স্কোর দেখো"></canvas>
+                            </div>
+                            <div class="pp-score-meta">
+                                <span>Childhood Memories Score</span>
+                                <strong id="titleBn"></strong>
+                                <em id="titleEn"></em>
+                            </div>
+                        </div>
+
+                        <ol class="pp-stamps" id="stamps"></ol>
+
+                        <div class="pp-badges" id="badgeRow"></div>
+                    </div>
+                </div>
+            </div>
+
+            <p class="pp-title-line" id="titleLine"></p>
+
+            <!-- actions -->
+            <div class="pp-actions pp-final-actions" id="finalActions" hidden>
+                <button class="pp-btn pp-btn-primary" id="downloadBtn" type="button">⬇ ছবি হিসেবে নামাও</button>
+                <button class="pp-btn pp-btn-primary" id="shareBtn" type="button">↗ বন্ধুদের পাঠাও</button>
+                <a class="pp-btn pp-btn-ghost" href="quiz.html" id="editBtn">✎ উত্তর বদলাও</a>
+                <button class="pp-btn pp-btn-ghost" id="photoBtn" type="button">📷 ছবি বদলাও</button>
+            </div>
+            <div class="pp-actions" id="sharedActions" hidden>
+                <a class="pp-btn pp-btn-primary" href="index.html">✦ আমারটা বানাই</a>
+            </div>
+            <p class="pp-toast" id="ppToast" role="status" aria-live="polite"></p>
+
+            <!-- comparison with a friend -->
+            <section class="pp-compare" id="compare" hidden>
+                <h2>তুমি বনাম <span id="compareName"></span></h2>
+                <div class="pp-compare-score" id="compareScore"></div>
+                <ul class="pp-compare-list" id="compareList"></ul>
+            </section>
+
+            <!-- CV style detail view -->
+            <section class="pp-cv" id="cv" hidden>
+                <header class="pp-cv-head">
+                    <span class="pp-eyebrow">বিস্তারিত · শৈশবের জীবনবৃত্তান্ত</span>
+                    <h2 id="cvName"></h2>
+                    <p id="cvSummary"></p>
+                </header>
+
+                <h3>জায়গা অনুযায়ী স্মৃতি</h3>
+                <ul class="pp-bars" id="cvBars"></ul>
+
+                <h3>ব্যাজ সংগ্রহ <small id="cvBadgeCount"></small></h3>
+                <ul class="pp-badge-list" id="cvBadges"></ul>
+
+                <div id="cvMemoriesWrap">
+                    <h3>নিজের লেখা স্মৃতি</h3>
+                    <ul class="pp-memories" id="cvMemories"></ul>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <canvas id="exportCanvas" width="1080" height="1350" hidden></canvas>
+
+    <script src="js/data/questions.js"></script>
+    <script src="js/data/journey.js"></script>
+    <script src="js/data/badges.js"></script>
+    <script src="js/data/titles.js"></script>
+    <script src="js/utils/helpers.js"></script>
+    <script src="js/modules/storage.js"></script>
+    <script src="js/modules/generation.js"></script>
+    <script src="js/modules/scoring.js"></script>
+    <script src="js/modules/badge-engine.js"></script>
+    <script src="js/modules/sound.js"></script>
+    <script src="js/modules/photo-upload.js"></script>
+    <script src="js/modules/report.js"></script>
+    <script src="js/modules/passport.js"></script>
+</body>
+</html>

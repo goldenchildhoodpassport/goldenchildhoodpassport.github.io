@@ -837,7 +837,7 @@
             rgba(48, 35, 23, 0.28),
             rgba(48, 35, 23, 0.32)
         ),
-        url("../assets/images/backgrounds/quiz-scrapbook.png")
+        url("../assets/images/backgrounds/quiz-scrapbook.webp")
         center center / cover no-repeat;
 
     background-attachment: fixed;

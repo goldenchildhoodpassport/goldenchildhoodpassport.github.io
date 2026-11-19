@@ -21,7 +21,7 @@
         rgba(248, 240, 226, 0.72),
         rgba(241, 229, 210, 0.62)
     ),
-    url("../assets/images/backgrounds/childhood-world.png")
+    url("../assets/images/backgrounds/childhood-world.webp")
         center / cover no-repeat;
     color: #3d2c20;
 }

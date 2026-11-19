@@ -467,7 +467,7 @@
             rgba(248, 240, 223, 0.52) 48%,
             rgba(232, 220, 190, 0.20) 100%
         ),
-        url("../assets/images/backgrounds/childhood-world.png");
+        url("../assets/images/backgrounds/childhood-world.webp");
 
     background-repeat: no-repeat;
     background-size: cover, cover;
@@ -515,7 +515,7 @@
 /* Keep the existing design, enrich its atmosphere */
 .welcome-page {
     background-image:
-        url("../assets/images/backgrounds/childhood-world.png");
+        url("../assets/images/backgrounds/childhood-world.webp");
 
     background-repeat: no-repeat;
     background-size: cover;

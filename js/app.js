@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const startButton = document.getElementById("startJourney");
     const backButton = document.getElementById("backToWelcome");
 
-    const profileForm = document.getElementById("childhoodProfileForm");
 
     // ==========================================
     // 1. CHILDHOOD WORLD DECORATIONS
@@ -716,123 +715,11 @@ notifyDoorOpened();
             );
         });
     }
-        // ==========================================
-    // 10. LOAD SAVED PROFILE DATA
     // ==========================================
-
-    const savedProfile = localStorage.getItem("gcp_user_profile");
-
-    if (savedProfile && profileForm) {
-        try {
-            const profile = JSON.parse(savedProfile);
-
-            const nameField = document.getElementById("profileName");
-            const dobField = document.getElementById("profileDob");
-            const locationField = document.getElementById("childhoodLocation");
-
-            if (nameField && profile.name) {
-                nameField.value = profile.name;
-            }
-
-            if (dobField && profile.dateOfBirth) {
-                dobField.value = profile.dateOfBirth;
-            }
-
-            if (locationField && profile.childhoodLocation) {
-                locationField.value = profile.childhoodLocation;
-            }
-
-            if (profile.childhoodSetting) {
-                const settingInput = profileForm.querySelector(
-                    `input[name="childhoodSetting"][value="${profile.childhoodSetting}"]`
-                );
-
-                if (settingInput) {
-                    settingInput.checked = true;
-                }
-            }
-        } catch (error) {
-            console.error(
-                "[Golden Childhood Passport] Could not load saved profile:",
-                error
-            );
-        }
-    }
-
- 
+    // 10–11. PROFILE
+    // The profile is now a step-by-step
+    // "passport application" — see
+    // js/modules/application.js
     // ==========================================
-    // 11. PROFILE FORM SUBMISSION
-    // ==========================================
-
-    if (profileForm) {
-
-        profileForm.addEventListener("submit", (event) => {
-
-            event.preventDefault();
-
-            const nameField = document.getElementById("profileName");
-            const dobField = document.getElementById("profileDob");
-            const locationField = document.getElementById("childhoodLocation");
-
-            const selectedSetting = profileForm.querySelector(
-                'input[name="childhoodSetting"]:checked'
-            );
-
-            if (!nameField || !dobField || !locationField) {
-                console.error("Profile form fields are missing.");
-                return;
-            }
-
-            const name = nameField.value.trim();
-            const dateOfBirth = dobField.value;
-            const childhoodLocation = locationField.value.trim();
-
-            if (!name || !dateOfBirth || !selectedSetting) {
-                alert("Please complete all required profile fields.");
-                return;
-            }
-
-            const dob = new Date(dateOfBirth + "T00:00:00");
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
-
-            if (Number.isNaN(dob.getTime()) || dob > today) {
-                alert("Please enter a valid Date of Birth.");
-                return;
-            }
-
-            const userProfile = {
-                name: name,
-                dateOfBirth: dateOfBirth,
-                childhoodLocation: childhoodLocation,
-                childhoodSetting: selectedSetting.value,
-                createdAt: new Date().toISOString()
-            };
-
-            try {
-
-                localStorage.setItem(
-                    "gcp_user_profile",
-                    JSON.stringify(userProfile)
-                );
-
-                console.log("Profile saved successfully.");
-
-                // Navigate to Chapter 02
-                window.location.href = "./quiz.html";
-
-            } catch (error) {
-
-                console.error("Profile saving error:", error);
-
-                alert(
-                    "Your profile could not be saved. Please check browser storage."
-                );
-
-            }
-
-        });
-
-    }
 
 });

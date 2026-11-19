@@ -1,242 +1,189 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 rx=%2218%22 fill=%22%23713c35%22/%3E%3Cpath d=%22M50 18L57 43L82 50L57 57L50 82L43 57L18 50L43 43Z%22 fill=%22%23d9bd7e%22/%3E%3C/svg%3E">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>শৈশবের একটা দিন · Golden Childhood Passport</title>
+    <meta name="theme-color" content="#2b2118">
 
-    <title>Childhood Memories Quiz | Golden Childhood Passport</title>
-
-    
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Cinzel:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atma:wght@400;500;600&family=Hind+Siliguri:wght@400;500;600;700&family=Noto+Serif+Bengali:wght@500;600;700&family=Cormorant+Garamond:wght@500;600;700&family=VT323&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="css/variables.css">
-    <link rel="stylesheet" href="css/quiz.css">
+    <link rel="stylesheet" href="css/journey.css">
 </head>
 
-<body class="quiz-body">
+<body class="journey phase-morning" data-theme="blackboard">
 
-    <main class="quiz-screen">
+    <!-- ===== THE WORLD (sky + landscape change with the time of day) ===== -->
+    <div class="world" aria-hidden="true">
+        <div class="sky"></div>
+        <div class="stars"></div>
+        <div class="sun"></div>
+        <div class="cloud cloud-a"></div>
+        <div class="cloud cloud-b"></div>
+        <div class="fireflies"></div>
 
-        <!-- QUIZ HEADER -->
-        <header class="quiz-header">
+        <svg class="landscape" viewBox="0 0 1440 320" preserveAspectRatio="none">
+            <path class="hill hill-back" d="M0 170 C 180 110 360 150 520 130 C 720 100 860 160 1040 140 C 1200 120 1320 150 1440 130 L1440 320 L0 320 Z"/>
+            <g class="village-silhouette">
+                <path d="M120 175 l40 -32 l40 32 v40 h-80 z"/>
+                <rect x="140" y="190" width="14" height="25" class="window-light"/>
+                <path d="M980 165 l52 -40 l52 40 v52 h-104 z"/>
+                <rect x="1020" y="180" width="18" height="18" class="window-light"/>
+                <path d="M300 220 c -6 -60 10 -90 10 -90 c 0 0 16 30 10 90 z"/>
+                <circle cx="310" cy="120" r="34"/>
+                <path d="M1240 220 c -4 -70 8 -110 8 -110 c 0 0 12 40 8 110 z"/>
+                <circle cx="1248" cy="104" r="40"/>
+                <path d="M760 210 v-70 M760 140 l-34 -22 M760 140 l34 -22 M760 150 l-26 -10 M760 150 l26 -10" class="palm"/>
+            </g>
+            <path class="hill hill-front" d="M0 230 C 240 200 420 250 640 225 C 860 200 1040 250 1240 228 C 1340 218 1400 225 1440 220 L1440 320 L0 320 Z"/>
+        </svg>
+    </div>
 
-            <a href="index.html" class="quiz-brand">
-                <span class="quiz-brand-icon">✦</span>
-                <span>Golden Childhood Passport</span>
-            </a>
+    <!-- lantern darkness for the load-shedding night -->
+    <div class="darkness" aria-hidden="true"></div>
 
-            <div class="quiz-edition">
-                THE MEMORY COLLECTION
+    <!-- ===== HEADER ===== -->
+    <header class="j-header">
+        <a class="j-brand" href="index.html" title="শুরুর পাতায় ফেরো">
+            <span class="j-brand-mark">✦</span>
+            <span>
+                <strong>Golden Childhood</strong>
+                <small>শৈশবের একটা দিন</small>
+            </span>
+        </a>
+
+        <div class="j-clock" id="clock">
+            <span class="j-clock-phase" id="clockPhase">সকাল</span>
+            <span class="j-clock-place" id="clockPlace">স্কুলের মাঠ</span>
+        </div>
+
+        <button class="j-sound" id="soundToggle" type="button" aria-pressed="false" title="শব্দ চালু/বন্ধ">
+            <span class="j-sound-icon">🔇</span>
+            <span class="j-sound-label">শব্দ বন্ধ</span>
+        </button>
+    </header>
+
+    <!-- ===== MAP OF THE NEIGHBOURHOOD ===== -->
+    <nav class="j-map" id="map" aria-label="পাড়ার ম্যাপ">
+        <div class="j-map-track" id="mapTrack">
+            <svg class="j-map-path" preserveAspectRatio="none" viewBox="0 0 1000 60"><path d="M0 40 C 80 10 160 55 250 32 C 340 10 420 52 500 30 C 590 8 670 54 750 32 C 840 10 920 50 1000 30"/></svg>
+            <ol class="j-stops" id="mapStops"></ol>
+            <div class="j-walker" id="walker">
+                <img src="assets/images/decorations/child-small/walk-01.webp" alt="" id="walkerImg" draggable="false">
+                <span class="j-walker-shadow"></span>
             </div>
+        </div>
+    </nav>
 
-        </header>
+    <!-- ===== STAGE ===== -->
+    <main class="j-stage" id="stage">
 
-
-        <!-- QUIZ MAIN CONTENT -->
-        <section class="quiz-container">
-
-
-            <!-- CHAPTER 02: SCRAPBOOK INTRO -->
-            <section class="quiz-intro" id="quizIntro">
-
-                <span class="quiz-eyebrow">
-                    CHAPTER 02 · THE JOURNEY
-                </span>
-
-                <h1>
-                    Let's Explore Your <em>Childhood</em>
-                </h1>
-
-                <p>
-                    Every memory has a story. Answer honestly and
-                    rediscover the little moments that made your childhood special.
-                </p>
-
-                <button
-                    type="button"
-                    class="open-memory-book-button"
-                    id="openMemoryBookButton"
-                >
-                    Open My Memory Book <span>→</span>
-                </button>
-
-            </section>
-
-
-            <!-- QUIZ JOURNEY: HIDDEN UNTIL INTRO BUTTON CLICK -->
-            <div id="quizJourney" hidden>
-
-
-                <!-- PROGRESS CARD -->
-                <div class="quiz-progress-card">
-
-                    <div class="quiz-progress-top">
-
-                        <span id="questionCounter">
-                            QUESTION 01 OF 84
-                        </span>
-
-                        <span id="progressPercentage">
-                            1% COMPLETED
-                        </span>
-
-                    </div>
-
-
-                    <div class="quiz-progress-track">
-
-                        <div
-                            class="quiz-progress-fill"
-                            id="progressFill"
-                        ></div>
-
-                    </div>
-
-
-                    <div class="quiz-category-row">
-
-                        <span class="quiz-category-label">
-                            CURRENT CATEGORY
-                        </span>
-
-                        <span
-                            class="quiz-category-name"
-                            id="categoryName"
-                        >
-                            Electricity & Night Life
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <!-- QUESTION CARD -->
-                <section class="question-card" id="questionCard">
-                    
-
-                    <div class="question-card-top">
-
-                        <span
-                            class="question-number"
-                            id="questionNumber"
-                        >
-                            01
-                        </span>
-
-                        <span class="question-tag">
-                            CHILDHOOD MEMORY
-                        </span>
-
-                    </div>
-
-
-                    <h2 id="questionText">
-                        Loading your childhood memories...
-                    </h2>
-
-
-                    <p
-                        class="question-helper"
-                        id="questionHelper"
-                    ></p>
-
-
-                    <!-- ANSWER OPTIONS -->
-                    <div
-                        class="answer-list"
-                        id="answerList"
-                    ></div>
-
-
-                    <!-- PERSONAL MEMORY -->
-                    <div
-                        class="personal-memory-box"
-                        id="personalMemoryBox"
-                    >
-
-                        <label for="personalMemory">
-
-                            <span>✎</span>
-
-                            Add your personal memory
-
-                            <small>OPTIONAL</small>
-
-                        </label>
-
-
-                        <textarea
-                            id="personalMemory"
-                            rows="3"
-                            placeholder="Tell us a little story behind your answer..."
-                        ></textarea>
-
-                    </div>
-
-
-                    <!-- QUESTION NAVIGATION -->
-                    <div class="question-navigation">
-
-                        <button
-                            type="button"
-                            class="quiz-previous-button"
-                            id="previousButton"
-                            disabled
-                        >
-                            ← Previous
-                        </button>
-
-
-                        <button
-                            type="button"
-                            class="quiz-next-button"
-                            id="nextButton"
-                            disabled
-                        >
-                            Next Question →
-                        </button>
-
-                    </div>
-
-                </section>
-
-
-                <!-- BOTTOM NOTE -->
-                <div class="quiz-bottom-note">
-
-                    <span>✦</span>
-
-                    There are no right or wrong answers.
-                    Every childhood is unique.
-
-                </div>
-
+        <!-- 1. Start of the day -->
+        <section class="j-screen j-intro" id="introScreen" hidden>
+            <span class="j-eyebrow">CHAPTER 02 · শৈশবের একটা দিন</span>
+            <h1 id="introTitle">শুভ সকাল!</h1>
+            <p id="introText">আজ আবার সেই দিনটা ফিরে আসবে। স্কুলের ঘণ্টা থেকে লোডশেডিংয়ের রাত পর্যন্ত — পুরো পাড়া ঘুরে দেখবে।</p>
+            <ul class="j-intro-facts">
+                <li><strong>১২</strong><span>টা জায়গা</span></li>
+                <li><strong>৩৬</strong><span>টা স্মৃতি</span></li>
+                <li><strong>~৮</strong><span>মিনিট</span></li>
+            </ul>
+            <div class="j-intro-actions">
+                <button class="j-btn j-btn-primary" id="startWithSound" type="button">🔊 শব্দসহ শৈশবে ঢোকো</button>
+                <button class="j-btn j-btn-ghost" id="startSilent" type="button">শব্দ ছাড়া চলো</button>
             </div>
-
+            <p class="j-hint">হেডফোন থাকলে আরও ভালো লাগবে 🎧</p>
         </section>
 
+        <!-- 2. Arriving at a place -->
+        <section class="j-screen j-entry" id="entryScreen" hidden>
+            <div class="j-entry-visual" id="entryVisual"></div>
+            <p class="j-entry-place" id="entryPlace"></p>
+            <h2 class="j-entry-line" id="entryLine"></h2>
+            <p class="j-entry-sub" id="entrySub"></p>
+            <button class="j-btn j-btn-primary j-entry-action" id="entryAction" type="button"></button>
+        </section>
 
-        <!-- FOOTER -->
-        <footer class="quiz-footer">
+        <!-- 3. A memory card -->
+        <article class="j-screen j-card" id="card" hidden>
+            <div class="j-card-frame">
+                <header class="j-card-top">
+                    <span class="j-card-place" id="cardPlace"></span>
+                    <span class="j-card-count" id="cardCount"></span>
+                </header>
 
-            <span>GOLDEN CHILDHOOD PASSPORT</span>
+                <div class="j-card-sticker" id="cardSticker" aria-hidden="true"></div>
 
-            <span>EST. IN MEMORIES · MADE WITH LOVE</span>
+                <h2 class="j-card-question" id="cardQuestion"></h2>
+                <p class="j-card-helper" id="cardHelper"></p>
 
-        </footer>
+                <div class="j-options" id="cardOptions" role="radiogroup"></div>
 
+                <div class="j-story" id="story">
+                    <button class="j-story-toggle" id="storyToggle" type="button">
+                        ✎ এটা নিয়ে কোনো গল্প আছে? <small>(ইচ্ছা হলে লেখো)</small>
+                    </button>
+                    <div class="j-story-paper" id="storyPaper" hidden>
+                        <textarea id="storyText" maxlength="400" rows="3"
+                                  placeholder="যেমন: একবার কারেন্ট গেলে আমরা সবাই ছাদে উঠে…"></textarea>
+                        <small id="storyCount">০ / ৪০০</small>
+                    </div>
+                </div>
+
+                <footer class="j-card-nav">
+                    <button class="j-btn j-btn-ghost" id="backButton" type="button">← আগের</button>
+                    <button class="j-btn j-btn-primary" id="nextButton" type="button" disabled>পরের স্মৃতি →</button>
+                </footer>
+            </div>
+        </article>
+
+        <!-- 4. "Go deeper?" -->
+        <section class="j-screen j-offer" id="offerScreen" hidden>
+            <div class="j-offer-stamp" id="offerStamp"></div>
+            <h2 id="offerTitle"></h2>
+            <p id="offerText"></p>
+            <div class="j-intro-actions">
+                <button class="j-btn j-btn-ghost" id="offerDeeper" type="button"></button>
+                <button class="j-btn j-btn-primary" id="offerContinue" type="button">সামনে এগোই →</button>
+            </div>
+        </section>
+
+        <!-- 5. End of the day -->
+        <section class="j-screen j-finale" id="finaleScreen" hidden>
+            <div class="j-finale-house" aria-hidden="true">
+                <div class="j-finale-roof"></div>
+                <div class="j-finale-wall"><span class="j-finale-window"></span><span class="j-finale-door"></span></div>
+            </div>
+            <span class="j-eyebrow">দিন শেষ</span>
+            <h2 id="finaleTitle">বাসায় ফিরেছ।</h2>
+            <p id="finaleText"></p>
+            <div class="j-intro-actions">
+                <button class="j-btn j-btn-ghost" id="finaleReview" type="button">↶ উত্তরগুলো দেখি</button>
+                <a class="j-btn j-btn-primary" href="passport.html">আমার পাসপোর্ট বানাও ✦</a>
+            </div>
+        </section>
     </main>
 
+    <!-- flying paper plane (saved memory) -->
+    <div class="j-plane" id="plane" aria-hidden="true">✉</div>
 
-    <!-- SCRIPTS -->
+    <!-- "আম্মুর ডাক" -->
+    <div class="j-toast" id="toast" role="status" aria-live="polite" hidden>
+        <span class="j-toast-face">👩</span>
+        <span class="j-toast-text" id="toastText"></span>
+    </div>
+
     <script src="js/data/questions.js"></script>
+    <script src="js/data/categories.js"></script>
+    <script src="js/data/journey.js"></script>
+    <script src="js/utils/helpers.js"></script>
+    <script src="js/modules/storage.js"></script>
+    <script src="js/modules/generation.js"></script>
+    <script src="js/modules/sound.js"></script>
     <script src="js/modules/quiz.js"></script>
-
 </body>
 </html>
