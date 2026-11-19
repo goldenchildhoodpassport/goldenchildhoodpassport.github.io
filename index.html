@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 rx=%2218%22 fill=%22%23713c35%22/%3E%3Cpath d=%22M50 18L57 43L82 50L57 57L50 82L43 57L18 50L43 43Z%22 fill=%22%23d9bd7e%22/%3E%3C/svg%3E">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Golden Childhood Passport</title>
@@ -13,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700;800&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700;800&family=Atma:wght@400;500;600&family=Hind+Siliguri:wght@400;500;600;700&display=swap"
           rel="stylesheet">
 
     <link rel="stylesheet" href="css/variables.css">
@@ -24,6 +25,7 @@
     <link rel="stylesheet" href="css/passport.css">
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="css/application.css">
 </head>
 
 <body>
@@ -305,195 +307,53 @@
         </button>
 
         <div class="profile-heading">
-
-            <span class="profile-eyebrow">CHAPTER 01 · YOUR STORY</span>
-
-            <h1>
-                Before We Begin,
-                <span>Let's Meet You.</span>
-            </h1>
-
-            <p>
-                Every passport belongs to someone special.
-                Tell us a little about yourself before we travel
-                back through your childhood memories.
-            </p>
-
+            <span class="profile-eyebrow">CHAPTER 01 · পাসপোর্টের আবেদন</span>
+            <h1 class="app-title">শৈশবের পাসপোর্ট <span>আবেদনপত্র</span></h1>
         </div>
 
+        <!-- ===== CONVERSATIONAL APPLICATION ===== -->
+        <div class="application" id="application">
 
-        <div class="profile-card">
-
-            <div class="profile-card-top">
-                <span class="profile-card-icon">✧</span>
-                <span>PERSONAL INFORMATION</span>
-                <span class="profile-card-number">01 / 02</span>
+            <!-- the form fills itself in as the user answers -->
+            <div class="app-form" aria-hidden="true">
+                <div class="app-form-head">
+                    <span>গণ-শৈশব প্রজাতন্ত্র</span>
+                    <strong>পাসপোর্টের আবেদন ফরম</strong>
+                    <small>ফরম নং ০৯০-ক</small>
+                </div>
+                <div class="app-photo">ছবি<br><small>পরে লাগাবে</small></div>
+                <ol class="app-lines">
+                    <li><span>১. ডাকনাম</span><em data-fill="nickname"></em></li>
+                    <li><span>২. জন্মসাল</span><em data-fill="birthYear"></em></li>
+                    <li><span>৩. শৈশবের ঠিকানা</span><em data-fill="childhoodLocation"></em></li>
+                    <li><span>৪. বেড়ে ওঠা</span><em data-fill="childhoodSetting"></em></li>
+                </ol>
+                <div class="app-approved" id="appApproved">অনুমোদিত<small>শৈশব অধিদপ্তর</small></div>
             </div>
 
+            <!-- one question at a time -->
+            <form class="app-ask" id="appAsk" novalidate>
+                <div class="app-progress" id="appProgress"><i></i><i></i><i></i><i></i></div>
 
-            <form id="childhoodProfileForm">
+                <label class="app-question" id="appQuestion" for="appInput"></label>
+                <p class="app-helper" id="appHelper"></p>
 
-                <!-- Name -->
-                <div class="profile-field">
+                <input class="app-input" id="appInput" autocomplete="off">
+                <div class="app-choices" id="appChoices" role="radiogroup" hidden></div>
 
-                    <label for="profileName">
-                        What should we call you?
-                        <span>*</span>
-                    </label>
+                <p class="app-reaction" id="appReaction" aria-live="polite"></p>
+                <p class="app-error" id="appError" role="alert"></p>
 
-                    <input
-                        type="text"
-                        id="profileName"
-                        name="name"
-                        placeholder="Enter your name"
-                        maxlength="60"
-                        autocomplete="name"
-                        required
-                    >
-
+                <div class="app-actions">
+                    <button type="button" class="app-btn app-btn-ghost" id="appBack">← আগের</button>
+                    <button type="button" class="app-btn app-btn-ghost" id="appSkip" hidden>এড়িয়ে যাও</button>
+                    <button type="submit" class="app-btn app-btn-primary" id="appNext">পরেরটা →</button>
                 </div>
 
-
-                <!-- Date of Birth -->
-                <div class="profile-field">
-
-                    <label for="profileDob">
-                        When were you born?
-                        <span>*</span>
-                    </label>
-
-                    <input
-                        type="date"
-                        id="profileDob"
-                        name="dateOfBirth"
-                        required
-                    >
-
-                    <small>
-                        This helps us understand which childhood era you belong to.
-                    </small>
-
-                </div>
-
-
-                <!-- Childhood Location -->
-                <div class="profile-field">
-
-                    <label for="childhoodLocation">
-                        Where did you grow up?
-                    </label>
-
-                    <input
-                        type="text"
-                        id="childhoodLocation"
-                        name="childhoodLocation"
-                        placeholder="e.g. Dhaka, Cumilla, Rangpur..."
-                        maxlength="100"
-                    >
-
-                </div>
-
-
-                <!-- Childhood Setting -->
-                <div class="profile-field">
-
-                    <label>
-                        What was your childhood environment like?
-                        <span>*</span>
-                    </label>
-
-                    <div class="setting-options">
-
-                        <label class="setting-option">
-                            <input
-                                type="radio"
-                                name="childhoodSetting"
-                                value="Village"
-                                required
-                            >
-
-                            <span class="setting-option-content">
-                                <span class="setting-icon">🌾</span>
-                                <strong>Village</strong>
-                                <small>Rural life</small>
-                            </span>
-                        </label>
-
-
-                        <label class="setting-option">
-                            <input
-                                type="radio"
-                                name="childhoodSetting"
-                                value="Town"
-                            >
-
-                            <span class="setting-option-content">
-                                <span class="setting-icon">🏘️</span>
-                                <strong>Town</strong>
-                                <small>Small town</small>
-                            </span>
-                        </label>
-
-
-                        <label class="setting-option">
-                            <input
-                                type="radio"
-                                name="childhoodSetting"
-                                value="City"
-                            >
-
-                            <span class="setting-option-content">
-                                <span class="setting-icon">🏙️</span>
-                                <strong>City</strong>
-                                <small>Urban life</small>
-                            </span>
-                        </label>
-
-
-                        <label class="setting-option">
-                            <input
-                                type="radio"
-                                name="childhoodSetting"
-                                value="Both"
-                            >
-
-                            <span class="setting-option-content">
-                                <span class="setting-icon">🌍</span>
-                                <strong>Both</strong>
-                                <small>Mixed experience</small>
-                            </span>
-                        </label>
-
-                    </div>
-
-                </div>
-
-
-                <!-- Privacy Note -->
-                <div class="profile-privacy">
-                    <span>🔒</span>
-                    Your information stays in your browser.
-                    You can edit it before creating your passport.
-                </div>
-
-
-                <!-- Actions -->
-                <div class="profile-actions">
-
-                    <button
-                        type="submit"
-                        class="profile-continue-button"
-                    >
-                        CONTINUE TO MEMORIES
-                        <span>→</span>
-                    </button>
-
-                </div>
-
+                <p class="app-privacy">🔒 সব তথ্য শুধু তোমার ব্রাউজারেই থাকবে।</p>
             </form>
 
         </div>
-
 
         <div class="profile-footer">
             <span>✦</span>
@@ -505,7 +365,10 @@
 
 </section>
 
-
+<script src="js/utils/helpers.js"></script>
+<script src="js/modules/storage.js"></script>
+<script src="js/modules/generation.js"></script>
+<script src="js/modules/application.js"></script>
 <script type="module" src="js/app.js"></script>
 
 </body>
