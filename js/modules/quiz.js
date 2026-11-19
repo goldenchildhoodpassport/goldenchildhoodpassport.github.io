@@ -35,26 +35,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let journey = GCP.storage.getJourney();
 
-    function extraQuestionsFor(stop) {
-        return (window.GCP_QUESTIONS || [])
-            .filter((q) => q.categoryId === stop.id && !stop.core.includes(q.id))
-            .map((q) => q.id);
+    /* questions a place still asks after its hands-on moment */
+    function plan(stop) {
+        const momentsReady = GCP.momentQuestions && GCP.moments && document.getElementById("momentScreen");
+        const covered = new Set(momentsReady ? GCP.momentQuestions(stop.id) : []);
+        const all = (window.GCP_QUESTIONS || []).filter((q) => q.categoryId === stop.id && !covered.has(q.id)).map((q) => q.id);
+        const core = stop.core.filter((id) => QUESTIONS[id] && !covered.has(id)).slice(0, 2);
+        all.forEach((id) => { if (core.length < 2 && !core.includes(id)) core.push(id); });
+        const extras = all.filter((id) => !core.includes(id));
+        return { core, extras, covered: [...covered] };
     }
 
     /* the full list of steps, rebuilt whenever deep-dive changes */
     function buildSteps() {
         const steps = [];
         STOPS.forEach((stop) => {
+            const p = plan(stop);
             steps.push({ type: "entry", stop: stop.id, key: "entry:" + stop.id });
-            stop.core.forEach((id, i) => {
-                if (QUESTIONS[id]) steps.push({ type: "q", stop: stop.id, id, key: "q:" + id, core: true, n: i + 1, of: stop.core.length });
+            if (GCP.MOMENTS && GCP.MOMENTS[stop.id] && GCP.moments && document.getElementById("momentScreen")) {
+                steps.push({ type: "moment", stop: stop.id, key: "moment:" + stop.id });
+            }
+            p.core.forEach((id, i) => {
+                steps.push({ type: "q", stop: stop.id, id, key: "q:" + id, core: true, n: i + 1, of: p.core.length });
             });
-            const extras = extraQuestionsFor(stop);
-            if (extras.length) {
+            if (p.extras.length) {
                 if (journey.deepDive[stop.id]) {
-                    extras.forEach((id, i) => steps.push({ type: "q", stop: stop.id, id, key: "q:" + id, core: false, n: i + 1, of: extras.length }));
+                    p.extras.forEach((id, i) => steps.push({ type: "q", stop: stop.id, id, key: "q:" + id, core: false, n: i + 1, of: p.extras.length }));
                 } else {
-                    steps.push({ type: "offer", stop: stop.id, key: "offer:" + stop.id, extras: extras.length });
+                    steps.push({ type: "offer", stop: stop.id, key: "offer:" + stop.id, extras: p.extras.length });
                 }
             }
         });
@@ -87,10 +95,11 @@ document.addEventListener("DOMContentLoaded", () => {
         startWithSound: $("startWithSound"), startSilent: $("startSilent"),
         entry: $("entryScreen"), entryVisual: $("entryVisual"), entryPlace: $("entryPlace"),
         entryLine: $("entryLine"), entrySub: $("entrySub"), entryAction: $("entryAction"),
-        card: $("card"), cardPlace: $("cardPlace"), cardCount: $("cardCount"), cardSticker: $("cardSticker"),
+        card: $("card"), cardPlace: $("cardPlace"), cardCount: $("cardCount"), cardSticker: $("cardSticker"), fullScene: $("fullScene"),
         cardQuestion: $("cardQuestion"), cardHelper: $("cardHelper"), cardOptions: $("cardOptions"),
         story: $("story"), storyToggle: $("storyToggle"), storyPaper: $("storyPaper"), storyText: $("storyText"), storyCount: $("storyCount"),
         back: $("backButton"), next: $("nextButton"),
+        moment: $("momentScreen"), momentArea: $("momentArea"), momentTitle: $("momentTitle"), momentSub: $("momentSub"), momentPlace: $("momentPlace"),
         offer: $("offerScreen"), offerStamp: $("offerStamp"), offerTitle: $("offerTitle"), offerText: $("offerText"),
         offerDeeper: $("offerDeeper"), offerContinue: $("offerContinue"),
         finale: $("finaleScreen"), finaleTitle: $("finaleTitle"), finaleText: $("finaleText"), finaleReview: $("finaleReview"),
@@ -99,7 +108,8 @@ document.addEventListener("DOMContentLoaded", () => {
         stars: document.querySelector(".stars"), fireflies: document.querySelector(".fireflies")
     };
 
-    const screens = [el.intro, el.entry, el.card, el.offer, el.finale];
+    // .filter(Boolean): an older quiz.html without a screen must not break the page
+    const screens = [el.intro, el.entry, el.moment, el.card, el.offer, el.finale].filter(Boolean);
 
     // ======================================
     // 3. WORLD: SKY, TIME OF DAY, THEME
@@ -121,7 +131,8 @@ document.addEventListener("DOMContentLoaded", () => {
     function applyWorld(stop) {
         const phase = GCP.DAY_PHASES[stop.phase];
         Object.keys(GCP.DAY_PHASES).forEach((p) => body.classList.toggle("phase-" + p, p === stop.phase));
-        body.dataset.theme = stop.theme;
+        body.dataset.place = stop.theme;
+        body.dataset.theme = "glass";
         body.style.setProperty("--sky-top", phase.sky[0]);
         body.style.setProperty("--sky-bottom", phase.sky[1]);
         body.style.setProperty("--ground", phase.ground);
@@ -197,7 +208,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function refreshMap(currentStopId) {
         STOPS.forEach((stop) => {
             const li = el.mapStops.querySelector(`[data-stop="${stop.id}"]`);
-            const done = stop.core.every((id) => journey.answers[id] && journey.answers[id].v);
+            const done = plan(stop).core.every((id) => journey.answers[id] && journey.answers[id].v);
             li.classList.toggle("is-done", done);
             li.classList.toggle("is-current", stop.id === currentStopId);
             li.querySelector("button").disabled = !done && stop.id !== currentStopId;
@@ -224,6 +235,7 @@ document.addEventListener("DOMContentLoaded", () => {
             current.classList.remove("is-leaving");
         }
         screens.forEach((s) => { s.hidden = s !== screen; });
+        if (screen !== el.card) hideScene();
         screen.classList.remove("is-entering");
         void screen.offsetWidth;
         screen.classList.add("is-entering");
@@ -376,7 +388,9 @@ document.addEventListener("DOMContentLoaded", () => {
         el.cardCount.textContent = step.core
             ? `স্মৃতি ${toBangla(step.n)} / ${toBangla(step.of)}`
             : `গভীরে ${toBangla(step.n)} / ${toBangla(step.of)}`;
-        el.cardSticker.textContent = GCP.QUESTION_STICKERS[step.id] || stop.icon;
+        const scene = showScene(step.id);
+        el.card.classList.toggle("has-scene", Boolean(scene));
+        el.cardSticker.textContent = scene ? "" : (GCP.QUESTION_STICKERS[step.id] || stop.icon);
         el.cardQuestion.textContent = question.question;
         el.cardHelper.textContent = question.helperText || "";
 
@@ -401,7 +415,51 @@ document.addEventListener("DOMContentLoaded", () => {
 
         await showScreen(el.card, { turn });
         resetIdle(step);
+
+        // the memory's own sound, a moment after the page settles
+        if (scene) {
+            clearTimeout(sceneSoundTimer);
+            sceneSoundTimer = setTimeout(() => {
+                if (steps[index] === step) GCP.sound.play(scene.sound);
+            }, 450);
+        }
     }
+
+    let sceneSoundTimer = null;
+
+    /* two scene layers cross-fade, so one memory melts into the next */
+    const sceneLayers = [...el.fullScene.querySelectorAll(".sc")];
+    let sceneFront = 0;
+    let sceneId = null;
+
+    function showScene(id) {
+        if (id === sceneId) return { sound: GCP.SCENES[id][2] };
+        const incoming = sceneLayers[1 - sceneFront];
+        const outgoing = sceneLayers[sceneFront];
+        const result = GCP.scene.render(incoming, id);
+        if (!result) { hideScene(); return null; }
+        incoming.classList.add("is-front");
+        outgoing.classList.remove("is-front");
+        setTimeout(() => { if (!outgoing.classList.contains("is-front")) outgoing.hidden = true; }, 900);
+        sceneFront = 1 - sceneFront;
+        sceneId = id;
+        body.classList.add("in-scene");
+        return result;
+    }
+
+    function hideScene() {
+        body.classList.remove("in-scene");
+        sceneLayers.forEach((layer) => layer.classList.remove("is-front"));
+        setTimeout(() => {
+            if (!body.classList.contains("in-scene")) sceneLayers.forEach((layer) => { layer.hidden = true; });
+        }, 900);
+        sceneId = null;
+    }
+
+    el.fullScene.addEventListener("click", () => {
+        const front = sceneLayers[sceneFront];
+        if (front && !front.hidden) GCP.scene.poke(front);
+    });
 
     function nextLabel(i) {
         const nextStep = steps[i + 1];
@@ -441,7 +499,7 @@ document.addEventListener("DOMContentLoaded", () => {
         el.cardOptions.querySelectorAll(".j-option").forEach((b) => b.setAttribute("aria-checked", String(b === button)));
         stampAt(button);
 
-        const theme = body.dataset.theme;
+        const theme = body.dataset.place;
         if (theme === "nokia" || theme === "crt") GCP.sound.play("keyBeep");
         else GCP.sound.play("stamp");
         if (theme === "pond" || theme === "field") ripple(button, event);
@@ -529,6 +587,39 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ======================================
+    // 7b. HANDS-ON MOMENT (no question)
+    // ======================================
+
+    async function renderMoment(step) {
+        const stop = STOP_BY_ID[step.stop];
+        const m = GCP.MOMENTS[stop.id];
+        el.moment.dataset.stop = stop.id;
+        el.momentPlace.textContent = `${stop.icon} ${stop.place} · খেলা`;
+        el.momentTitle.textContent = m.title;
+        el.momentSub.textContent = m.sub;
+        el.momentArea.innerHTML = "";
+        await showScreen(el.moment);
+        GCP.moments.render(el.momentArea, stop.id, {
+            soundOn: () => GCP.sound.isEnabled(),
+            enableSound: () => setSound(true),
+            onDone: ({ answers, prefs }) => {
+                Object.keys(answers || {}).forEach((id) => {
+                    if (!answers[id]) return;
+                    const old = journey.answers[id] || {};
+                    journey.answers[id] = { v: answers[id], memory: old.memory || "", via: "moment" };
+                });
+                if (prefs) {
+                    journey.prefs = journey.prefs || {};
+                    journey.prefs[stop.id] = prefs;
+                }
+                save();
+                refreshMap(stop.id);
+                go(index + 1);
+            }
+        });
+    }
+
+    // ======================================
     // 8. "GO DEEPER?" OFFER
     // ======================================
 
@@ -546,6 +637,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     el.offerDeeper.addEventListener("click", () => {
+        if (busy || el.offer.hidden) return;
         const step = steps[index];
         journey.deepDive[step.stop] = true;
         steps = buildSteps();
@@ -553,7 +645,10 @@ document.addEventListener("DOMContentLoaded", () => {
         go(first >= 0 ? first : index + 1);
     });
 
-    el.offerContinue.addEventListener("click", () => go(index + 1));
+    el.offerContinue.addEventListener("click", () => {
+        if (busy || el.offer.hidden) return;   // a double tap must not skip the next place
+        go(index + 1);
+    });
 
     // ======================================
     // 9. FINALE
@@ -596,6 +691,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const step = steps[target];
         const stop = STOP_BY_ID[step.stop];
         const stopChanged = stop.id !== lastStopId;
+        if (target === index && !stopChanged && lastStopId !== null && step.type !== "q") return;
         index = target;
         save();
 
@@ -614,6 +710,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (step.type === "entry") return renderEntry(step);
+        if (step.type === "moment") return renderMoment(step);
         if (step.type === "q") return renderQuestion(step, { turn: !stopChanged || back || skipEntry });
         if (step.type === "offer") return renderOffer(step);
         if (step.type === "finale") return renderFinale();
@@ -628,7 +725,8 @@ document.addEventListener("DOMContentLoaded", () => {
         el.soundToggle.setAttribute("aria-pressed", String(enabled));
         el.soundToggle.querySelector(".j-sound-icon").textContent = enabled ? "🔊" : "🔇";
         el.soundToggle.querySelector(".j-sound-label").textContent = enabled ? "শব্দ চালু" : "শব্দ বন্ধ";
-        GCP.storage.saveSettings({ sound: enabled });
+        // keep the other settings (photo, passport reveal) when saving sound
+        GCP.storage.saveSettings(Object.assign({}, GCP.storage.getSettings(), { sound: enabled }));
     }
 
     if (!GCP.sound.isSupported()) el.soundToggle.hidden = true;
@@ -665,7 +763,16 @@ document.addEventListener("DOMContentLoaded", () => {
         el.introTitle.textContent = hasProgress ? (nickname ? `আবার এসেছ, ${nickname}!` : "আবার এসেছ!") : greeting;
         el.introText.textContent = hasProgress
             ? "যেখানে থেমেছিলে, ঠিক সেখান থেকেই দিনটা আবার শুরু হবে।"
-            : (era ? `${era.label} — ${era.line} ` : "") + "আজ আবার সেই দিনটা ফিরে আসবে। স্কুলের ঘণ্টা থেকে লোডশেডিংয়ের রাত পর্যন্ত, পুরো পাড়া ঘুরে দেখবে।";
+            : (era ? `${era.line} ` : "") + "আজ আবার সেই দিনটা ফিরে আসবে। স্কুলের ঘণ্টা থেকে লোডশেডিংয়ের রাত পর্যন্ত, পুরো পাড়া ঘুরে দেখবে।";
+
+        const qCount = steps.filter((st) => st.type === "q").length;
+        const facts = document.querySelectorAll(".j-intro-facts strong");
+        if (facts.length === 3) {
+            facts[1].textContent = toBangla(STOPS.filter((st) => GCP.MOMENTS && GCP.MOMENTS[st.id]).length);
+            facts[1].nextElementSibling.textContent = "টা খেলা";
+            facts[2].textContent = toBangla(qCount);
+            facts[2].nextElementSibling.textContent = "টা প্রশ্ন";
+        }
 
         showScreen(el.intro, { turn: false });
 

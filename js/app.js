@@ -1,725 +1,275 @@
+/* ==========================================
+   GOLDEN CHILDHOOD PASSPORT
+   WELCOME ⇄ PROFILE — THE DOOR SCENE
+   ------------------------------------------
+   A child walks up to an old wooden door
+   (with its iron শিকল), pushes it open, and
+   walks into the golden light of childhood.
+   • frames cross-fade, so the walk is smooth
+   • movement runs on requestAnimationFrame
+   • whole scene ≈ 6.5 s, tap to skip
+========================================== */
+
 document.addEventListener("DOMContentLoaded", () => {
-    // ==========================================
-    // 0. ELEMENT REFERENCES
-    // ==========================================
 
-    const welcomeScreen = document.querySelector(".welcome-page");
+    const welcomeScreen = document.querySelector(".w-welcome") || document.querySelector(".welcome-page");
     const profileScreen = document.getElementById("profileScreen");
-
     const startButton = document.getElementById("startJourney");
     const backButton = document.getElementById("backToWelcome");
 
-
-    // ==========================================
-    // 1. CHILDHOOD WORLD DECORATIONS
-    // ==========================================
-
-    function createChildhoodWorld() {
-        if (!welcomeScreen) return;
-
-        // Do not duplicate decorations already written in index.html.
-        if (welcomeScreen.querySelector(".childhood-world")) {
-            return;
-        }
-
-        const sunlight = document.createElement("div");
-        sunlight.className = "childhood-sunlight";
-        sunlight.setAttribute("aria-hidden", "true");
-
-        const world = document.createElement("div");
-        world.className = "childhood-world";
-        world.setAttribute("aria-hidden", "true");
-
-        world.innerHTML = `
-            <div class="memory-kite">
-                <span class="kite-cross"></span>
-            </div>
-            <div class="memory-plane"></div>
-            <div class="childhood-runner runner-one"></div>
-            <div class="childhood-runner runner-two"></div>
-        `;
-
-        for (let i = 0; i < 18; i++) {
-            const particle = document.createElement("span");
-            particle.className = "memory-particle";
-            particle.style.left = `${5 + Math.random() * 90}%`;
-            particle.style.top = `${15 + Math.random() * 75}%`;
-            particle.style.setProperty(
-                "--float-duration",
-                `${7 + Math.random() * 7}s`
-            );
-            particle.style.setProperty(
-                "--float-delay",
-                `${Math.random() * -12}s`
-            );
-            world.appendChild(particle);
-        }
-
-        welcomeScreen.prepend(world);
-        welcomeScreen.prepend(sunlight);
-    }
-
-    createChildhoodWorld();
-
-    // ==========================================
-    // 2. CHILD FRAME ASSETS
-    // ==========================================
-
-    let transitionRunning = false;
-
-    const reducedMotion = window.matchMedia
-        ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
-        : false;
-
-    const CHILD_FRAME_PATH = "assets/images/decorations/child/";
-
-    const CHILD_FRAMES = {
-        walk: [
-            "walk-01.png",
-            "walk-02.png",
-            "walk-03.png",
-            "walk-04.png"
-        ],
-        turn: [
-            "turn-01.png",
-            "turn-02.png",
-            "turn-03.png"
-        ],
-        push: [
-            "push-01.png",
-            "push-02.png"
-        ],
-        enter: [
-            "enter-01.png",
-            "enter-02.png",
-            "enter-03.png",
-            "enter-04.png"
-        ]
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const FRAME_PATH = "assets/images/decorations/child-hd/";
+    const FRAMES = {
+        walk: ["walk-01", "walk-02", "walk-03", "walk-04"],
+        turn: ["turn-01", "turn-02", "turn-03"],
+        push: ["push-01", "push-02"],
+        enter: ["enter-01", "enter-02", "enter-03", "enter-04"]
     };
 
-    const childFrameCache = new Map();
+    // preload every frame right away
+    const preloaded = Object.values(FRAMES).flat().map((name) => {
+        const img = new Image();
+        img.src = FRAME_PATH + name + ".webp";
+        return img.decode ? img.decode().catch(() => {}) : Promise.resolve();
+    });
 
-    function preloadChildFrames() {
-        const filenames = Object.values(CHILD_FRAMES).flat();
+    let running = false;
 
-        const tasks = filenames.map((filename) => {
-            return new Promise((resolve) => {
-                const image = new Image();
+    const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+    const ease = {
+        outCubic: (t) => 1 - Math.pow(1 - t, 3),
+        inOut: (t) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2),
+        walk: (t) => (t < 0.85 ? t / 0.85 * 0.9 : 0.9 + ease.outCubic((t - 0.85) / 0.15) * 0.1)
+    };
 
-                image.onload = () => {
-                    childFrameCache.set(filename, image);
-                    resolve({ filename, loaded: true });
-                };
-
-                image.onerror = () => {
-                    console.error(
-                        `[Golden Childhood Passport] Image not found: ${CHILD_FRAME_PATH}${filename}`
-                    );
-                    resolve({ filename, loaded: false });
-                };
-
-                image.src = CHILD_FRAME_PATH + filename;
-            });
-        });
-
-        return Promise.all(tasks).then((results) => {
-            const failed = results
-                .filter((item) => !item.loaded)
-                .map((item) => item.filename);
-
-            if (failed.length) {
-                console.error(
-                    "[Golden Childhood Passport] Failed child frames:",
-                    failed
-                );
-            }
-
-            return {
-                allLoaded: failed.length === 0,
-                failed
-            };
-        });
+    function sound(name) {
+        if (window.GCP && GCP.sound) GCP.sound.play(name);
     }
 
-    // Start preloading immediately, not after clicking Start Journey.
-    const childFramesReady = preloadChildFrames();
+    // ======================================
+    // 1. BUILD THE SCENE
+    // ======================================
 
-    // ==========================================
-    // 3. GENERAL ANIMATION HELPERS
-    // ==========================================
-
-    function wait(milliseconds) {
-        return new Promise((resolve) => {
-            window.setTimeout(resolve, milliseconds);
-        });
-    }
-
-    function easeInOutCubic(progress) {
-        return progress < 0.5
-            ? 4 * progress * progress * progress
-            : 1 - Math.pow(-2 * progress + 2, 3) / 2;
-    }
-
-    function getFrameImage(filename) {
-        return childFrameCache.get(filename) || null;
-    }
-
-    function setChildFrame(childImage, filename) {
-    if (!childImage) return false;
-
-    const frame = childFrameCache.get(filename);
-
-    // Use cached image when available.
-    if (frame) {
-        if (childImage.dataset.currentFrame !== filename) {
-            childImage.src = frame.src;
-            childImage.dataset.currentFrame = filename;
-        }
-
-        return true;
-    }
-
-    // If preload is still running, load this frame directly.
-    if (childImage.dataset.currentFrame !== filename) {
-        childImage.src = CHILD_FRAME_PATH + filename;
-        childImage.dataset.currentFrame = filename;
-    }
-
-    return true;
-}
-
-    function setChildPosition(
-        child,
-        {
-            left = 50,
-            bottom = 7,
-            scale = 1,
-            opacity = 1
-        } = {}
-    ) {
-        if (!child) return;
-
-        // Inline !important prevents older CSS keyframes/transforms
-        // from overriding the live JavaScript position.
-        child.style.setProperty("position", "absolute", "important");
-        child.style.setProperty("left", `${left}%`, "important");
-        child.style.setProperty("bottom", `${bottom}%`, "important");
-        child.style.setProperty(
-            "transform",
-            `translateX(-50%) scale(${scale})`,
-            "important"
-        );
-        child.style.setProperty("opacity", String(opacity), "important");
-        child.style.setProperty("transition", "none", "important");
-        child.style.setProperty("animation", "none", "important");
-    }
-
-    function setupChildAnimation(child, childImage) {
-        if (!child || !childImage) {
-            throw new Error("Child animation elements were not created.");
-        }
-
-        child.style.setProperty("position", "absolute", "important");
-        child.style.setProperty("left", "-5%", "important");
-        child.style.setProperty("bottom", "7%", "important");
-        child.style.setProperty(
-            "width",
-            "clamp(130px, 14vw, 190px)",
-            "important"
-        );
-        child.style.setProperty(
-            "height",
-            "clamp(170px, 32vh, 260px)",
-            "important"
-        );
-        child.style.setProperty("display", "block", "important");
-        child.style.setProperty("visibility", "visible", "important");
-        child.style.setProperty("opacity", "1", "important");
-        child.style.setProperty("z-index", "50", "important");
-        child.style.setProperty("pointer-events", "none", "important");
-        child.style.setProperty("transition", "none", "important");
-        child.style.setProperty("animation", "none", "important");
-        child.style.setProperty(
-            "transform",
-            "translateX(-50%) scale(1)",
-            "important"
-        );
-
-        child.style.transformOrigin = "bottom center";
-        child.style.willChange = "left, bottom, transform, opacity";
-        child.style.filter =
-            "drop-shadow(0 8px 9px rgba(35, 20, 10, 0.25))";
-
-        childImage.style.setProperty("display", "block", "important");
-        childImage.style.setProperty("position", "absolute", "important");
-        childImage.style.setProperty("inset", "0", "important");
-        childImage.style.setProperty("width", "100%", "important");
-        childImage.style.setProperty("height", "100%", "important");
-        childImage.style.setProperty("object-fit", "contain", "important");
-        childImage.style.setProperty(
-            "object-position",
-            "center bottom",
-            "important"
-        );
-        childImage.style.setProperty("visibility", "visible", "important");
-        childImage.style.setProperty("transition", "none", "important");
-        childImage.style.setProperty("animation", "none", "important");
-        childImage.draggable = false;
-        childImage.alt = "";
-    }
-        // ==========================================
-    // 4. WALKING / ENTERING MOVEMENT
-    // ==========================================
-
-    function animateWalking(
-        overlay,
-        child,
-        childImage,
-        {
-            fromLeft,
-            toLeft,
-            fromBottom = 7,
-            toBottom = 7,
-            fromScale = 1,
-            toScale = 1,
-            duration,
-            frames,
-            fadeOut = false,
-            frameInterval = 170
-        }
-    ) {
-        return new Promise((resolve) => {
-            const startTime = performance.now();
-            let lastFrameIndex = -1;
-            let animationId = null;
-
-            function animate(currentTime) {
-                if (!overlay.isConnected) {
-                    if (animationId !== null) {
-                        cancelAnimationFrame(animationId);
-                    }
-                    resolve();
-                    return;
-                }
-
-                const elapsed = currentTime - startTime;
-                const progress = Math.min(elapsed / duration, 1);
-                const eased = easeInOutCubic(progress);
-
-                const left =
-                    fromLeft + (toLeft - fromLeft) * eased;
-                const bottom =
-                    fromBottom + (toBottom - fromBottom) * eased;
-                const scale =
-                    fromScale + (toScale - fromScale) * eased;
-                const opacity = fadeOut ? 1 - eased : 1;
-
-                setChildPosition(child, {
-                    left,
-                    bottom,
-                    scale,
-                    opacity
-                });
-
-                // Cycle through the walking PNGs while the character moves.
-                const frameIndex =
-                    Math.floor(elapsed / frameInterval) % frames.length;
-
-                if (frameIndex !== lastFrameIndex) {
-                    setChildFrame(childImage, frames[frameIndex]);
-                    lastFrameIndex = frameIndex;
-                }
-
-                if (progress < 1) {
-                    animationId = requestAnimationFrame(animate);
-                } else {
-                    setChildPosition(child, {
-                        left: toLeft,
-                        bottom: toBottom,
-                        scale: toScale,
-                        opacity: fadeOut ? 0 : 1
-                    });
-                    resolve();
-                }
-            }
-
-            animationId = requestAnimationFrame(animate);
-        });
-    }
-
-    async function playFrameSequence(
-        overlay,
-        childImage,
-        frames,
-        frameDuration
-    ) {
-        for (const filename of frames) {
-            if (!overlay.isConnected) return;
-
-            setChildFrame(childImage, filename);
-            await wait(frameDuration);
-        }
-    }
-
-    // ==========================================
-    // 5. CREATE THE CINEMATIC DOOR OVERLAY
-    // ==========================================
-
-    function createJourneyTransition(message) {
+    function build(message) {
         const overlay = document.createElement("div");
-        overlay.className = "journey-transition";
+        overlay.className = "dr";
         overlay.setAttribute("aria-hidden", "true");
-
-        const messageElement = document.createElement("div");
-        messageElement.className = "journey-transition__message";
-        messageElement.textContent = message;
-
         overlay.innerHTML = `
-            <div class="journey-light"></div>
-
-            <div class="journey-door-frame">
-                <div class="journey-door journey-door-left">
-                    <div class="door-wood-grain"></div>
-                    <div class="door-panel door-panel-top"></div>
-                    <div class="door-panel door-panel-bottom"></div>
-                    <div class="door-handle"></div>
+            <div class="dr-camera">
+                <div class="dr-wall"></div>
+                <div class="dr-lamp"></div>
+                <div class="dr-doorway">
+                    <div class="dr-beyond"></div>
+                    <div class="dr-door dr-left">
+                        <i class="p p1"></i><i class="p p2"></i><i class="ring"></i>
+                    </div>
+                    <div class="dr-door dr-right">
+                        <i class="p p1"></i><i class="p p2"></i><i class="ring"></i>
+                        <i class="chain"></i>
+                    </div>
+                    <div class="dr-frame"></div>
                 </div>
-
-                <div class="journey-door journey-door-right">
-                    <div class="door-wood-grain"></div>
-                    <div class="door-panel door-panel-top"></div>
-                    <div class="door-panel door-panel-bottom"></div>
-                    <div class="door-handle"></div>
+                <div class="dr-floor"></div>
+                <div class="dr-spill"></div>
+                <div class="dr-motes">${"<i></i>".repeat(22)}</div>
+                <div class="dr-child">
+                    <img class="a" alt="" draggable="false">
+                    <img class="b" alt="" draggable="false">
+                    <span class="dr-shadow"></span>
                 </div>
             </div>
-
-            <div class="journey-child" aria-hidden="true">
-                <img class="journey-child-frame" alt="" draggable="false">
-            </div>
-
-            <div class="journey-door-glow"></div>
-
-            <div class="journey-dust">
-                ${Array.from(
-                    { length: 24 },
-                    () => '<span class="journey-dust-particle"></span>'
-                ).join("")}
-            </div>
-        `;
-
-        overlay.appendChild(messageElement);
+            <p class="dr-msg">${message}</p>
+            <button class="dr-skip" type="button">এড়িয়ে যাও ↠</button>
+            <div class="dr-wash"></div>`;
         document.body.appendChild(overlay);
 
-        const child = overlay.querySelector(".journey-child");
-        const childImage = overlay.querySelector(".journey-child-frame");
-
-        setupChildAnimation(child, childImage);
-
-        // Set the first frame and exact starting point before showing motion.
-        setChildFrame(childImage, CHILD_FRAMES.walk[0]);
-        setChildPosition(child, {
-            left: 5,
-            bottom: 7,
-            scale: 1,
-            opacity: 1
+        overlay.querySelectorAll(".dr-motes i").forEach((m) => {
+            m.style.left = 38 + Math.random() * 24 + "%";
+            m.style.top = 30 + Math.random() * 55 + "%";
+            m.style.animationDelay = -Math.random() * 6 + "s";
+            m.style.animationDuration = 4 + Math.random() * 5 + "s";
         });
 
-        overlay.classList.add("child-arriving");
+        const child = overlay.querySelector(".dr-child");
+        const imgs = [child.querySelector(".a"), child.querySelector(".b")];
+        let front = 0;
+        let current = "";
 
-        return { overlay, child, childImage };
+        function frame(name) {
+            if (name === current) return;
+            current = name;
+            const next = imgs[1 - front];
+            next.src = FRAME_PATH + name + ".webp";
+            next.classList.add("on");
+            imgs[front].classList.remove("on");
+            front = 1 - front;
+        }
+
+        function place(x, y, scale, opacity = 1) {
+            child.style.transform = `translate3d(calc(${x}vw - 50%), ${-y}vh, 0) scale(${scale})`;
+            child.style.opacity = opacity;
+        }
+
+        return { overlay, child, frame, place };
     }
 
-    // ==========================================
-    // 6. FULL DOOR JOURNEY SEQUENCE
-    // ==========================================
-
-    async function playDoorSequence(scene, onDoorOpened, onComplete) {
-        const { overlay, child, childImage } = scene;
-
-        let doorOpenedCallbackCalled = false;
-        let completed = false;
-
-        function notifyDoorOpened() {
-            if (doorOpenedCallbackCalled) return;
-            doorOpenedCallbackCalled = true;
-
-            if (typeof onDoorOpened === "function") {
-                onDoorOpened();
-            }
-        }
-
-        function finishTransition() {
-            if (completed) return;
-            completed = true;
-
-            overlay.classList.add("journey-complete");
-
-            window.setTimeout(() => {
-                overlay.remove();
-
-                if (typeof onComplete === "function") {
-                    onComplete();
+    /* move the child with rAF while cycling frames */
+    function tween({ duration, frames, interval, update, frameFn, isCancelled }) {
+        return new Promise((resolve) => {
+            const start = performance.now();
+            let lastFrame = -1;
+            function step(now) {
+                if (isCancelled()) return resolve();
+                const t = Math.min(1, (now - start) / duration);
+                update(t);
+                if (frames) {
+                    const f = Math.floor((now - start) / interval) % frames.length;
+                    if (f !== lastFrame) { frameFn(frames[f]); lastFrame = f; if (f % 2 === 0) sound("step"); }
                 }
-            }, 650);
+                if (t < 1) requestAnimationFrame(step); else resolve();
+            }
+            requestAnimationFrame(step);
+        });
+    }
+
+    // ======================================
+    // 2. PLAY THE SCENE
+    // ======================================
+
+    async function play(message, onSwitch) {
+        await Promise.race([Promise.all(preloaded), wait(1500)]);
+
+        const scene = build(message);
+        const { overlay, frame, place } = scene;
+        let skipped = false;
+        let switched = false;
+        const cancelled = () => skipped;
+
+        function doSwitch() {
+            if (switched) return;
+            switched = true;
+            onSwitch();
         }
 
-        // Wait for all child images to load before starting the sequence.
-        if (!overlay.isConnected) return;
+        async function finish() {
+            overlay.classList.add("wash");
+            await wait(520);
+            doSwitch();
+            await wait(120);
+            overlay.classList.add("out");
+            await wait(750);
+            overlay.remove();
+        }
 
-        // Reduced-motion fallback.
+        overlay.querySelector(".dr-skip").addEventListener("click", () => { if (!skipped) { skipped = true; finish(); } });
+        overlay.addEventListener("click", (e) => {
+            if (e.target.closest(".dr-skip") || skipped) return;
+            skipped = true;
+            finish();
+        });
+
+        frame("walk-01");
+        place(-12, 0, 1);
+        requestAnimationFrame(() => overlay.classList.add("in"));
+
         if (reducedMotion) {
-            setChildFrame(childImage, "push-02.png");
-            setChildPosition(child, {
-                left: 50,
-                bottom: 7,
-                scale: 1,
-                opacity: 1
-            });
-
-            overlay.classList.add(
-                "child-stopped",
-                "child-pushing",
-                "is-opening"
-            );
-
-            await wait(250);
-            if (!overlay.isConnected) return;
-
-            notifyDoorOpened();
-            finishTransition();
-            return;
+            await wait(300);
+            skipped = true;
+            return finish();
         }
-
-        // --------------------------------------
-        // SCENE 1: WALK FROM LEFT TO CENTER
-        // --------------------------------------
-
-        setChildFrame(childImage, "walk-01.png");
-        setChildPosition(child, {
-            left: -15,
-            bottom: 7,
-            scale: 1,
-            opacity: 1
-        });
-
-               await animateWalking(
-            overlay,
-            child,
-            childImage,
-            {
-                fromLeft: 5,
-                toLeft: 50,
-                fromBottom: 7,
-                toBottom: 7,
-                fromScale: 1,
-                toScale: 1,
-                duration: 17000,
-                frames: CHILD_FRAMES.walk,
-                frameInterval: 320
-            }
-        );
-
-        if (!overlay.isConnected) return;
-
-        // Stop in front of the door.
-        setChildPosition(child, {
-            left: 50,
-            bottom: 7,
-            scale: 1,
-            opacity: 1
-        });
-        setChildFrame(childImage, "turn-01.png");
-        overlay.classList.add("child-stopped");
-
-        await wait(850);
-        if (!overlay.isConnected) return;
-
-        // --------------------------------------
-        // SCENE 2: TURN TO FACE THE DOOR
-        // --------------------------------------
-
-        await playFrameSequence(
-            overlay,
-            childImage,
-            CHILD_FRAMES.turn,
-            450
-        );
-
-        if (!overlay.isConnected) return;
-
-        setChildFrame(childImage, "turn-03.png");
-        await wait(550);
-        if (!overlay.isConnected) return;
-
-        // --------------------------------------
-        // SCENE 3: RAISE ARMS AND PUSH
-        // --------------------------------------
-
-        overlay.classList.add("child-pushing");
-
-        setChildFrame(childImage, "push-01.png");
-await wait(450);
-if (!overlay.isConnected) return;
-
-setChildFrame(childImage, "push-02.png");
-await wait(650);
-if (!overlay.isConnected) return;
-
-// Short natural pause after pushing.
-await wait(400);
-if (!overlay.isConnected) return;
-
-// --------------------------------------
-// SCENE 4: OPEN THE DOUBLE DOOR
-// --------------------------------------
-
-overlay.classList.add("is-opening");
-setChildFrame(childImage, "turn-03.png");
-
-// Wait only until the doors finish opening.
-await wait(1200);
-if (!overlay.isConnected) return;
-
-// Immediately begin entering. No extra hold.
-overlay.classList.add("child-entering");
-notifyDoorOpened();
-
-                await animateWalking(
-            overlay,
-            child,
-            childImage,
-            {
-                fromLeft: 50,
-                toLeft: 50,
-                fromBottom: 7,
-                toBottom: 19,
-                fromScale: 1,
-                toScale: 0.42,
-                duration: 5500,
-                frames: CHILD_FRAMES.enter,
-                fadeOut: true,
-                frameInterval: 300
-            }
-        );
-
-        if (!overlay.isConnected) return;
 
         await wait(350);
-        finishTransition();
-    }
+        if (skipped) return;
 
-    // ==========================================
-    // 7. RUN TRANSITION WITH ERROR HANDLING
-    // ==========================================
+        // walk in from the left
+        await tween({
+            duration: 2500, frames: FRAMES.walk, interval: 120, frameFn: frame, isCancelled: cancelled,
+            update: (t) => place(-12 + 62 * ease.walk(t), 0, 1)
+        });
+        if (skipped) return;
 
-    function runJourneyTransition(message, onDoorOpened, onComplete) {
-        if (transitionRunning) return;
+        // stop, turn to the door
+        frame("turn-01"); await wait(260); if (skipped) return;
+        frame("turn-02"); await wait(170); if (skipped) return;
+        frame("turn-03"); await wait(320); if (skipped) return;
 
-        transitionRunning = true;
+        // push the old door
+        frame("push-01"); sound("knock"); await wait(260); if (skipped) return;
+        frame("push-02");
+        overlay.classList.add("open");
+        sound("almirah");
+        setTimeout(() => sound("sparkle"), 500);
+        await wait(1150);
+        if (skipped) return;
 
-        let scene;
-
-        try {
-            scene = createJourneyTransition(message);
-        } catch (error) {
-            console.error(
-                "[Golden Childhood Passport] Could not create transition:",
-                error
-            );
-            transitionRunning = false;
-            if (typeof onComplete === "function") onComplete();
-            return;
-        }
-
-        playDoorSequence(scene, onDoorOpened, () => {
-            transitionRunning = false;
-
-            if (typeof onComplete === "function") {
-                onComplete();
-            }
-        }).catch((error) => {
-            console.error(
-                "[Golden Childhood Passport] Door animation failed:",
-                error
-            );
-
-            if (scene && scene.overlay) {
-                scene.overlay.remove();
-            }
-
-            transitionRunning = false;
-
-            // Keep navigation usable if an animation error occurs.
-            if (typeof onComplete === "function") {
-                onComplete();
+        // walk into the light
+        overlay.classList.add("enter");
+        await tween({
+            duration: 1900, frames: FRAMES.enter, interval: 150, frameFn: frame, isCancelled: cancelled,
+            update: (t) => {
+                const e = ease.inOut(t);
+                place(50, 15 * e, 1 - 0.5 * e, t > 0.7 ? 1 - (t - 0.7) / 0.3 : 1);
             }
         });
+        if (skipped) return;
+        skipped = true;
+        await finish();
     }
 
-    // ==========================================
-    // 8. WELCOME -> PROFILE
-    // ==========================================
+    function runTransition(message, onSwitch, onDone) {
+        if (running) return;
+        running = true;
+        play(message, onSwitch)
+            .catch((error) => {
+                console.error("[GCP] Door scene failed:", error);
+                document.querySelectorAll(".dr").forEach((n) => n.remove());
+                onSwitch();
+            })
+            .finally(() => {
+                running = false;
+                if (onDone) onDone();
+            });
+    }
+
+    // ======================================
+    // 3. WELCOME → PROFILE
+    // ======================================
 
     if (startButton && welcomeScreen && profileScreen) {
         startButton.addEventListener("click", () => {
-            if (transitionRunning) return;
-
+            if (running) return;
             startButton.disabled = true;
 
-            runJourneyTransition(
-                "A little step back into your golden days...",
-                () => {
-                    welcomeScreen.hidden = true;
-                    profileScreen.hidden = false;
+            // remember the sound choice from earlier visits
+            try {
+                const settings = JSON.parse(localStorage.getItem("gcp_settings") || "{}");
+                if (settings.sound && window.GCP && GCP.sound) GCP.sound.setEnabled(true);
+            } catch (e) { /* ignore */ }
 
-                    window.scrollTo({
-                        top: 0,
-                        behavior: "auto"
-                    });
-
-                    profileScreen.classList.remove("chapter-enter");
-                    void profileScreen.offsetWidth;
-                    profileScreen.classList.add("chapter-enter");
-                },
-                () => {
-                    startButton.disabled = false;
-                }
-            );
+            runTransition("চলো, একটু পেছনে ফিরে যাই…", () => {
+                welcomeScreen.hidden = true;
+                profileScreen.hidden = false;
+                window.scrollTo({ top: 0, behavior: "auto" });
+                profileScreen.classList.remove("chapter-enter");
+                void profileScreen.offsetWidth;
+                profileScreen.classList.add("chapter-enter");
+            }, () => { startButton.disabled = false; });
         });
     }
 
-    // ==========================================
-    // 9. PROFILE -> WELCOME
-    // ==========================================
+    // ======================================
+    // 4. PROFILE → WELCOME
+    // ======================================
 
     if (backButton && welcomeScreen && profileScreen) {
         backButton.addEventListener("click", () => {
-            if (transitionRunning) return;
-
+            if (running) return;
             backButton.disabled = true;
-
-            runJourneyTransition(
-                "Some memories are worth visiting again...",
-                () => {
-                    profileScreen.hidden = true;
-                    welcomeScreen.hidden = false;
-
-                    window.scrollTo({
-                        top: 0,
-                        behavior: "auto"
-                    });
-                },
-                () => {
-                    backButton.disabled = false;
-                }
-            );
+            runTransition("কিছু স্মৃতি আবার দেখতে ইচ্ছে করে…", () => {
+                profileScreen.hidden = true;
+                welcomeScreen.hidden = false;
+                window.scrollTo({ top: 0, behavior: "auto" });
+            }, () => { backButton.disabled = false; });
         });
     }
-    // ==========================================
-    // 10–11. PROFILE
-    // The profile is now a step-by-step
-    // "passport application" — see
-    // js/modules/application.js
-    // ==========================================
-
 });

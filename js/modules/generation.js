@@ -40,10 +40,51 @@ GCP.generation = (function () {
         return decadeKey(birthYear);
     }
 
+    /* what childhood looked like in each decade */
+    const ERA_ITEMS = {
+        "80": ["সাদা-কালো টিভি", "রেডিওর নাটক", "হারিকেন", "হাতে লেখা চিঠি"],
+        "90": ["আলিফ লায়লা", "ক্যাসেট", "লোডশেডিং", "ঈদ কার্ড"],
+        "00": ["Nokia 1100", "সাইবার ক্যাফে", "VCD", "Flexiload"],
+        "10": ["Bhoot FM", "Gaming Box", "প্রথম Facebook", "Java game"],
+        "20": ["YouTube কার্টুন", "স্মার্টফোন", "Free Fire", "অনলাইন ক্লাস"]
+    };
+
+    function joinBangla(list) {
+        if (list.length <= 1) return list.join("");
+        return list.slice(0, -1).join(", ") + " আর " + list[list.length - 1];
+    }
+
+    /* the line is built from the years the person was actually 5–14,
+       so someone born in 1999 hears about Nokia and Bhoot FM,
+       not only আলিফ লায়লা */
+    function childhoodLine(birthYear) {
+        const from = birthYear + 5;
+        const to = birthYear + 14;
+        const counts = {};
+        for (let y = from; y <= to; y++) {
+            const k = decadeKey(y);
+            counts[k] = (counts[k] || 0) + 1;
+        }
+        const ranked = Object.keys(counts).sort((a, b) => counts[b] - counts[a]);
+        let items = ERA_ITEMS[ranked[0]].slice(0, ranked[1] && counts[ranked[1]] >= 3 ? 2 : 3);
+        if (ranked[1] && counts[ranked[1]] >= 3) items = items.concat(ERA_ITEMS[ranked[1]].slice(0, 2));
+        else if (ranked[1]) items = items.concat(ERA_ITEMS[ranked[1]].slice(0, 1));
+        const range = `${toBn(from)}–${toBn(to)}`;
+        return {
+            from, to, range,
+            line: `তোমার শৈশব কেটেছে ${range} সালে — ${joinBangla(items)}, সেই দিনগুলো!`
+        };
+    }
+
+    function toBn(n) {
+        return String(n).replace(/[0-9]/g, (d) => "০১২৩৪৫৬৭৮৯"[d]);
+    }
+
     function describe(birthYear) {
         if (!birthYear) return null;
         const key = mainEra(birthYear);
-        return Object.assign({ key, decades: childhoodDecades(birthYear) }, ERA_INFO[key]);
+        const child = childhoodLine(birthYear);
+        return Object.assign({ key, decades: childhoodDecades(birthYear) }, ERA_INFO[key], child);
     }
 
     return { describe, childhoodDecades, mainEra, ERA_INFO };

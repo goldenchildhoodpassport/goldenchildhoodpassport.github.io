@@ -13,6 +13,8 @@
 
     <link rel="stylesheet" href="css/variables.css">
     <link rel="stylesheet" href="css/journey.css">
+    <link rel="stylesheet" href="css/scenes.css">
+    <link rel="stylesheet" href="css/moments.css">
 </head>
 
 <body class="journey phase-morning" data-theme="blackboard">
@@ -41,6 +43,12 @@
             </g>
             <path class="hill hill-front" d="M0 230 C 240 200 420 250 640 225 C 860 200 1040 250 1240 228 C 1340 218 1400 225 1440 220 L1440 320 L0 320 Z"/>
         </svg>
+    </div>
+
+    <!-- the memory scene fills the whole page behind the question -->
+    <div class="j-fullscene" id="fullScene" aria-hidden="false">
+        <div class="sc" data-layer="a" hidden></div>
+        <div class="sc" data-layer="b" hidden></div>
     </div>
 
     <!-- lantern darkness for the load-shedding night -->
@@ -108,6 +116,14 @@
             <button class="j-btn j-btn-primary j-entry-action" id="entryAction" type="button"></button>
         </section>
 
+        <!-- 2b. A hands-on moment (no question) -->
+        <section class="j-screen j-moment" id="momentScreen" hidden>
+            <p class="j-entry-place" id="momentPlace"></p>
+            <h2 class="j-moment-title" id="momentTitle"></h2>
+            <p class="j-moment-sub" id="momentSub"></p>
+            <div class="mo" id="momentArea"></div>
+        </section>
+
         <!-- 3. A memory card -->
         <article class="j-screen j-card" id="card" hidden>
             <div class="j-card-frame">
@@ -117,6 +133,7 @@
                 </header>
 
                 <div class="j-card-sticker" id="cardSticker" aria-hidden="true"></div>
+
 
                 <h2 class="j-card-question" id="cardQuestion"></h2>
                 <p class="j-card-helper" id="cardHelper"></p>
@@ -180,10 +197,14 @@
     <script src="js/data/questions.js"></script>
     <script src="js/data/categories.js"></script>
     <script src="js/data/journey.js"></script>
+    <script src="js/data/scenes.js"></script>
+    <script src="js/data/moments.js"></script>
     <script src="js/utils/helpers.js"></script>
     <script src="js/modules/storage.js"></script>
     <script src="js/modules/generation.js"></script>
     <script src="js/modules/sound.js"></script>
+    <script src="js/modules/scene.js"></script>
+    <script src="js/modules/moments.js"></script>
     <script src="js/modules/quiz.js"></script>
 </body>
 </html>

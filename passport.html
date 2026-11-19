@@ -15,6 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Atma:wght@400;500;600&family=Hind+Siliguri:wght@400;500;600;700&family=Noto+Serif+Bengali:wght@500;600;700&family=Cormorant+Garamond:wght@500;600;700&family=Cinzel:wght@500;600;700&family=VT323&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/scenes.css">
     <link rel="stylesheet" href="css/passport.css">
 </head>
 
@@ -87,20 +88,43 @@
                     <span class="pp-cover-title">শৈশবের<br>পাসপোর্ট</span>
                     <span class="pp-cover-en">CHILDHOOD PASSPORT</span>
                     <span class="pp-cover-chip"></span>
+                    <span class="pp-cover-edition" id="coverEdition"></span>
+                    <span class="pp-foil" aria-hidden="true"></span>
+                    <span class="pp-stitch" aria-hidden="true"></span>
                     <span class="pp-cover-tap" id="coverTap">খুলতে চাপ দাও ☝</span>
                 </button>
 
                 <!-- open spread -->
                 <div class="pp-spread" id="spread">
+                    <!-- things tucked between the pages -->
+                    <div class="pp-tucked" id="tucked" aria-hidden="true"></div>
+                    <span class="pp-sheen" aria-hidden="true"></span>
+                    <!-- hidden UV ink, seen only under the UV torch -->
+                    <div class="pp-uv" id="uv" aria-hidden="true">
+                        <div class="pp-uv-half" id="uvLeft"></div>
+                        <div class="pp-uv-half" id="uvRight"></div>
+                    </div>
                     <!-- LEFT: identity -->
                     <div class="pp-page pp-left">
+                        <span class="pp-watermark" aria-hidden="true">🪁</span>
+                        <span class="pp-ribbon" id="ribbon"></span>
                         <div class="pp-page-head">
                             <span>গণ-শৈশব প্রজাতন্ত্র</span>
                             <strong>শৈশবের পাসপোর্ট · CHILDHOOD PASSPORT</strong>
+                            <em class="pp-micro" aria-hidden="true">শৈশবশৈশবশৈশবশৈশবশৈশবশৈশবশৈশবশৈশবশৈশবশৈশবশৈশবশৈশবশৈশবশৈশব</em>
                         </div>
                         <div class="pp-id">
-                            <div class="pp-photo" id="ppPhoto">
-                                <span class="pp-tape pp-tape-a"></span>
+                            <span class="pp-laminate" aria-hidden="true"></span>
+                            <div class="pp-photo-col">
+                                <div class="pp-photo" id="ppPhoto">
+                                    <span class="pp-tape pp-tape-a"></span>
+                                    <span class="pp-holo" aria-hidden="true"></span>
+                                </div>
+                                <div class="pp-doodle" aria-hidden="true">
+                                    <svg viewBox="0 0 60 50"><path d="M30 46 C 26 34, 34 24, 28 6 M20 14 L28 4 L36 13"/></svg>
+                                    <span>এটা আমি!</span>
+                                    <svg class="pp-doodle-sun" viewBox="0 0 40 40"><circle cx="20" cy="20" r="7"/><path d="M20 4v6M20 30v6M4 20h6M30 20h6M9 9l4 4M27 27l4 4M31 9l-4 4M9 31l4-4"/></svg>
+                                </div>
                             </div>
                             <dl class="pp-fields">
                                 <div><dt>ডাকনাম / Name</dt><dd class="pp-hand" id="fName"></dd></div>
@@ -112,17 +136,40 @@
                             </dl>
                         </div>
                         <div class="pp-sign">
-                            <span class="pp-hand" id="fSign"></span>
+                            <div class="pp-ghost" id="ppGhost" aria-hidden="true"></div>
+                            <span class="pp-hand pp-signature" id="fSign"></span>
                             <small>বাহকের স্বাক্ষর · ইস্যু: <span id="fIssued"></span></small>
                         </div>
+                        <div class="pp-identity" id="identity">
+                            <span>শৈশবের পরিচয় · তুমি ছিলে</span>
+                            <strong id="identityTitle"></strong>
+                            <b class="pp-identity-second" id="identitySecond" hidden></b>
+                            <em id="identityLine"></em>
+                        </div>
+
+                        <!-- how much of the childhood was lived -->
+                        <div class="pp-exp" id="exp">
+                            <div class="pp-exp-head">
+                                <span>অভিজ্ঞতার খতিয়ান</span>
+                                <p><strong id="expDid">০</strong><em>টা অভিজ্ঞতা<br>নিজে করেছ</em></p>
+                            </div>
+                            <div class="pp-exp-bar" aria-hidden="true"><i class="did" id="barDid"></i><i class="saw" id="barSaw"></i></div>
+                            <ul class="pp-exp-legend" id="expLegend"></ul>
+                            <p class="pp-exp-line" id="expLine"></p>
+                        </div>
+
                         <div class="pp-mrz" id="mrz"></div>
                     </div>
 
                     <!-- RIGHT: score + stamps -->
                     <div class="pp-page pp-right">
+                        <span class="pp-stain" aria-hidden="true"></span>
+                        <span class="pp-dogear" aria-hidden="true"></span>
+                        <span class="pp-perf" id="perf" aria-hidden="true"></span>
                         <div class="pp-page-head">
                             <span>ভিসা ও স্ট্যাম্প</span>
                             <strong>VISAS · শৈশবের ১২টা জায়গা</strong>
+                            <em class="pp-micro" aria-hidden="true">GOLDENCHILDHOODGOLDENCHILDHOODGOLDENCHILDHOODGOLDENCHILDHOOD</em>
                         </div>
 
                         <div class="pp-score">
@@ -138,13 +185,52 @@
                         </div>
 
                         <ol class="pp-stamps" id="stamps"></ol>
+                        <p class="pp-missing" id="missingPlaces" hidden></p>
 
                         <div class="pp-badges" id="badgeRow"></div>
+                        <div class="pp-seal" id="seal" aria-hidden="true"><span id="sealText"></span></div>
+                    </div>
+                </div>
+
+                <!-- pages 3–4 -->
+                <div class="pp-spread pp-spread-2" id="spread2" hidden>
+                    <div class="pp-page pp-left pp-album">
+                        <div class="pp-page-head">
+                            <span>পাতা ৩</span>
+                            <strong>স্মৃতির অ্যালবাম · MEMORY ALBUM</strong>
+                            <em class="pp-micro" aria-hidden="true">শৈশবশৈশবশৈশবশৈশবশৈশবশৈশবশৈশবশৈশবশৈশবশৈশবশৈশবশৈশবশৈশবশৈশব</em>
+                        </div>
+                        <p class="pp-album-sub">সবচেয়ে উজ্জ্বল চারটা জায়গা</p>
+                        <div class="pp-album-grid" id="albumGrid"></div>
+                        <p class="pp-album-sub">নিজের হাতে লেখা</p>
+                        <div class="pp-album-notes" id="albumNotes"></div>
+                        <div class="pp-prefs" id="prefs" hidden></div>
+                    </div>
+                    <div class="pp-page pp-right pp-badgebook">
+                        <div class="pp-page-head">
+                            <span>পাতা ৪</span>
+                            <strong>ব্যাজের খাতা · BADGE BOOK</strong>
+                            <em class="pp-micro" aria-hidden="true">GOLDENCHILDHOODGOLDENCHILDHOODGOLDENCHILDHOODGOLDENCHILDHOOD</em>
+                        </div>
+                        <p class="pp-badgebook-count" id="badgeCount"></p>
+                        <ol class="pp-coins" id="coins"></ol>
                     </div>
                 </div>
             </div>
 
+            <!-- turn pages + UV torch -->
+            <div class="pp-pager" id="pager" hidden>
+                <button class="pp-btn pp-btn-ghost" id="prevPage" type="button" disabled>← আগের পাতা</button>
+                <button class="pp-btn pp-btn-uv" id="uvBtn" type="button" aria-pressed="false">🔦 UV আলো ফেলো</button>
+                <button class="pp-btn pp-btn-ghost" id="nextPage" type="button">পাতা ওল্টাও →</button>
+            </div>
+
             <p class="pp-title-line" id="titleLine"></p>
+
+            <div class="pp-next" id="nextTier" hidden>
+                <div class="pp-next-bar"><i id="nextBar"></i></div>
+                <p id="nextText"></p>
+            </div>
 
             <!-- actions -->
             <div class="pp-actions pp-final-actions" id="finalActions" hidden>
@@ -162,6 +248,10 @@
             <section class="pp-compare" id="compare" hidden>
                 <h2>তুমি বনাম <span id="compareName"></span></h2>
                 <div class="pp-compare-score" id="compareScore"></div>
+                <div class="pp-envy" id="envy" hidden>
+                    <h3 id="envyTitle"></h3>
+                    <ul class="pp-envy-list" id="envyList"></ul>
+                </div>
                 <ul class="pp-compare-list" id="compareList"></ul>
             </section>
 
@@ -176,29 +266,28 @@
                 <h3>জায়গা অনুযায়ী স্মৃতি</h3>
                 <ul class="pp-bars" id="cvBars"></ul>
 
-                <h3>ব্যাজ সংগ্রহ <small id="cvBadgeCount"></small></h3>
-                <ul class="pp-badge-list" id="cvBadges"></ul>
-
-                <div id="cvMemoriesWrap">
-                    <h3>নিজের লেখা স্মৃতি</h3>
-                    <ul class="pp-memories" id="cvMemories"></ul>
-                </div>
             </section>
         </section>
     </main>
 
     <canvas id="exportCanvas" width="1080" height="1350" hidden></canvas>
 
+    <script src="js/config.js"></script>
+    <script src="js/vendor/qrcode.js"></script>
     <script src="js/data/questions.js"></script>
     <script src="js/data/journey.js"></script>
     <script src="js/data/badges.js"></script>
     <script src="js/data/titles.js"></script>
+    <script src="js/data/tiers.js"></script>
+    <script src="js/data/keepsakes.js"></script>
+    <script src="js/data/scenes.js"></script>
     <script src="js/utils/helpers.js"></script>
     <script src="js/modules/storage.js"></script>
     <script src="js/modules/generation.js"></script>
     <script src="js/modules/scoring.js"></script>
     <script src="js/modules/badge-engine.js"></script>
     <script src="js/modules/sound.js"></script>
+    <script src="js/modules/scene.js"></script>
     <script src="js/modules/photo-upload.js"></script>
     <script src="js/modules/report.js"></script>
     <script src="js/modules/passport.js"></script>

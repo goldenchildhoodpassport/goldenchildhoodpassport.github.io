@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 rx=%2218%22 fill=%22%23713c35%22/%3E%3Cpath d=%22M50 18L57 43L82 50L57 57L50 82L43 57L18 50L43 43Z%22 fill=%22%23d9bd7e%22/%3E%3C/svg%3E">
@@ -22,281 +22,103 @@
     <link rel="stylesheet" href="css/layout.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/quiz.css">
-    <link rel="stylesheet" href="css/passport.css">
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/profile.css">
     <link rel="stylesheet" href="css/application.css">
+    <link rel="stylesheet" href="css/scenes.css">
+    <link rel="stylesheet" href="css/welcome.css">
+    <link rel="stylesheet" href="css/door.css">
 </head>
 
 <body>
 
 <div class="paper-grain"></div>
 
-<div class="corner-decoration corner-top-left"></div>
-<div class="corner-decoration corner-top-right"></div>
-<div class="corner-decoration corner-bottom-left"></div>
-<div class="corner-decoration corner-bottom-right"></div>
+<!-- =====================================================
+     CHAPTER 00 — WELCOME
+====================================================== -->
+<main class="w-welcome" id="welcome">
 
-<main class="welcome-page">
+    <!-- 1. "time rewinds" intro (once per visit) -->
+    <div class="w-rewind" id="rewind" aria-hidden="true">
+        <div class="w-rewind-light"></div>
+        <div class="w-rewind-clock"><i class="h"></i><i class="m"></i><span></span></div>
+        <div class="w-rewind-year" id="rewindYear">২০২৬</div>
+        <p class="w-rewind-text" id="rewindText">সময় পেছনে যাচ্ছে…</p>
+        <button class="w-rewind-skip" id="rewindSkip" type="button">এড়িয়ে যাও ↠</button>
+    </div>
+    <div class="w-flash" aria-hidden="true"></div>
 
-    <!-- =====================================
-         CHILDHOOD WORLD ANIMATION LAYER
-    ====================================== -->
-
-    <div class="childhood-sunlight" aria-hidden="true"></div>
-
-    <div class="childhood-world" aria-hidden="true">
-
-        <!-- Realistic flying kite -->
-        <div class="memory-kite"></div>
-
-<!-- REALISTIC LATIM ANIMATION -->
-<div class="latim-ground" aria-hidden="true">
-
-    <div class="latim-precess">
-
-        <div class="latim-wobble">
-
-            <img
-                class="memory-latim"
-                src="assets/images/decorations/traditional-latim.png"
-                alt=""
-                draggable="false"
-            >
-
-        </div>
-
+    <!-- 2. the living picture -->
+    <div class="w-scene" id="wScene" aria-hidden="true">
+        <div class="w-photo" id="wPhoto"></div>
+        <div class="w-rays"></div>
+        <div class="w-dust" id="wDust"></div>
+        <div class="w-birds"><i></i><i></i><i></i></div>
+        <div class="w-scrim"></div>
     </div>
 
-    <div class="latim-shadow"></div>
-
-</div>
-
-
-        <!-- Existing childhood paper plane -->
-        <div class="memory-plane"></div>
-
-        <!-- Childhood running silhouette -->
-        <div class="childhood-runner"></div>
-
-        <!-- Floating golden memory particles -->
-        <div class="memory-particle"></div>
-        <div class="memory-particle"></div>
-        <div class="memory-particle"></div>
-
-    </div>
-
-
-    <!-- HEADER -->
-    <header class="site-header">
-
-        <a href="#" class="brand">
-
-            <div class="brand-mark">
-                <svg viewBox="0 0 50 50" fill="none"
-                     xmlns="http://www.w3.org/2000/svg">
-
-                    <rect x="5" y="5" width="40" height="40"
-                          rx="2" stroke="#713C35" stroke-width="1.5"/>
-
-                    <rect x="9" y="9" width="32" height="32"
-                          stroke="#A88A53" stroke-width="1"/>
-
-                    <path d="M25 13L28 21L36 25L28 29L25 37L22 29L14 25L22 21L25 13Z"
-                          fill="#A88A53"/>
-
-                    <circle cx="25" cy="25" r="3"
-                            fill="#713C35"/>
-
-                </svg>
-            </div>
-
-            <div class="brand-text">
-                <span class="brand-name">Golden Childhood</span>
-                <span class="brand-subtitle">Passport & Memory Archive</span>
-                <span class="quiz-eyebrow">CHAPTER 02 · THE JOURNEY</span>
-            </div>
-
+    <!-- 3. header -->
+    <header class="w-header">
+        <a href="#" class="w-brand" aria-label="Golden Childhood">
+            <span class="w-brand-mark">
+                <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="1.5" y="1.5" width="37" height="37" rx="7" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M20 7 L23 17 L33 20 L23 23 L20 33 L17 23 L7 20 L17 17 Z" fill="currentColor"/></svg>
+            </span>
+            <span class="w-brand-text">
+                <strong>Golden Childhood</strong>
+                <small>Passport &amp; Memory Archive</small>
+            </span>
         </a>
-
-        <div class="header-edition">
-            THE MEMORY ARCHIVE <span>·</span> EST. 2026
-        </div>
-
+        <span class="w-chapter">CHAPTER 00 · স্বাগতম</span>
     </header>
 
+    <!-- 4. hero -->
+    <section class="w-hero">
+        <div class="w-copy">
+            <p class="w-eyebrow"><span>✦</span> EVERY CHILDHOOD HAS A STORY</p>
 
-    <!-- HERO SECTION -->
-    <section class="hero-section">
-
-        <!-- LEFT CONTENT -->
-        <div class="hero-copy">
-
-            <div class="hero-eyebrow">
-                <span class="eyebrow-star">✦</span>
-                Your memories. Your passport. Your story.
-            </div>
-
-            <h1>
-                A Journey<br>
-                Back to Your<br>
-                <span>Golden Days.</span>
+            <h1 class="w-title">
+                <span class="w-line">চলো, আবার</span>
+                <span class="w-line w-line-gold">ছোট হই।
+                    <svg class="w-scribble" viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true"><path d="M4 16 C 60 4, 120 22, 180 12 S 270 6, 296 14"/></svg>
+                </span>
             </h1>
+            <p class="w-english">A journey back to your golden days.</p>
 
-            <p class="hero-description">
-                Every childhood has a story worth remembering.
-                From rainy afternoons to school-time adventures,
-                collect your memories and preserve them in your
-                very own Childhood Passport.
+            <p class="w-desc" id="wDesc">
+                হারিকেনের আলো, BTV-র অপেক্ষা, টিফিন চুরি আর মাঠের বিকেল — মাত্র কয়েক মিনিটে আবার ঘুরে আসো নিজের শৈশব থেকে। শেষে পাবে নিজের <strong>শৈশবের পাসপোর্ট</strong>।
             </p>
 
-            <button class="start-button" id="startJourney" type="button">
-                <span>Start Your Journey</span>
-                <span class="button-arrow">→</span>
-            </button>
-
-            <div class="hero-note">
-                <span>✧</span>
-                A little journey through the memories that made you.
+            <div class="w-cta-row">
+                <button class="w-cta" id="startJourney" type="button">
+                    <span class="w-cta-shine"></span>
+                    <span class="w-cta-text" id="ctaText">শৈশবে ফিরে চলো</span>
+                    <span class="w-cta-arrow">→</span>
+                </button>
+                <a class="w-cta-link" id="passportLink" href="passport.html" hidden>আমার পাসপোর্ট দেখো ✦</a>
             </div>
 
+            <ul class="w-chips">
+                <li>⏱ ৮ মিনিট</li>
+                <li>🗺 ১২টা জায়গা</li>
+                <li>🔒 কোনো login নেই</li>
+                <li>🎧 শব্দসহ</li>
+            </ul>
         </div>
 
-
-        <!-- RIGHT PASSPORT ARTWORK -->
-        <div class="hero-artwork">
-
-            <div class="artwork-decoration decoration-circle"></div>
-            <div class="artwork-decoration decoration-line"></div>
-
-            <div class="passport-preview">
-
-                <div class="passport-inner">
-
-                    <div class="passport-top">
-                        <span>THE REPUBLIC OF MEMORIES</span>
-                        <span class="passport-star">✦</span>
-                    </div>
-
-                    <div class="passport-emblem">
-                        <svg viewBox="0 0 100 100"
-                             xmlns="http://www.w3.org/2000/svg">
-
-                            <circle cx="50" cy="50" r="43"
-                                    fill="none"
-                                    stroke="#A88A53"
-                                    stroke-width="1.5"/>
-
-                            <circle cx="50" cy="50" r="36"
-                                    fill="none"
-                                    stroke="#A88A53"
-                                    stroke-width="1"
-                                    stroke-dasharray="2 3"/>
-
-                            <path d="M50 20L57 40L78 50L57 60L50 80L43 60L22 50L43 40Z"
-                                  fill="#A88A53"/>
-
-                            <circle cx="50" cy="50" r="8"
-                                    fill="#713C35"/>
-
-                        </svg>
-                    </div>
-
-                    <div class="passport-title">
-                        <span class="passport-small-title">
-                            GOLDEN CHILDHOOD
-                        </span>
-
-                        <h2>PASSPORT</h2>
-
-                        <span class="passport-subtitle">
-                            A JOURNEY THROUGH TIME
-                        </span>
-                    </div>
-
-                    <div class="passport-divider">
-                        <span>✦</span>
-                    </div>
-
-                    <div class="passport-bottom">
-
-                        <div class="passport-bottom-left">
-                            <span>ISSUED BY</span>
-                            <strong>MEMORY ARCHIVE</strong>
-                        </div>
-
-                        <div class="passport-stamp">
-                            <span>EST.</span>
-                            <strong>2026</strong>
-                            <span>FOREVER</span>
-                        </div>
-
-                    </div>
-
-                    <div class="passport-id">
-                        GCP · 0001 · MEMORIES NEVER FADE
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- FLOATING MEMORY NOTES -->
-            <div class="floating-note note-one">
-                <span class="note-icon">✧</span>
-                The good old days
-            </div>
-
-            <div class="floating-note note-two">
-                <span class="note-icon">✦</span>
-                Memories live forever
-            </div>
-
-            <div class="floating-note note-three">
-                01 / 12
-            </div>
-
+        <!-- polaroids that keep changing -->
+        <div class="w-polaroids" id="polaroids" aria-label="শৈশবের কিছু মুহূর্ত">
+            <figure class="w-pol" style="--r:-7deg;--d:0s"><div class="sc"></div><figcaption></figcaption></figure>
+            <figure class="w-pol" style="--r:5deg;--d:.15s"><div class="sc"></div><figcaption></figcaption></figure>
+            <figure class="w-pol" style="--r:-2deg;--d:.3s"><div class="sc"></div><figcaption></figcaption></figure>
         </div>
-
     </section>
 
-
-    <!-- FOOTER STATISTICS -->
-    <footer class="hero-footer">
-
-        <div class="footer-caption">
-            <span class="footer-line"></span>
-            <span>YOUR CHILDHOOD, PRESERVED</span>
-        </div>
-
-        <div class="welcome-stats">
-
-            <div class="stat-item">
-                <span class="stat-number">12</span>
-                <span class="stat-label">Memory<br>Categories</span>
-            </div>
-
-            <div class="stat-item">
-                <span class="stat-number">01</span>
-                <span class="stat-label">Personal<br>Passport</span>
-            </div>
-
-            <div class="stat-item">
-                <span class="stat-number">∞</span>
-                <span class="stat-label">Memories<br>to Keep</span>
-            </div>
-
-        </div>
-
-    </footer>
-
+    <!-- 5. memory marquee -->
+    <div class="w-ticker" aria-hidden="true">
+        <div class="w-ticker-track" id="ticker"></div>
+    </div>
 </main>
-
-
-<!-- =========================================
-     PERSONAL CHILDHOOD PROFILE
-========================================= -->
 
 <section class="profile-screen" id="profileScreen" hidden>
 
@@ -368,6 +190,10 @@
 <script src="js/utils/helpers.js"></script>
 <script src="js/modules/storage.js"></script>
 <script src="js/modules/generation.js"></script>
+<script src="js/data/scenes.js"></script>
+<script src="js/modules/sound.js"></script>
+<script src="js/modules/scene.js"></script>
+<script src="js/modules/welcome.js"></script>
 <script src="js/modules/application.js"></script>
 <script type="module" src="js/app.js"></script>
 

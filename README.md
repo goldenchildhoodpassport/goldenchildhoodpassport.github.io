@@ -9,7 +9,7 @@ Static site, কোনো build step লাগে না। VS Code-এ **Live S
 ## User journey
 | Chapter | Page | কী হয় |
 |---|---|---|
-| 00 | `index.html` | Welcome + দরজা খোলার animation |
+| 00 | `index.html` | সময় পেছনে যাওয়ার intro → জীবন্ত ছবি, বদলাতে থাকা polaroid, স্মৃতির marquee → দরজা খোলার animation |
 | 01 | `index.html` (profile screen) | এক এক প্রশ্নে "পাসপোর্টের আবেদনপত্র": ডাকনাম, জন্মসাল, এলাকা, পরিবেশ |
 | 02 | `quiz.html` | **শৈশবের একটা দিন**: সকাল থেকে রাত পর্যন্ত ১২টা জায়গা, প্রতি জায়গায় ৩টা core স্মৃতি + ৪টা optional "আরও গভীরে" |
 | 03 | `passport.html` | ছবি → বন্ধ পাসপোর্ট খোলা → stamp → scratch card-এ score → download/share → বিস্তারিত প্রোফাইল |
@@ -18,6 +18,8 @@ Static site, কোনো build step লাগে না। VS Code-এ **Live S
 ```
 index.html, quiz.html, passport.html
 css/
+  welcome.css       ← chapter 00 welcome page
+  scenes.css        ← per-question animated scenes
   journey.css       ← quiz page (day cycle, map, 12 card themes, entry scenes)
   application.css   ← chapter 01 আবেদনপত্র
   passport.css      ← chapter 03
@@ -37,6 +39,11 @@ js/
     photo-upload.js, report.js (share link + image), passport.js
   utils/helpers.js
 ```
+
+## প্রতিটা প্রশ্নের scene
+`js/data/scenes.js`-এ ৮৪টা প্রশ্নের প্রতিটার নিজস্ব animated scene (background, props, effects), নিজস্ব sound আর caption আছে।
+Engine: `js/modules/scene.js`, design: `css/scenes.css`।
+আসল illustration দিতে চাইলে `assets/images/quiz-questions/<ID>.webp` রাখো আর `GCP.SCENE_IMAGES`-এ ID-টা যোগ করো।
 
 ## Scoring (Childhood Memories Score)
 Era-aware: user-এর শৈশবের দশকের (৫–১৪ বছর বয়স) বাইরের প্রশ্নগুলো মোট নম্বরের হিসাবে ধরা হয় না, কিন্তু উত্তর দিলে bonus হিসেবে যোগ হয় (সর্বোচ্চ ১০০)। কোন প্রশ্ন কোন দশকের, সেটা `js/data/journey.js` → `GCP.QUESTION_ERAS`-এ আছে।

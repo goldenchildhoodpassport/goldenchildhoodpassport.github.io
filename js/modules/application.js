@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
             },
             react: (v) => {
                 const era = GCP.generation.describe(parseYear(v));
-                return era ? `ও! তুমি তো ${era.label} — ${era.line}` : "";
+                return era ? `ও! ${era.line}` : "";
             }
         },
         {
