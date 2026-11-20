@@ -14,9 +14,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Atma:wght@400;500;600&family=Hind+Siliguri:wght@400;500;600;700&family=Noto+Serif+Bengali:wght@500;600;700&family=Cormorant+Garamond:wght@500;600;700&family=Cinzel:wght@500;600;700&family=VT323&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/variables.css">
-    <link rel="stylesheet" href="css/scenes.css">
-    <link rel="stylesheet" href="css/passport.css">
+    <link rel="stylesheet" href="css/variables.css?v=7.3">
+    <link rel="stylesheet" href="css/scenes.css?v=7.3">
+    <link rel="stylesheet" href="css/passport.css?v=7.3">
 </head>
 
 <body class="pp">
@@ -181,6 +181,7 @@
                                 <span>Childhood Memories Score</span>
                                 <strong id="titleBn"></strong>
                                 <em id="titleEn"></em>
+                                <span class="pp-level" id="levelChip" aria-label="পাসপোর্টের লেভেল"></span>
                             </div>
                         </div>
 
@@ -227,10 +228,15 @@
 
             <p class="pp-title-line" id="titleLine"></p>
 
-            <div class="pp-next" id="nextTier" hidden>
+            <!-- level ladder: where you stand, what is next -->
+            <section class="pp-next" id="nextTier" hidden>
+                <p class="pp-next-eyebrow">পাসপোর্টের লেভেল</p>
+                <ol class="pp-ladder" id="ladder"></ol>
                 <div class="pp-next-bar"><i id="nextBar"></i></div>
                 <p id="nextText"></p>
-            </div>
+                <p class="pp-next-cheer" id="nextCheer"></p>
+                <a class="pp-btn pp-btn-primary pp-next-again" href="quiz.html" id="playAgain" hidden>🔄 আবার খেলো, লেভেল বাড়াও</a>
+            </section>
 
             <!-- actions -->
             <div class="pp-actions pp-final-actions" id="finalActions" hidden>
@@ -272,24 +278,24 @@
 
     <canvas id="exportCanvas" width="1080" height="1350" hidden></canvas>
 
-    <script src="js/config.js"></script>
-    <script src="js/vendor/qrcode.js"></script>
-    <script src="js/data/questions.js"></script>
-    <script src="js/data/journey.js"></script>
-    <script src="js/data/badges.js"></script>
-    <script src="js/data/titles.js"></script>
-    <script src="js/data/tiers.js"></script>
-    <script src="js/data/keepsakes.js"></script>
-    <script src="js/data/scenes.js"></script>
-    <script src="js/utils/helpers.js"></script>
-    <script src="js/modules/storage.js"></script>
-    <script src="js/modules/generation.js"></script>
-    <script src="js/modules/scoring.js"></script>
-    <script src="js/modules/badge-engine.js"></script>
-    <script src="js/modules/sound.js"></script>
-    <script src="js/modules/scene.js"></script>
-    <script src="js/modules/photo-upload.js"></script>
-    <script src="js/modules/report.js"></script>
-    <script src="js/modules/passport.js"></script>
+    <script src="js/config.js?v=7.3"></script>
+    <script src="js/vendor/qrcode.js?v=7.3"></script>
+    <script src="js/data/questions.js?v=7.3"></script>
+    <script src="js/data/journey.js?v=7.3"></script>
+    <script src="js/data/badges.js?v=7.3"></script>
+    <script src="js/data/titles.js?v=7.3"></script>
+    <script src="js/data/tiers.js?v=7.3"></script>
+    <script src="js/data/keepsakes.js?v=7.3"></script>
+    <script src="js/data/scenes.js?v=7.3"></script>
+    <script src="js/utils/helpers.js?v=7.3"></script>
+    <script src="js/modules/storage.js?v=7.3"></script>
+    <script src="js/modules/generation.js?v=7.3"></script>
+    <script src="js/modules/scoring.js?v=7.3"></script>
+    <script src="js/modules/badge-engine.js?v=7.3"></script>
+    <script src="js/modules/sound.js?v=7.3"></script>
+    <script src="js/modules/scene.js?v=7.3"></script>
+    <script src="js/modules/photo-upload.js?v=7.3"></script>
+    <script src="js/modules/report.js?v=7.3"></script>
+    <script src="js/modules/passport.js?v=7.3"></script>
 </body>
 </html>

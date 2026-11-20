@@ -221,6 +221,13 @@ document.addEventListener("DOMContentLoaded", () => {
         $("coverEdition").textContent = model.tier.edition;
         $("ribbon").textContent = model.tier.edition;
         $("sealText").innerHTML = `${model.tier.short}<small>${model.tier.edition.split(" ")[0]}</small>`;
+        // ----- level chip next to the score: "🌱 লেভেল ১/৪ · সবুজ" + 4 dots -----
+        const levelChip = $("levelChip");
+        if (levelChip) {
+            const dots = GCP.tierLadder().map((t) => `<i class="${t.level <= model.tier.level ? "on" : ""}"></i>`).join("");
+            levelChip.innerHTML = `<b>${model.tier.icon} লেভেল ${toBangla(model.tier.level)}/${toBangla(GCP.TIER_COUNT)}</b>`
+                + `<span>${escapeHtml(model.tier.short)} · ${escapeHtml(model.tier.rank)}</span><em aria-hidden="true">${dots}</em>`;
+        }
 
         // ----- "তুমি ছিলে…" -----
         $("identityTitle").textContent = `${model.identity.icon || "✦"} ${model.identity.title}`;
@@ -674,18 +681,38 @@ document.addEventListener("DOMContentLoaded", () => {
     // ======================================
 
     function renderNextTier(model) {
-        const next = GCP.nextTier(model.total);
         const box = $("nextTier");
+        if (!box) return;
+        const next = GCP.nextTier(model.total);
         box.hidden = false;
+
+        // the 4 steps: done ✓, you are here, locked 🔒
+        const ladder = $("ladder");
+        if (ladder) {
+            ladder.innerHTML = GCP.tierLadder().map((t) => {
+                const state = t.level < model.tier.level ? "done" : t.level === model.tier.level ? "here" : "locked";
+                const note = state === "here" ? "তুমি এখানে" : state === "done" ? "পার হয়েছ ✓" : `${toBangla(t.min)}+ স্কোর 🔒`;
+                return `<li class="pp-step is-${state} step-${t.id}" style="--step:${t.color}">
+                    <span class="pp-step-icon">${t.icon}</span>
+                    <strong>${escapeHtml(t.short)}</strong>
+                    <small>লেভেল ${toBangla(t.level)}</small>
+                    <em>${note}</em>
+                </li>`;
+            }).join("");
+        }
+
+        if ($("nextCheer")) $("nextCheer").textContent = model.tier.cheer || "";
+        if ($("playAgain")) $("playAgain").hidden = !next;
+
         if (!next) {
             $("nextBar").style.width = "100%";
-            $("nextText").textContent = "সর্বোচ্চ সম্মান! এটা স্বর্ণ পাসপোর্ট — খুব কম মানুষের শৈশব এতটা সোনালি।";
+            $("nextText").innerHTML = `<b>${escapeHtml(model.tier.rank)}</b> — লেভেল ${toBangla(model.tier.level)}/${toBangla(GCP.TIER_COUNT)}, সবার উপরে।`;
             return;
         }
         const from = model.tier.min;
         const progress = Math.round(((model.total - from) / (next.min - from)) * 100);
-        $("nextBar").style.width = Math.max(6, progress) + "%";
-        $("nextText").innerHTML = `<b>${escapeHtml(next.name)}</b> পেতে আর <b>${toBangla(next.min - model.total)}</b> পয়েন্ট দরকার। "আরও গভীরে" প্রশ্নগুলোর উত্তর দিলে স্কোর বাড়তে পারে।`;
+        requestAnimationFrame(() => { $("nextBar").style.width = Math.max(6, progress) + "%"; });
+        $("nextText").innerHTML = `${next.icon} <b>${escapeHtml(next.name)}</b> (লেভেল ${toBangla(next.level)}) আর মাত্র <b>${toBangla(next.min - model.total)}</b> পয়েন্ট দূরে।`;
     }
 
     function renderCompare(friend) {

@@ -11,11 +11,26 @@
 window.GCP = window.GCP || {};
 
 GCP.TIERS = [
-    { id: "gold",    min: 88, name: "স্বর্ণ পাসপোর্ট",  edition: "GOLD EDITION",    short: "স্বর্ণ" },
-    { id: "silver",  min: 72, name: "রুপালি পাসপোর্ট", edition: "SILVER EDITION",  short: "রুপালি" },
-    { id: "bronze",  min: 50, name: "তামার পাসপোর্ট",  edition: "BRONZE EDITION",  short: "তামা" },
-    { id: "classic", min: 0,  name: "সবুজ পাসপোর্ট",   edition: "CLASSIC EDITION", short: "সবুজ" }
+    { id: "gold",    min: 88, level: 4, icon: "🥇", color: "#e7c46a", name: "স্বর্ণ পাসপোর্ট",  edition: "GOLD EDITION",    short: "স্বর্ণ",
+      rank: "খাঁটি সোনালি শৈশব",
+      cheer: "সর্বোচ্চ লেভেল! খুব কম মানুষের শৈশব এতটা সোনালি। এবার বন্ধুদের দেখাও, ওরা পারে কিনা।" },
+    { id: "silver",  min: 72, level: 3, icon: "🥈", color: "#d6dde6", name: "রুপালি পাসপোর্ট", edition: "SILVER EDITION",  short: "রুপালি",
+      rank: "রুপালি দিনের নায়ক",
+      cheer: "স্বর্ণের একদম কাছে! আর কয়েকটা স্মৃতি জাগলেই সোনালি পাসপোর্ট তোমার।" },
+    { id: "bronze",  min: 50, level: 2, icon: "🥉", color: "#d39a6a", name: "তামার পাসপোর্ট",  edition: "BRONZE EDITION",  short: "তামা",
+      rank: "তামাটে বিকেলের অভিযাত্রী",
+      cheer: "তোমার শৈশব জমজমাট ছিল! 'আরও গভীরে' প্রশ্নগুলো খুললে রুপালি পর্যন্ত যেতে পারো।" },
+    { id: "classic", min: 0,  level: 1, icon: "🌱", color: "#9fd3a8", name: "সবুজ পাসপোর্ট",   edition: "CLASSIC EDITION", short: "সবুজ",
+      rank: "শৈশবের নবীন অভিযাত্রী",
+      cheer: "তোমার শৈশবের অনেক জায়গা এখনো অদেখা। আবার ঘুরে দেখো, অনেক ভুলে যাওয়া স্মৃতি জেগে উঠবে।" }
 ];
+
+GCP.TIER_COUNT = GCP.TIERS.length;
+
+/* lowest level first — for drawing the ladder */
+GCP.tierLadder = function () {
+    return GCP.TIERS.slice().sort((a, b) => a.level - b.level);
+};
 
 GCP.tierFor = function (score) {
     return GCP.TIERS.find((t) => score >= t.min) || GCP.TIERS[GCP.TIERS.length - 1];

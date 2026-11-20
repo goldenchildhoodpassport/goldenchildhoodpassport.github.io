@@ -216,6 +216,38 @@ GCP.report = (function () {
         });
     }
 
+    /* 4-step level ladder for the export: 🌱 সবুজ › 🥉 তামা › 🥈 রুপালি › 🥇 স্বর্ণ */
+    function drawLadder(ctx, tier, x, y, width) {
+        if (!GCP.tierLadder) return;
+        const BN = '"Hind Siliguri", sans-serif';
+        const steps = GCP.tierLadder();
+        const gap = 10;
+        const w = (width - gap * (steps.length - 1)) / steps.length;
+        const h = 46;
+        steps.forEach((t, i) => {
+            const sx = x + i * (w + gap);
+            const here = t.id === tier.id;
+            const passed = t.level < (tier.level || 1);
+            roundRect(ctx, sx, y, w, h, 23);
+            if (here) {
+                const g = ctx.createLinearGradient(sx, 0, sx + w, 0);
+                g.addColorStop(0, t.color); g.addColorStop(0.5, "#fff6dc"); g.addColorStop(1, t.color);
+                ctx.fillStyle = g; ctx.fill();
+            } else {
+                ctx.fillStyle = passed ? "rgba(255, 243, 214, .22)" : "rgba(255, 243, 214, .06)"; ctx.fill();
+                ctx.setLineDash(passed ? [] : [6, 5]);
+                ctx.strokeStyle = passed ? t.color : "rgba(255, 243, 214, .35)"; ctx.lineWidth = 2; ctx.stroke();
+                ctx.setLineDash([]);
+            }
+            ctx.textAlign = "center";
+            ctx.font = `${here ? 800 : 600} 21px ${BN}`;
+            ctx.fillStyle = here ? "#1a140f" : passed ? "#fff3d6" : "rgba(255, 243, 214, .5)";
+            const label = here ? `${t.icon} ${t.short} · আমি এখানে` : passed ? `${t.icon} ${t.short} ✓` : `🔒 ${t.short}`;
+            ctx.fillText(label, sx + w / 2, y + 30, w - 16);
+        });
+        ctx.textAlign = "left";
+    }
+
     async function drawCard(canvas, model) {
         await Promise.all([
             document.fonts.load('600 70px "Atma"'),
@@ -261,7 +293,7 @@ GCP.report = (function () {
         ctx.fillText(`${model.nickname}-এর শৈশবের পাসপোর্ট`.length > 26 ? "আমার শৈশবের পাসপোর্ট" : `${model.nickname}-এর শৈশবের পাসপোর্ট`, W / 2, 112, W - 120);
         // edition pill
         ctx.font = `700 22px "Cinzel", serif`;
-        const ed = `✦  ${tier.edition}  ✦`;
+        const ed = `✦  ${tier.edition} · LEVEL ${tier.level || 1}/${GCP.TIER_COUNT || 4}  ✦`;
         const ew = ctx.measureText(ed).width + 40;
         roundRect(ctx, W / 2 - ew / 2, 136, ew, 42, 21);
         ctx.fillStyle = foilGradient(ctx, W / 2 - ew / 2, 0, W / 2 + ew / 2, 0, art);
@@ -458,6 +490,14 @@ GCP.report = (function () {
         ctx.fillStyle = "#8a6f45"; ctx.font = `600 13px ${BN}`; ctx.fillText("CHILDHOOD MEMORIES SCORE", R + 204, PY + 98);
         ctx.fillStyle = burgundy; ctx.font = `600 30px ${HAND}`; ctx.fillText(model.title.title, R + 204, PY + 134, RW - 204);
         ctx.fillStyle = "#a88a53"; ctx.font = `600 15px "Cinzel", serif`; ctx.fillText(model.title.english, R + 204, PY + 158, RW - 204);
+        if (tier.level) {
+            ctx.font = `700 15px ${BN}`;
+            const lv = `${tier.icon} লেভেল ${toBangla(tier.level)}/${toBangla(GCP.TIER_COUNT || 4)} · ${tier.short}`;
+            const lw2 = Math.min(RW - 204, ctx.measureText(lv).width + 22);
+            roundRect(ctx, R + 204, PY + 168, lw2, 26, 13);
+            ctx.fillStyle = burgundy; ctx.fill();
+            ctx.fillStyle = "#fff8e8"; ctx.fillText(lv, R + 215, PY + 187, lw2 - 22);
+        }
 
         // visa stamps 3 × 4
         const SHAPES = ["circle", "rect", "oval", "rect", "hex", "circle", "oval", "rect", "circle", "hex", "rect", "oval"];
@@ -531,9 +571,7 @@ GCP.report = (function () {
         ctx.fillStyle = "#fff3d6";
         ctx.font = `600 44px ${HAND}`;
         ctx.fillText(`আমার স্কোর ${toBangla(model.total)} — তোমার কত?`, 60, 1112, 760);
-        ctx.fillStyle = foilGradient(ctx, 60, 0, 700, 0, art);
-        ctx.font = `600 24px ${BN}`;
-        ctx.fillText(`${tier.name} · ${model.identity.title}`, 60, 1156, 760);
+        drawLadder(ctx, tier, 60, 1128, 760);
         // link pill
         ctx.font = `700 24px ${BN}`;
         const linkText = `🔗 ${siteShort}`;
@@ -590,7 +628,8 @@ GCP.report = (function () {
 
     async function share(canvas, model) {
         const url = shareUrl(model);
-        const text = `আমার শৈশবের স্কোর ${toBangla(model.total)}/১০০ — "${model.title.title}"! তোমারটা কত? ✦`;
+        const lvl = model.tier && model.tier.level ? ` · লেভেল ${toBangla(model.tier.level)}/${toBangla(GCP.TIER_COUNT || 4)} ${model.tier.icon}` : "";
+        const text = `আমার শৈশবের স্কোর ${toBangla(model.total)}/১০০${lvl} — "${model.title.title}"! তোমারটা কত? ✦`;
 
         if (navigator.share) {
             try {
