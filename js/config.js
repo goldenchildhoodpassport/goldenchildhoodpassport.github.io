@@ -6,14 +6,14 @@
    people who see the picture can open the
    site. Put your real address here after
    you publish the site, for example:
-   "https://mdnafijulislam.github.io/golden-childhood-passport/"
+   "https://goldenchildhoodpassport.github.io/"
    Leave it empty to use the address the
    page is opened from.
 ========================================== */
 
 window.GCP = window.GCP || {};
 
-GCP.SITE_URL = "";
+GCP.SITE_URL = "https://goldenchildhoodpassport.github.io/";
 
 GCP.siteUrl = function () {
     if (GCP.SITE_URL) return GCP.SITE_URL;
@@ -21,5 +21,5 @@ GCP.siteUrl = function () {
     if (!local && location.protocol.startsWith("http")) {
         return location.origin + location.pathname.replace(/[^/]*$/, "");
     }
-    return "https://mdnafijulislam.github.io/golden-childhood-passport/";
+    return "https://goldenchildhoodpassport.github.io/";
 };
