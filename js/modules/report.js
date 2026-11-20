@@ -291,15 +291,16 @@ GCP.report = (function () {
         ctx.fillStyle = foilGradient(ctx, 200, 0, 880, 0, art);
         ctx.font = `600 66px ${HAND}`;
         ctx.fillText(`${model.nickname}-এর শৈশবের পাসপোর্ট`.length > 26 ? "আমার শৈশবের পাসপোর্ট" : `${model.nickname}-এর শৈশবের পাসপোর্ট`, W / 2, 112, W - 120);
-        // edition pill
-        ctx.font = `700 22px "Cinzel", serif`;
-        const ed = `✦  ${tier.edition} · LEVEL ${tier.level || 1}/${GCP.TIER_COUNT || 4}  ✦`;
-        const ew = ctx.measureText(ed).width + 40;
-        roundRect(ctx, W / 2 - ew / 2, 136, ew, 42, 21);
+        // rank pill — the first thing people read in the feed
+        const rankText = `${tier.icon || "✦"}  ${tier.rank || tier.name}  ·  লেভেল ${toBangla(tier.level || 1)}/${toBangla(GCP.TIER_COUNT || 4)}`;
+        ctx.font = `600 34px ${HAND}`;
+        const ew = Math.min(W - 160, ctx.measureText(rankText).width + 64);
+        roundRect(ctx, W / 2 - ew / 2, 134, ew, 58, 29);
         ctx.fillStyle = foilGradient(ctx, W / 2 - ew / 2, 0, W / 2 + ew / 2, 0, art);
         ctx.fill();
+        ctx.strokeStyle = "rgba(255, 250, 230, .6)"; ctx.lineWidth = 2; ctx.stroke();
         ctx.fillStyle = art.ink;
-        ctx.fillText(ed, W / 2, 165);
+        ctx.fillText(rankText, W / 2, 174, ew - 40);
 
         // ===== the open passport =====
         const PX = 44, PY = 252, PW = 992, PH = 776, half = PW / 2;
